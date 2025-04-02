@@ -1,0 +1,35 @@
+﻿CREATE TABLE CurrentConditions (
+	Id										TEXT	NOT NULL		
+	,ForecastId								TEXT	NOT NULL	
+	,JsonElementString						TEXT	NOT NULL
+	,air_density							INTEGER NOT NULL
+	,air_temperature						INTEGER NOT NULL
+	,brightness								INTEGER NOT NULL
+	,conditions								TEXT 	NOT NULL
+	,delta_t								TEXT 	NOT NULL
+	,dew_point								INTEGER NOT NULL
+	,feels_like								INTEGER NOT NULL
+	,icon									TEXT 	NOT NULL
+	,is_precip_local_day_rain_check			INTEGER NOT NULL
+	,is_precip_local_yesterday_rain_check	INTEGER NOT NULL
+	,lightning_strike_count_last_1hr		INTEGER NOT NULL
+	,lightning_strike_count_last_3hr		INTEGER NOT NULL
+	,precip_accum_local_day					INTEGER NOT NULL
+	,precip_accum_local_yesterday			INTEGER NOT NULL
+	,precip_minutes_local_day				INTEGER NOT NULL
+	,precip_minutes_local_yesterday			INTEGER NOT NULL
+	,precip_probability						INTEGER NOT NULL
+	,pressure_trend							TEXT 	NOT NULL
+	,relative_humidity						INTEGER NOT NULL
+	,sea_level_pressure						INTEGER NOT NULL
+	,solar_radiation						INTEGER NOT NULL
+	,station_pressure						INTEGER NOT NULL
+	,"time"									INTEGER NOT NULL
+	,uv										INTEGER NOT NULL
+	,wet_bulb_globe_temperature				INTEGER NOT NULL
+	,wet_bulb_temperature					INTEGER NOT NULL
+	,wind_avg								INTEGER NOT NULL
+	,wind_direction							INTEGER NOT NULL
+	,wind_direction_cardinal				TEXT 	NOT NULL
+	,wind_gust								INTEGER NOT NULL
+)

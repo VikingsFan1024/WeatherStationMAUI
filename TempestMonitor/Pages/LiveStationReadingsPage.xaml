@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"    
+    x:Class="TempestMonitor.Pages.LiveStationReadingsPage"
+    xmlns:exe="clr-namespace:TempestMonitor.ViewModels;assembly=TempestMonitor"
+    x:DataType="exe:LiveStationReadingsViewModel"
+>
+    <ScrollView BackgroundColor="{StaticResource PurpleVikings}">
+        <VerticalStackLayout>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Reading:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableWindReading.WindTimestampTimeOnlyString}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Speed:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableWindReading.Windspeed, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.WindspeedUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Direction Cardinal:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableWindReading.WindDirectionShortCardinal}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Direction Degrees:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableWindReading.WindDirectionDegrees, StringFormat='{0:##0}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="°"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Label/>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Observation:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.ObservationTimestampTimeOnlyString}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Air Temperature:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.AirTemperature, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.TemperatureUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Battery:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.Battery, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.BatteryUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Illuminance:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.Illuminance, StringFormat='{0:##0}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.IlluminanceUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Lightning Strike Average Distance:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.LightningStrikeAverageDistance, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.DistanceUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Lightning Strike Count:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.LightningStrikeCount, StringFormat='{0:##0}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Rain Accumulation:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.RainAccumulationOverThePreviousMinute, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.PrecipitationUnit}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Relative Humidity:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.RelativeHumidity, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="%"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Report Interval:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.ReportInterval, StringFormat='{0:##0}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="minutes"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Solar Radiation:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.SolarRadiation, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.SolarRaditionUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="UV Index:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.UV, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Average:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.WindAverage, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.WindspeedUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Direction Cardinal:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.WindDirectionShortCardinal}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Direction Degrees:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.WindDirection, StringFormat='{0:##0}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="°"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Gust:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.WindGust, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.WindspeedUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Lull:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.WindLull, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.WindspeedUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Sample Interval:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding ObservableObservation.WindSampleInterval, StringFormat='{0:##0}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="seconds"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Label/>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Feels Like:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding CalculatedFeelsLike, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.TemperatureUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Heat Index:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding CalculatedHeatIndex, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.TemperatureUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+            <Border
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                StrokeThickness="0"
+            >
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        TextColor="{StaticResource GoldVikings}"
+                        Text="Wind Chill:" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label
+                        TextColor="{StaticResource White}"
+                        Text="{Binding CalculatedWindChill, StringFormat='{0:##0.00}'}" 
+                        FontSize="Large"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                    />
+                    <Label 
+                        FontSize="Micro"
+                        VerticalTextAlignment="Start"
+                        HorizontalTextAlignment="Start" 
+                        TextColor="{StaticResource GoldVikings}"                    
+                        Text="{Binding Settings.TemperatureUnitSymbol}"
+                    />
+                </HorizontalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

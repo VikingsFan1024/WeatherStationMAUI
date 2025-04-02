@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"    
+    xmlns:vm="clr-namespace:TempestMonitor.ViewModels"
+    x:Class="TempestMonitor.Pages.ApplicationStatisticsPage"
+    xmlns:s="clr-namespace:System;assembly=mscorlib" 
+    x:DataType="vm:ApplicationStatisticsViewModel"
+    Title="Application Statistics"
+>
+    <ScrollView BackgroundColor="{StaticResource PurpleVikings}">
+        <VerticalStackLayout>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Current Time:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding CurrentTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Are Udp Broadcasts being listened for:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding AreUdpBroadcastsBeingListenedFor, StringFormat='{0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Seconds since Udp Reading:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding SecondsSinceLastUdpReading, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Udp Reading:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastUdpReadingDateTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Udp Reading Wait (ms):" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastUdpReadingWaitMilliseconds, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Udp Reading Count:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding UdpReadingCount, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Udp Reading Waits (ms):" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding UdpWaitTimeTotalMilliseconds, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Average Udp Reading Wait (ms):" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding AverageUdpReadingWaitMilliseconds, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Are Http Requests Being Made:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding AreHttpRequestsBeingMade, StringFormat='{0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Minutes Since Last Http Response:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding MinutesSinceLastHttpResponse, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Http Response:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastHttpResponseDateTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Http Response Wait (ms):" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastHttpResponseWaitMilliseconds, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Http Response Count:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding HttpResponseCount, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Http Response Wait Total (ms):" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding HttpResponseWaitTimeTotalMilliseconds, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Average Http Response Wait (ms):" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding AverageHttpResponseWaitMilliseconds, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Time to wait between Http Requests (minutes):" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding TimeBetweenHttpRequestsInMinutes, StringFormat='{0:#,###,##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Air Observation Received:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastAirObservationReceivedDateTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Air Observations Recieved:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding AirObservationReceivedCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Air Observations Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding AirObservationSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Device Status Received:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastDeviceStatusReceivedDateTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Device Status Recieved:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding DeviceStatusReceivedCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Device Status Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding DeviceStatusSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Hub Status Received:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastHubStatusReceivedDateTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Hub Status Recieved:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding HubStatusReceivedCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Hub Status Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding HubStatusSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Lightning Strike Received:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastLightningStrikeReceivedDateTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Lighting Strikes Recieved:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LightningStrikeReceivedCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Lightning Strikes Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LightningStrikeSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Observation Received:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastObservationReadingReceivedDateTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Observation Readings Recieved:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding ObservationReadingReceivedCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Observation Readings Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding ObservationReadingSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Rain Start Received:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastRainStartReceivedDateTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Rain Starts Recieved:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding RainStartReceivedCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Rain Starts Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding RainStartSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Wind Reading Received:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding LastWindReadingReceivedDateTime, StringFormat='{0:hh:mm:ss}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Wind Readings Recieved:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding WindReadingReceivedCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Wind Readings Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding WindReadingSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Forecasts Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding ForecastsSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Forecast Current Conditions Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding ForecastCurrentConditionsSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Forecast Stations Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding ForecastStationsSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Forecast Status Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding ForecastStatusesSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Forecast Units Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding ForecastUnitsSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Forecast Hourlies Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding ForecastHoursSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Forecast Dailies Saved to Database:" TextColor="{StaticResource GoldVikings}" />
+                        <Span Text="{Binding ForecastDailiesSavedToDatabaseCount, StringFormat='{0:##0}'}" TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

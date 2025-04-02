@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"    
+    x:Class="TempestMonitor.Pages.ForecastPage"
+    Title="Forecast"
+    xmlns:viewmodels="clr-namespace:TempestMonitor.ViewModels;assembly=TempestMonitor"
+    x:DataType="viewmodels:ForecastViewModel"
+>
+    <ScrollView Orientation="Both"
+	            BackgroundColor="{StaticResource PurpleVikings}">
+        <VerticalStackLayout>
+            <Label FontSize="Header"
+			       TextColor="{StaticResource GoldVikings}"
+			       Text="Forecast Data"/>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Timestamp:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Timestamp, StringFormat='{0:M/d/yy HH:mm:ss}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="LocationName:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.LocationName, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Latitude:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Latitude, StringFormat='{0:##0.######}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Longitude:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Longitude, StringFormat='{0:##0.######}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Timezone:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Timezone, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="TimezoneOffsetMinutes:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.TimezoneOffsetMinutes, StringFormat='{0:###0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="SourceIdConditions:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.SourceIdConditions, StringFormat='{0:###0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Header"
+			       TextColor="{StaticResource GoldVikings}"
+			       Text="Forecast Current Conditions"/>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="AirDensity:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.AirDensity, StringFormat='{0:##0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="AirTemperature:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.AirTemperature, StringFormat='{0:##0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Brightness:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.Brightness, StringFormat='Brightness: {0:###,##0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Conditions:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.Conditions, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="DeltaT:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.DeltaT, StringFormat='{0:##0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="DewPoint:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.DewPoint, StringFormat='{0:##0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="FeelsLike:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.FeelsLike, StringFormat='{0:##0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Icon:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.Icon, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="IsPrecipLocalRainDayCheck:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.IsPrecipLocalRainDayCheck, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="IsPrecipLocalYesterdayRainCheck:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.IsPrecipLocalYesterdayRainCheck, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="LightningStrikeCountLastOneHour:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.LightningStrikeCountLastOneHour, StringFormat='{0:##,##0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="LightningStrikeCountLastThreeHours:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.LightningStrikeCountLastThreeHours, StringFormat='{0:##,##0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="PrecipAccumLocalDay:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.PrecipitationAccumulationLocalDay, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="PrecipAccumLocalYesterday:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.PrecipitationAccumulationLocalYesterday, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="PrecipMinutesLocalDay:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.PrecipitationMinutesLocalDay, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="PrecipMinutesLocalYesterday:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.PrecipitationMinutesLocalYesterday, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="PrecipProbability:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.PrecipitationProbability, StringFormat='{0:##0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="PressureTrend:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.PressureTrend, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="RelativeHumidity:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.RelativeHumidity, StringFormat='{0:##0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="SeaLevelPressure:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.SeaLevelPressure, StringFormat='{0:##0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="SolarRadiation:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.SolarRadiation, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="StationPressure:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.StationPressure, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Time:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.Time, StringFormat='{0:M/d/yy HH:mm:ss}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UV:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.UV, StringFormat='{0:0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="WetBulbGlobeTemperature:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.WetBulbGlobeTemperature, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="WetBulbTemperature:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.WetBulbTemperature, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="WindAvg:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.WindAvg, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="WindDirectionCardinal:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.WindDirectionCardinal, StringFormat='{0:0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="WindGust:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.CurrentConditions.WindGust, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Header"
+			       TextColor="{StaticResource GoldVikings}"
+			       Text="Forecast Station"/>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="AGL:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Station.AGL, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Elevation:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Station.Elevation, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="IsStationOnline:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Station.IsStationOnline, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="State:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Station.State, StringFormat='{0:###0.###}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="StationId:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Station.StationId, StringFormat='{0:###0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="" />
+            <Label FontSize="Header"
+			       TextColor="{StaticResource GoldVikings}"
+			       Text="Forecast Units"/>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UnitsAirDensity:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Units.UnitsAirDensity, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UnitsBrightness:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Units.UnitsBrightness, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UnitsDistance:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Units.UnitsDistance, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UnitsOther:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Units.UnitsOther, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UnitsPrecip:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Units.UnitsPrecip, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UnitsPressure:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Units.UnitsPressure, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UnitsSolarRadiation:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Units.UnitsSolarRadiation, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UnitsTemp:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Units.UnitsTemp, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="UnitsWind:"
+						      TextColor="{StaticResource GoldVikings}"/>
+                        <Span Text="{Binding ObservableForecast.Units.UnitsWind, StringFormat='{0}'}"
+						      TextColor="White"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

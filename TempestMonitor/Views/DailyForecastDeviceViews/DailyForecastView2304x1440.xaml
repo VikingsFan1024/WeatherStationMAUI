@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:converters="clr-namespace:TempestMonitor.Views.Converters;assembly=TempestMonitor"
+    xmlns:observables="clr-namespace:TempestMonitor.ViewModels.Observables;assembly=TempestMonitor"
+    xmlns:viewModels="clr-namespace:TempestMonitor.ViewModels;assembly=TempestMonitor"
+    x:DataType="viewModels:DailyForecastViewModel"
+    x:Class="TempestMonitor.Views.DailyForecastDeviceViews.DailyForecastView2304x1440"
+>
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:RowIndexToColorConverter x:Key="RowIndexToColorConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ScrollView Orientation="Both" BackgroundColor="{StaticResource PurpleVikings}">
+        <VerticalStackLayout>
+            <CollectionView
+                ItemsSource="{Binding DailyForecasts}"
+            >
+                <CollectionView.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="28"/>
+                            <ColumnDefinition Width="95"/>
+                            <ColumnDefinition Width="275"/>
+                            <ColumnDefinition Width="22"/>
+                            <ColumnDefinition Width="124"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            Text="High" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="1"
+                            Text="Low" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="2"
+                            Text="Conditions" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="3"
+                            Text="DW" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="4"
+                            Text="D" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="5"
+                            Text=" Date" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="6"
+                            Text="Sky Icon" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="7"
+                            Text="M" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="8"
+                            Text="Precip Icon" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="9"
+                            Text="Pr %" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="10"
+                            Text="PType" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="11"
+                            Text="Rise" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                        <Label
+                            Grid.Column="12"
+                            Text="Set" 
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                        />
+                    </Grid>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type observables:DailyObservable}">
+                        <Grid
+                            Margin="0,0,0,0"
+                            Padding="0,0,0,0"
+                        >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="28"/>
+                                <ColumnDefinition Width="95"/>
+                                <ColumnDefinition Width="295"/>
+                                <ColumnDefinition Width="22"/>
+                                <ColumnDefinition Width="124"/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="65"/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="60"/>
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Grid.Column="0"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding AirTempHigh, StringFormat='{0:##0.00}'}" 
+                                    FontSize="Medium"
+                               />
+                            </Border>
+                            <Border
+                                Grid.Column="1"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding AirTempLow, StringFormat='{0:##0.00}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="2"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding Conditions}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="3"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding DayStartLocal, StringFormat='{0:ddd}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="4"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding DayNum}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="5"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding DayStartLocal, StringFormat='{0:MM/dd/yy}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="6"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding Icon}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="7"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding MonthNumber}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="8"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding PrecipitationIcon}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="9"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding PrecipitationProbability, StringFormat='{0:##0.00}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="10"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding PrecipitationType}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="11"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding Sunrise, StringFormat='{0:HH:mm}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="12"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding Sunset, StringFormat='{0:HH:mm}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>

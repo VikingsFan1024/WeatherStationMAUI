@@ -1,0 +1,128 @@
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"    
+    xmlns:local="clr-namespace:TempestMonitor"
+    x:Class="TempestMonitor.Pages.ApplicationSettingsPage"
+    xmlns:s="clr-namespace:System;assembly=mscorlib" 
+    xmlns:vm="clr-namespace:TempestMonitor.ViewModels"
+    x:DataType="vm:ApplicationSettingsViewModel"
+    Title="Application Settings"
+>
+    <ScrollView BackgroundColor="{StaticResource PurpleVikings}">
+        <VerticalStackLayout>
+            <Picker
+                Title="Temperature Units"
+                TitleColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                ItemsSource="{Binding TemperatureUnitOptions}"
+                SelectedItem="{Binding TemperatureUnit, Mode=TwoWay}"
+            />
+            <Picker
+                Title="Pressure Units"
+                TitleColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                ItemsSource="{Binding PressureUnitOptions}"
+                SelectedItem="{Binding PressureUnit, Mode=TwoWay}"
+            />
+            <Picker
+                Title="Windspeed Units"
+                TitleColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                ItemsSource="{Binding SpeedUnitOptions}"
+                SelectedItem="{Binding SpeedUnit, Mode=TwoWay}"
+            />
+            <Picker
+                Title="Rain Units"
+                TitleColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                ItemsSource="{Binding PrecipitationUnitOptions}"
+                SelectedItem="{Binding PrecipitationUnit, Mode=TwoWay}"
+            />
+            <Picker
+                Title="Distance Units"
+                TitleColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                ItemsSource="{Binding DistanceUnitOptions}"
+                SelectedItem="{Binding DistanceUnit, Mode=TwoWay}"
+            />
+            <Picker
+                Title="Time Formats"
+                TitleColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                ItemsSource="{Binding TimeFormatOptions}"
+                SelectedItem="{Binding TimeFormat, Mode=TwoWay}"
+            />
+            <Label 
+                Text="Station ID"
+                TextColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+            />
+            <Entry
+                Text="{Binding StationID, Mode=TwoWay}"
+                FontSize="Medium"
+            />
+            <Label 
+                Text="Tempest API Token/Key"
+                TextColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+            />
+            <Entry
+                Text="{Binding RestAPIKey, Mode=TwoWay}"
+                FontSize="Medium"
+            />
+            <Label 
+                Text="Minutes between Http Requests"
+                TextColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" />
+            <Entry
+                Text="{Binding TimeBetweenHttpRequestsInMinutes, Mode=TwoWay}"
+                FontSize="Medium"
+            />
+            <Button 
+                Text="Log Folder"
+                TextColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                BackgroundColor="White"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Clicked="LogFolderButton_Clicked"
+            />
+            <Label 
+                Text="{Binding LogFolder}"
+                TextColor="White"
+                FontSize="Medium"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+            />
+            <Button 
+                Text="Database Folder"
+                TextColor="{StaticResource GoldVikings}"
+                FontSize="Medium"
+                BackgroundColor="White"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Clicked="DatabaseFolderButton_Clicked"
+            />
+            <Label 
+                Text="{Binding DatabaseFolder}"
+                TextColor="White"
+                FontSize="Medium"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+            />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
