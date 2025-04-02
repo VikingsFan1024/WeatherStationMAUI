@@ -1,0 +1,18 @@
+using TempestMonitor.ViewModels;
+
+namespace TempestMonitor.Pages;
+
+public partial class HistoryPage : ContentPage
+{
+    public HistoryPage(IServiceProvider serviceProvider)
+    {
+        BindingContext = serviceProvider.GetRequiredService<HistoryViewModel>();
+        InitializeComponent();
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        (BindingContext as HistoryViewModel)?.OnAppearing();
+    }
+}

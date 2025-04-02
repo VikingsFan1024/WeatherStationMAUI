@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:converters="clr-namespace:TempestMonitor.Views.Converters;assembly=TempestMonitor"
+    xmlns:observables="clr-namespace:TempestMonitor.ViewModels.Observables;assembly=TempestMonitor"
+    xmlns:viewModels="clr-namespace:TempestMonitor.ViewModels;assembly=TempestMonitor"
+    x:DataType="viewModels:HourlyForecastViewModel"
+    x:Class="TempestMonitor.Views.HourlyForecastDeviceViews.HourlyForecastView2176x1812"
+>
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:RowIndexToColorConverter x:Key="RowIndexToColorConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ScrollView Orientation="Both" BackgroundColor="{StaticResource PurpleVikings}">
+        <VerticalStackLayout>
+            <CollectionView
+                ItemsSource="{Binding HourlyForecasts}"
+            >
+                <CollectionView.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="46"/>
+                            <ColumnDefinition Width="177"/>
+                            <ColumnDefinition Width="46"/>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="33"/>
+                            <ColumnDefinition Width="98"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="42"/>
+                            <ColumnDefinition Width="28"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="31"/>
+                            <ColumnDefinition Width="43"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="Temp" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="1"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="Conditions" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="2"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="FL" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="3"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="Icon" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="4"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="DW" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="5"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="D" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="6"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="Hr" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="7"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="Amt" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="8"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="P Icon" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="9"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="PC" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="10"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="PTyp" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="11"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="RH" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="12"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="SLP" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="13"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="SP" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="14"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="T" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="15"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="u" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="16"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="w" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="17"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="wd" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="18"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="WDC" 
+                            HorizontalOptions="Center"
+                        />
+                        <Label
+                            Grid.Column="19"
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="SG" 
+                            HorizontalOptions="Center"
+                        />
+                    </Grid>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type observables:HourlyObservable}">
+                        <Grid
+                                Margin="0,0,0,0"
+                                Padding="0,0,0,0"
+                            >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="46"/>
+                                <ColumnDefinition Width="177"/>
+                                <ColumnDefinition Width="46"/>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="35"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="33"/>
+                                <ColumnDefinition Width="98"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="42"/>
+                                <ColumnDefinition Width="28"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="31"/>
+                                <ColumnDefinition Width="43"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Grid.Column="0"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding AirTemperature, StringFormat='{0:##0.00}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="1"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding Conditions}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="2"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding FeelsLike, StringFormat='{0:##0.00}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="3"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding Icon}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="4"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding Time, StringFormat='{0:ddd}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="5"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding LocalDay, StringFormat='{0:##}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="6"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding LocalHour, StringFormat='{0:00}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="7"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding Precipitation, StringFormat='{0:#0.00}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="8"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding PrecipitationIcon}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="9"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding PrecipitationProbability, StringFormat='{0:#0}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="10"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding PrecipitationType}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="11"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding RelativeHumidity, StringFormat='{0:##0}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="12"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding SeaLevelPressure, StringFormat='{0:###0}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="13"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding StationPressure, StringFormat='{0:##0}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="14"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding Time, StringFormat='{0:HH}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="15"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding UV, StringFormat='{0:0}'}"  
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="16"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding WindAvg, StringFormat='{0:##0}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="17"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding WindDirection, StringFormat='{0:##0}'}" 
+                                />
+                            </Border>
+                            <Border
+                                Grid.Column="18"
+                                StrokeThickness="1"
+                            >
+                                <Label
+                                    HorizontalOptions="Start"
+                                    TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding WindDirectionCardinal, StringFormat='{0}'}" 
+                                />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>
