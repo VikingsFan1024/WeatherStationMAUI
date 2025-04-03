@@ -1,7 +1,12 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using IServiceProvider = System.IServiceProvider;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+using IDisposable = System.IDisposable;
+using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Serilog;
-using System.Net.Sockets;
+using UdpReceiveResult = System.Net.Sockets.UdpReceiveResult;
+using UdpClient = System.Net.Sockets.UdpClient;
+using SocketException = System.Net.Sockets.SocketException; // for SocketException in ListenForStationUDPBroadcasts method
 using System.Text.Json;
 using System.Threading.Tasks.Dataflow;
 using TempestMonitor.Models;
@@ -9,9 +14,19 @@ using System.Diagnostics;
 using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel;
 using System.Collections;
 using TempestMonitor;
-using System.Net.WebSockets;
+//using System.Net.WebSockets;
 using Microsoft.Maui;
 using System.Threading;
+using Exception = System.Exception; // for Exception in ListenForStationUDPBroadcasts method
+using OperationCanceledException = System.OperationCanceledException; // for OperationCanceledException in ListenForStationUDPBroadcasts method
+using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in ListenForStationUDPBroadcasts method
+using ValueTaskOfUdpReceiveResult = System.Threading.Tasks.ValueTask<System.Net.Sockets.UdpReceiveResult>;
+using TaskOfBool = System.Threading.Tasks.Task<bool>; // for Task<bool> in SendClassInstanceToProcessing method
+
+using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
+using GC = System.GC; // for GC.SuppressFinalize(this) in Dispose method
+using Task = System.Threading.Tasks.Task;
+using AggregateException = System.AggregateException; // for AggregateException in Stop method
 
 namespace TempestMonitor.Services;
 
@@ -86,7 +101,7 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
     private TransformBlock<byte[], ReadingModel>? _udpReadingToReadingBlock;
     private ActionBlock<ReadingModel>? _readingToReferenceMessagesBlock;
 
-    private List<Task>? _completionList;
+    private ListOfTasks? _completionList;
 
     private AirObservationModel? _mostRecentAirObservationReading;
     public AirObservationModel? MostRecentAirObservationReading => _mostRecentAirObservationReading;
@@ -125,7 +140,7 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
 
         Log.Information("Started");
     }
-    private async Task<bool> Init()
+    private async TaskOfBool Init()
     {
         if (_cancellationTokenSource is null) return false;
         if (_completionList is null) return false;
@@ -196,7 +211,7 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
 
         return true;
     }
-    private async Task<bool> ListenForStationUDPBroadcasts()
+    private async TaskOfBool ListenForStationUDPBroadcasts()
     {
         if (_udpReadingToReadingBlock is null) return false;
         if (_cancellationTokenSource is null) return false;
@@ -221,7 +236,7 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
                 Stopwatch stopwatch = new();
                 stopwatch.Start();
 
-                ValueTask<UdpReceiveResult> valueTaskOfUdpReceiveResult;
+                ValueTaskOfUdpReceiveResult valueTaskOfUdpReceiveResult;
                 UdpReceiveResult udpReceiveResult;
                 try
                 {

@@ -1,5 +1,8 @@
 ﻿using Android.App;
 using Android.Runtime;
+using Microsoft.Maui;
+using Microsoft.Maui.Hosting; // For MauiApplication
+using System;
 
 namespace TempestMonitor
 {

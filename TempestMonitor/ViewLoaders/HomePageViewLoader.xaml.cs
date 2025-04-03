@@ -1,6 +1,22 @@
+using IServiceProvider = System.IServiceProvider;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+
 using Serilog;
 
+using ContentPage = Microsoft.Maui.Controls.ContentPage;
+using DeviceDisplay = Microsoft.Maui.Devices.DeviceDisplay;
+using DeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
+using DeviceType = Microsoft.Maui.Devices.DeviceType;
+using DisplayOrientation = Microsoft.Maui.Devices.DisplayOrientation;
+using DisplayRotation = Microsoft.Maui.Devices.DisplayRotation;
+using DisplayInfoChangedEventArgs = Microsoft.Maui.Devices.DisplayInfoChangedEventArgs;
+using InvalidDataException = System.IO.InvalidDataException;
+
+using Microsoft.Maui.Devices;
+
 using TempestMonitor.Pages;
+
+using ContentView = Microsoft.Maui.Controls.ContentView;
 
 namespace TempestMonitor.ViewLoaders;
 

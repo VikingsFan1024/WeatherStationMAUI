@@ -1,11 +1,21 @@
-﻿using SQLite;
-using System.Collections.Concurrent;
-using System.Text.Json;
+﻿using IServiceProvider = System.IServiceProvider;
+using IDisposable = System.IDisposable;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+using CancellationTokenSource = System.Threading.CancellationTokenSource;
+using Task = System.Threading.Tasks.Task;
+using Exception = System.Exception;
+using AggregateException = System.AggregateException;
+using SQLite;
+using System.Collections.Generic;
 using System.Threading.Tasks.Dataflow;
 using Serilog;
 using TempestMonitor.Models;
 using Microsoft.Maui.Storage;
 using CommunityToolkit.Mvvm.Messaging;
+using StreamReader = System.IO.StreamReader;
+using OperationCanceledException = System.OperationCanceledException; // for OperationCanceledException in ListenForStationUDPBroadcasts method
+using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in RequestForecasts method
+using TaskOfBool = System.Threading.Tasks.Task<bool>; // for Task<bool> in SendClassInstanceToProcessing method
 
 namespace TempestMonitor.Services;
 sealed public partial class DatabasePersistenceService(IServiceProvider serviceProvider) : IDisposable
@@ -105,7 +115,7 @@ sealed public partial class DatabasePersistenceService(IServiceProvider serviceP
             return false;
         }
     }
-    public async Task<bool> Init()
+    public async TaskOfBool Init()
     {
         if (_cancellationTokenSource is null) return false;
         if (_completionList is null) return false;
@@ -213,7 +223,7 @@ sealed public partial class DatabasePersistenceService(IServiceProvider serviceP
     {
         _classInstanceToProcess?.SendAsync(_classInstance)
             .ContinueWith(
-                (Task<bool> task) =>
+                (TaskOfBool task) =>
                 {
                     if (task.IsFaulted)
                         Log.Error(task.Exception, "SendClassInstanceToProcessing");

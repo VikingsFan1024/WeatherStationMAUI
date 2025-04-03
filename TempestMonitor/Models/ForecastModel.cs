@@ -1,8 +1,11 @@
 ﻿using SQLite;
 using System.Text.Json;
-using RedStar.Amounts;
-using RedStar.Amounts.StandardUnits;
+//using RedStar.Amounts;
+//using RedStar.Amounts.StandardUnits;
 using System.Linq;
+using System;
+
+using DateTimeOffset = System.DateTimeOffset; // For DateTimeOffset.Now
 
 namespace TempestMonitor.Models;
 

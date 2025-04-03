@@ -1,4 +1,6 @@
-﻿using TempestMonitor.Models;
+﻿using DateTime = System.DateTime;
+
+using TempestMonitor.Models;
 using RedStar.Amounts;
 
 namespace TempestMonitor.ViewModels.Observables;

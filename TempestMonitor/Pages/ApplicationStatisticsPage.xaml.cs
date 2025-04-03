@@ -1,4 +1,8 @@
+using IServiceProvider = System.IServiceProvider;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+
 using TempestMonitor.ViewModels;
+using ContentPage = Microsoft.Maui.Controls.ContentPage;
 
 namespace TempestMonitor.Pages;
 

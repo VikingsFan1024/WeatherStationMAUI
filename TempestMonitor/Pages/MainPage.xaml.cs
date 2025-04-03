@@ -1,9 +1,19 @@
-﻿using Serilog;
+﻿using IServiceProvider = System.IServiceProvider;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+
+using Serilog;
 using TempestMonitor.Services;
 using TempestMonitor.Models;
 using TempestMonitor.ViewModels;
 using TempestMonitor.Views;
 using TempestMonitor.ViewLoaders;
+
+using ContentPage = Microsoft.Maui.Controls.ContentPage;
+using DeviceDisplay = Microsoft.Maui.Devices.DeviceDisplay;
+using DeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
+using DeviceType = Microsoft.Maui.Devices.DeviceType;
+using DisplayOrientation = Microsoft.Maui.Devices.DisplayOrientation;
+using DisplayRotation = Microsoft.Maui.Devices.DisplayRotation;
 
 namespace TempestMonitor.Pages;
 public partial class MainPage : ContentPage

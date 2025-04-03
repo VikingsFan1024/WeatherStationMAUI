@@ -1,10 +1,10 @@
-﻿namespace TempestMonitor
+﻿namespace TempestMonitor;
+using Shell = Microsoft.Maui.Controls.Shell;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
