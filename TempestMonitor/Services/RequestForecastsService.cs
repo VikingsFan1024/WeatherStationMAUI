@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using IServiceProvider = System.IServiceProvider;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+using IDisposable = System.IDisposable;
+using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.VisualBasic;
 using Serilog;
@@ -10,6 +13,15 @@ using System.Threading;
 using System.Threading.Tasks.Dataflow;
 using TempestMonitor.Models;
 using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel;
+using HttpClient = System.Net.Http.HttpClient; // for HttpClient
+using HttpRequestException = System.Net.Http.HttpRequestException;
+using System.Threading.Tasks;
+using TimeSpan = System.TimeSpan;
+using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
+using Exception = System.Exception; // for Exception
+using AggregateException = System.AggregateException;
+using OperationCanceledException = System.OperationCanceledException; // for OperationCanceledException in ListenForStationUDPBroadcasts method
+using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in RequestForecasts method
 
 namespace TempestMonitor.Services;
 
@@ -43,7 +55,7 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
     private BufferBlock<ForecastModel>? _forecastModelBufferBlock;
     private ActionBlock<ForecastModel>? _forecastModelToUserInterfaceAndDatabaseBlock;
 
-    private List<Task>? _completionList;
+    private ListOfTasks? _completionList;
     private bool _isRunning;
 
     public ForecastModel? MostRecentForecast => _mostRecentForecast;

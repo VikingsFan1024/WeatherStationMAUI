@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using IValueConverter = Microsoft.Maui.Controls.IValueConverter;
+using Colors = Microsoft.Maui.Graphics.Colors;
+
 namespace TempestMonitor.Views.Converters;
 
 public class RowIndexToColorConverter : IValueConverter

@@ -2,6 +2,10 @@
 using RedStar.Amounts;
 using RedStar.Amounts.StandardUnits;
 
+using System.IO;
+using System;
+using Microsoft.Maui.Storage; // For Preferences
+
 namespace TempestMonitor.Models;
 
 public class SettingsModel

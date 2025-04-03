@@ -10,6 +10,10 @@ using FolderPicker = CommunityToolkit.Maui.Storage.FolderPicker;
 
 using UnitManager = RedStar.Amounts.UnitManager;
 using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
+using MauiApp = Microsoft.Maui.Hosting.MauiApp;
+using Microsoft.Maui.Controls.Hosting; // For UseMauiApp
+using Microsoft.Maui.Hosting; // For MauiAppBuilder
+using Microsoft.Extensions.DependencyInjection; // For IServiceCollection
 
 namespace TempestMonitor;
 public static class MauiProgram

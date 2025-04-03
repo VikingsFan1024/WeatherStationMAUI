@@ -1,9 +1,14 @@
+using IServiceProvider = System.IServiceProvider;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using TempestMonitor.ViewModels;
 using TempestMonitor.ViewLoaders;
 
 namespace TempestMonitor.Pages;
+
+using ContentPage = Microsoft.Maui.Controls.ContentPage;
 
 public partial class DailyForecastPage : ContentPage
 {

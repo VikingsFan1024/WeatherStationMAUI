@@ -17,12 +17,18 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Serilog.Enrichers.WithCaller;
 using System.Globalization;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.DependencyInjection;
+using Application = Microsoft.Maui.Controls.Application;
+
+using IServiceProvider = System.IServiceProvider;
+using IDisposable = System.IDisposable;
+using IActivationState = Microsoft.Maui.IActivationState;
+
+using Window = Microsoft.Maui.Controls.Window;
 
 namespace TempestMonitor;
 

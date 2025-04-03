@@ -1,4 +1,14 @@
-﻿using System.ComponentModel;
+﻿using IServiceProvider = System.IServiceProvider;
+using IDisposable = System.IDisposable;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+
+using DateTime = System.DateTime;
+using TimeSpan = System.TimeSpan;
+using TimerCallback = System.Threading.TimerCallback;
+
+using Timer = System.Threading.Timer; // Avoid conflict with System.Timers.Timer
+
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TempestMonitor.Models;
 using TempestMonitor.Services;
@@ -99,7 +109,7 @@ sealed partial class ApplicationStatisticsViewModel(IServiceProvider serviceProv
     public long? SecondsSinceLastUdpReading => (LastUdpReadingDateTime is null ? null : (DateTime.Now - LastUdpReadingDateTime).Value.Seconds);
     public long? MinutesSinceLastHttpResponse => LastHttpResponseDateTime is null ? null : (DateTime.Now - LastHttpResponseDateTime).Value.Minutes;
     public long? TimeBetweenHttpRequestsInMinutes => _settings.TimeBetweenHttpRequestsInMinutes;
-    private void UpdateStatistics(Object? stateInfo)
+    private void UpdateStatistics(object? stateInfo)
     {
         OnPropertyChanged(nameof(AirObservationReceivedCount));
         OnPropertyChanged(nameof(LastAirObservationReceivedDateTime));

@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DateTime = System.DateTime;
 
 namespace TempestMonitor.Models;
 
-//ToDo: Change this to use a proper statistics library?
-//ToDo: Look into instrumentation/telemetry libraries
-//ToDo: Add a way to reset the statistics
-//ToDo: Add a way to save/load the statistics to a file
 public struct ApplicationStatisticsModel
 {
     private static long _airObservationReceivedCount;

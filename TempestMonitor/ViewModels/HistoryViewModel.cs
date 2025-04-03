@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using IServiceProvider = System.IServiceProvider;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Serilog;
@@ -6,6 +9,13 @@ using TempestMonitor.Models;
 using TempestMonitor.Services;
 using TempestMonitor.ViewModels.Observables;
 using TempestMonitor.ViewModels.History;
+
+using Exception = System.Exception;
+
+using DateTimeOffset = System.DateTimeOffset; // For DateTimeOffset.Now
+using DateTime = System.DateTime; // For DateTime.Now
+
+using System.Linq;
 
 namespace TempestMonitor.ViewModels;
 

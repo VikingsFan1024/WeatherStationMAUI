@@ -1,4 +1,6 @@
-﻿namespace TempestMonitor.ViewModels.History;
+﻿using DateTime = System.DateTime;
+
+namespace TempestMonitor.ViewModels.History;
 
 public sealed class HourlyObservationSummary
 {

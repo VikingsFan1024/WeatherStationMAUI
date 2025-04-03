@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SQLite;
+using StringUnitDictionary = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
+using Unit = RedStar.Amounts.Unit;
+using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
+using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
+using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
+using TimeUnits = RedStar.Amounts.StandardUnits.TimeUnits;
+using PressureUnits = RedStar.Amounts.StandardUnits.PressureUnits;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
-using static SQLite.SQLite3;
-using Serilog;
-using System.Text.Json;
-using RedStar.Amounts;
-using RedStar.Amounts.StandardUnits;
 
 namespace TempestMonitor.Models;
+
 [Table("AirObservation")]
 public class AirObservationModel : ReadingModel, IPropertyUnit
 {
     public static readonly string TypeName = "obs_air";
-    public static readonly Dictionary<string, Unit>? PropertyUnit = new();
+    public static readonly StringUnitDictionary? PropertyUnit = new();
 
     static AirObservationModel()
     {

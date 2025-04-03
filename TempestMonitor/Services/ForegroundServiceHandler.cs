@@ -1,4 +1,7 @@
-﻿namespace TempestMonitor.Services;
+﻿using IServiceProvider = System.IServiceProvider;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+
+namespace TempestMonitor.Services;
 
 public class ForegroundServiceHandler
 {

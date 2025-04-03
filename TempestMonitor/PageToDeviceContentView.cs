@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui.Devices;
 
+using ContentView = Microsoft.Maui.Controls.ContentView;
+
 using Serilog;
 using TempestMonitor.Pages;
 using TempestMonitor.Views.MainDeviceViews;

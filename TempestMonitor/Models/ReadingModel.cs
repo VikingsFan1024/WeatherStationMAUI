@@ -1,13 +1,19 @@
-﻿using SQLite;
+﻿using System.Collections.Generic;
+
+using ListOfStrings = System.Collections.Generic.List<string>;
+using DateTimeOffset = System.DateTimeOffset;
+using Guid = System.Guid;
+using SQLite;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Serilog;
+using NotSupportedException = System.NotSupportedException;
 
 namespace TempestMonitor.Models;
 
 public class ReadingModel
 {
-    public static readonly List<string> supportedReadingTypes =
+    public static readonly ListOfStrings supportedReadingTypes =
     [
         AirObservationModel.TypeName,
         DeviceStatusModel.TypeName,

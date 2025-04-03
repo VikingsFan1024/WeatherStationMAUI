@@ -1,4 +1,15 @@
-﻿using System.ComponentModel;
+﻿using IServiceProvider = System.IServiceProvider;
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+using IDisposable = System.IDisposable;
+
+using DateTime = System.DateTime;
+using TimeSpan = System.TimeSpan;
+using GC = System.GC;
+using TimerCallback = System.Threading.TimerCallback;
+
+using Timer = System.Threading.Timer; // Avoid conflict with System.Timers.Timer
+
+using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.Messaging;
@@ -97,7 +108,7 @@ sealed partial class MainViewModel(IServiceProvider serviceProvider) : INotifyPr
         ApplicationStatisticsModel.LastUdpReadingDateTime is null ? null :
             (DateTime.Now - ApplicationStatisticsModel.LastUdpReadingDateTime).Value.Seconds;
     public ObservableWindReading? WindReading => _observableWindReading;
-    private void UpdateReadings(Object? stateInfo)
+    private void UpdateReadings(object? stateInfo)
     {
         _currentDateTime = DateTime.Now;
         OnPropertyChanged(nameof(CurrentDateTime));
