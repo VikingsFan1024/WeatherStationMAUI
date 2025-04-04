@@ -1,13 +1,16 @@
-﻿using TableAttribute = SQLite.TableAttribute;
-using ColumnAttribute = SQLite.ColumnAttribute;
+﻿// static using for extension method classes
+using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
+
+// Aliases for types used in this file to keep the code cleaner
 using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
 
-using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
-using TimeUnits = RedStar.Amounts.StandardUnits.TimeUnits;
+// using directives for precision in what specific classes are employed
+using ColumnAttribute = SQLite.ColumnAttribute;
 using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
+using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
 using SpeedUnits = RedStar.Amounts.StandardUnits.SpeedUnits;
-
-using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
+using TableAttribute = SQLite.TableAttribute;
+using TimeUnits = RedStar.Amounts.StandardUnits.TimeUnits;
 
 namespace TempestMonitor.Models;
 [Table("SkyObservation")]

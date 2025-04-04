@@ -1,13 +1,15 @@
-﻿using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
+﻿// static using for extension method classes
+using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
 
-using TableAttribute = SQLite.TableAttribute;
+// using directives for precision in what specific classes are employed
 using ColumnAttribute = SQLite.ColumnAttribute;
 using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
-using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
 using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
 using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
-using TimeUnits = RedStar.Amounts.StandardUnits.TimeUnits;
 using PressureUnits = RedStar.Amounts.StandardUnits.PressureUnits;
+using TableAttribute = SQLite.TableAttribute;
+using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
+using TimeUnits = RedStar.Amounts.StandardUnits.TimeUnits;
 
 namespace TempestMonitor.Models;
 

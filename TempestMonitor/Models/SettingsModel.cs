@@ -1,16 +1,15 @@
-﻿using UnitManager = RedStar.Amounts.UnitManager; // For UnitManager.GetUnitByName
-
-using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
-using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
+﻿// using directives for precision in what specific classes are employed
 using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
+using Environment = System.Environment;
+using Exception = System.Exception;
+using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
+using Log = Serilog.Log;
+using Path = System.IO.Path;
+using Preferences = Microsoft.Maui.Storage.Preferences;
 using PressureUnits = RedStar.Amounts.StandardUnits.PressureUnits;
 using SpeedUnits = RedStar.Amounts.StandardUnits.SpeedUnits;
-using Log = Serilog.Log;
-using Path = System.IO.Path; // For Path.Combine
-using Environment = System.Environment; // For Environment.GetFolderPath
-using Exception = System.Exception; // For Exception in SaveSetting method
-
-using Preferences = Microsoft.Maui.Storage.Preferences;
+using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
+using UnitManager = RedStar.Amounts.UnitManager;
 
 namespace TempestMonitor.Models;
 

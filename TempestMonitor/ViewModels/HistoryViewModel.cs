@@ -1,12 +1,15 @@
-﻿using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+﻿// static using for extension method classes
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 using static System.Linq.Enumerable; // For GroupBy, Select, OrderByDescending, etc.
 
+// Aliases for types used in this file to keep the code cleaner
 using ObservableCollectionOfHourlyObservationSummary = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.History.HourlyObservationSummary>;
 
+// using directives for precision in what specific classes are employed
 using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
 using DatabaseService = TempestMonitor.Services.DatabaseService;
-using DateTime = System.DateTime; // For DateTime.Now
-using DateTimeOffset = System.DateTimeOffset; // For DateTimeOffset.Now
+using DateTime = System.DateTime;
+using DateTimeOffset = System.DateTimeOffset;
 using Exception = System.Exception;
 using HourlyObservationSummary = TempestMonitor.ViewModels.History.HourlyObservationSummary;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;

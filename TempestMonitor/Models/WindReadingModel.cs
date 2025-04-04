@@ -1,8 +1,11 @@
-﻿using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
-using TableAttribute = SQLite.TableAttribute;
-using ColumnAttribute = SQLite.ColumnAttribute;
-using SpeedUnits = RedStar.Amounts.StandardUnits.SpeedUnits;
+﻿// static using for extension method classes
 using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
+
+// using directives for precision in what specific classes are employed
+using ColumnAttribute = SQLite.ColumnAttribute;
+using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
+using SpeedUnits = RedStar.Amounts.StandardUnits.SpeedUnits;
+using TableAttribute = SQLite.TableAttribute;
 
 namespace TempestMonitor.Models;
 

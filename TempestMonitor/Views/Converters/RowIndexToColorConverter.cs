@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using IValueConverter = Microsoft.Maui.Controls.IValueConverter;
+﻿// using directives for precision in what specific classes are employed
 using Colors = Microsoft.Maui.Graphics.Colors;
+using CultureInfo = System.Globalization.CultureInfo;
+using Int64 = System.Int64;
+using IValueConverter = Microsoft.Maui.Controls.IValueConverter;
+using NotImplementedException = System.NotImplementedException;
+using Type = System.Type;
 
 namespace TempestMonitor.Views.Converters;
 

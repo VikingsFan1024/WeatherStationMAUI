@@ -1,11 +1,14 @@
-﻿using ColumnAttribute = SQLite.ColumnAttribute;
-using IgnoreAttribute = SQLite.IgnoreAttribute;
-using TableAttribute = SQLite.TableAttribute;
-using PrimaryKey = SQLite.PrimaryKeyAttribute;
-using JsonElement = System.Text.Json.JsonElement;
-using Guid = System.Guid;
-using static System.Linq.Enumerable; 
+﻿// static using for extension method classes
+using static System.Linq.Enumerable;
+
+// using directives for precision in what specific classes are employed
+using ColumnAttribute = SQLite.ColumnAttribute;
 using DateTimeOffset = System.DateTimeOffset;
+using Guid = System.Guid;
+using IgnoreAttribute = SQLite.IgnoreAttribute;
+using JsonElement = System.Text.Json.JsonElement;
+using PrimaryKey = SQLite.PrimaryKeyAttribute;
+using TableAttribute = SQLite.TableAttribute;
 
 namespace TempestMonitor.Models;
 

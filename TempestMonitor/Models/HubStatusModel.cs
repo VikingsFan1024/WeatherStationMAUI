@@ -1,6 +1,9 @@
-﻿using ColumnAttribute = SQLite.ColumnAttribute;
-using TableAttribute = SQLite.TableAttribute;
+﻿// static using for extension method classes
 using static System.Linq.Enumerable;
+
+// using directives for precision in what specific classes are employed
+using ColumnAttribute = SQLite.ColumnAttribute;
+using TableAttribute = SQLite.TableAttribute;
 
 namespace TempestMonitor.Models;
 [Table("HubStatus")]

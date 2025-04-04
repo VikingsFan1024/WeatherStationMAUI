@@ -1,11 +1,10 @@
-using IServiceProvider = System.IServiceProvider;
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-
+// using directives for precision in what specific classes are employed
 using ContentView = Microsoft.Maui.Controls.ContentView;
 using DailyForecastPage = TempestMonitor.Pages.DailyForecastPage;
 using DeviceDisplay = Microsoft.Maui.Devices.DeviceDisplay;
 using DisplayInfoChangedEventArgs = Microsoft.Maui.Devices.DisplayInfoChangedEventArgs;
 using InvalidDataException = System.IO.InvalidDataException;
+using IServiceProvider = System.IServiceProvider;
 using Log = Serilog.Log;
 
 namespace TempestMonitor.ViewLoaders;

@@ -1,6 +1,9 @@
-﻿using TableAttribute = SQLite.TableAttribute;
-using ColumnAttribute = SQLite.ColumnAttribute;
+﻿// static using for extension method classes
 using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
+
+// using directives for precision in what specific classes are employed
+using ColumnAttribute = SQLite.ColumnAttribute;
+using TableAttribute = SQLite.TableAttribute;
 
 namespace TempestMonitor.Models;
 

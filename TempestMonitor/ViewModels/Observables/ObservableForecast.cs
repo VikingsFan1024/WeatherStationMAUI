@@ -1,6 +1,8 @@
-﻿using ObservableCollectionOfObservableDaily = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableDaily>;
+﻿// Aliases for types used in this file to keep the code cleaner
+using ObservableCollectionOfObservableDaily = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableDaily>;
 using ObservableCollectionOfObservableHourly = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableHourly>;
 
+// using directives for precision in what specific classes are employed
 using DateTime = System.DateTime;
 using ForecastModel = TempestMonitor.Models.ForecastModel;
 using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;

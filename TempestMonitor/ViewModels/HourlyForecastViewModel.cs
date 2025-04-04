@@ -1,16 +1,19 @@
-﻿using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
+﻿// static using for extension method classes
+using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
+// Aliases for types used in this file to keep the code cleaner
 using ObservableCollectionOfObservableHourly = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableHourly>;
 
+// using directives for precision in what specific classes are employed
 using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
-using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler; // For foreground service handling
+using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 using IServiceProvider = System.IServiceProvider;
 using ObservableHourly = TempestMonitor.ViewModels.Observables.ObservableHourly;
 using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
 using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
-using RequestForecastsService = TempestMonitor.Services.RequestForecastsService; // For RequestForecastsService
+using RequestForecastsService = TempestMonitor.Services.RequestForecastsService;
 using SettingsModel = TempestMonitor.Models.SettingsModel;
 using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
 

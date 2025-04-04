@@ -1,4 +1,5 @@
-﻿using Math = System.Math;
+﻿// using directives for precision in what specific classes are employed
+using Math = System.Math;
 
 namespace TempestMonitor;
 

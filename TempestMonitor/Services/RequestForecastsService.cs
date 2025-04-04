@@ -1,40 +1,42 @@
-﻿using IDisposable = System.IDisposable;
-using IServiceProvider = System.IServiceProvider;
-
+﻿// static using for extension method classes
 using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Send method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 using static System.Net.Http.Json.HttpClientJsonExtensions; // for GetFromJsonAsync<T> extension method
 using static System.Threading.Tasks.Dataflow.DataflowBlock; // for BufferBlock and ActionBlock methods - SendAsync()
 
-using ActionBlockOfForecastModel = System.Threading.Tasks.Dataflow.ActionBlock<TempestMonitor.Models.ForecastModel>; // for ActionBlock<ForecastModel>
+// Aliases for types used in this file to keep the code cleaner
+using ActionBlockOfForecastModel = System.Threading.Tasks.Dataflow.ActionBlock<TempestMonitor.Models.ForecastModel>;
+using BufferBlockOfForecastModel = System.Threading.Tasks.Dataflow.BufferBlock<TempestMonitor.Models.ForecastModel>;
+using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
+using TaskOfBool = System.Threading.Tasks.Task<bool>;
+using TaskOfNullableJsonDocument = System.Threading.Tasks.Task<System.Text.Json.JsonDocument?>;
+using ValueChangedMessageOfForecastModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.ForecastModel>;
+using ValueChangedMessageOfObject = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<object>;
+
+// using directives for precision in what specific classes are employed
 using AggregateException = System.AggregateException;
 using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel;
-using BufferBlockOfForecastModel = System.Threading.Tasks.Dataflow.BufferBlock<TempestMonitor.Models.ForecastModel>; // for BufferBlock<ForecastModel>
-using CancellationTokenSource = System.Threading.CancellationTokenSource; // for CancellationTokenSource
-using DataflowLinkOptions = System.Threading.Tasks.Dataflow.DataflowLinkOptions; // for DataflowLinkOptions
-using Exception = System.Exception;             // for Exception
-using ExecutionDataflowBlockOptions = System.Threading.Tasks.Dataflow.ExecutionDataflowBlockOptions; // for ExecutionDataflowBlockOptions
-using ForecastChildModel = TempestMonitor.Models.ForecastChildModel; // for ForecastChildModel, used in SendToDatabase method
-using ForecastModel = TempestMonitor.Models.ForecastModel; // for ForecastModel
-using HttpClient = System.Net.Http.HttpClient;  // for HttpClient
+using CancellationTokenSource = System.Threading.CancellationTokenSource;
+using DataflowLinkOptions = System.Threading.Tasks.Dataflow.DataflowLinkOptions;
+using Exception = System.Exception;
+using ExecutionDataflowBlockOptions = System.Threading.Tasks.Dataflow.ExecutionDataflowBlockOptions;
+using ForecastChildModel = TempestMonitor.Models.ForecastChildModel;
+using ForecastModel = TempestMonitor.Models.ForecastModel;
+using HttpClient = System.Net.Http.HttpClient;
 using HttpRequestException = System.Net.Http.HttpRequestException;
-using JsonDocument = System.Text.Json.JsonDocument; // for JsonDocument in RequestForecasts method
-using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
-using Log = Serilog.Log;                        // Serilog for logging
-using OperationCanceledException = System.OperationCanceledException; // for OperationCanceledException in ListenForStationUDPBroadcasts method
-using ValueChangedMessageOfForecastModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.ForecastModel>;
-using ValueChangedMessageOfObject = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<object>; // for ForecastPartMessage
+using IDisposable = System.IDisposable;
+using IServiceProvider = System.IServiceProvider;
+using JsonDocument = System.Text.Json.JsonDocument;
+using Log = Serilog.Log;
+using OperationCanceledException = System.OperationCanceledException;
 using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
-using SettingsModel = TempestMonitor.Models.SettingsModel; // for SettingsModel, used to validate settings and get StationID and RestAPIKey
-using Stopwatch = System.Diagnostics.Stopwatch; // for Stopwatch to measure elapsed time of HTTP requests
-using Task = System.Threading.Tasks.Task; // for Task in async methods
-using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in RequestForecasts method
-using TaskOfBool = System.Threading.Tasks.Task<bool>; // for Task<bool> in RequestForecasts method
-using TaskOfJsonDocument = System.Threading.Tasks.Task<System.Text.Json.JsonDocument?>; // for Task<JsonDocument?> in RequestForecasts method
+using SettingsModel = TempestMonitor.Models.SettingsModel;
+using Stopwatch = System.Diagnostics.Stopwatch;
+using Task = System.Threading.Tasks.Task;
+using TaskCanceledException = System.Threading.Tasks.TaskCanceledException;
 using TimeSpan = System.TimeSpan;
 
 namespace TempestMonitor.Services;
-
 sealed public partial class RequestForecastsService(IServiceProvider serviceProvider) : IDisposable
 {
     public class ForecastMessage(ForecastModel forecastModel) :
@@ -269,7 +271,7 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
                 stopwatch.Start();
                 var requestString = $"{Constants.BaseForecastURL}?station_id={_settings.StationID}&token={_settings.RestAPIKey}";
 
-                TaskOfJsonDocument? taskOfJsonDocument = null;
+                TaskOfNullableJsonDocument? taskOfJsonDocument = null;
                 JsonDocument? jsonDocument = null;
                 try
                 {
