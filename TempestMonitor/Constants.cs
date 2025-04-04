@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
-using System.Diagnostics;
-using Serilog;
+﻿using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
+
+using Convert = System.Convert;
+using DateTime = System.DateTime;
+using DateTimeOffset = System.DateTimeOffset;
+using JsonElement = System.Text.Json.JsonElement;
+using Math = System.Math;
 
 namespace TempestMonitor;
 

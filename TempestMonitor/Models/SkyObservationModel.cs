@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
-using static SQLite.SQLite3;
-using Serilog;
-using System.Text.Json;
-using RedStar.Amounts;
-using RedStar.Amounts.StandardUnits;
+﻿using TableAttribute = SQLite.TableAttribute;
+using ColumnAttribute = SQLite.ColumnAttribute;
+using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
+
+using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
+using TimeUnits = RedStar.Amounts.StandardUnits.TimeUnits;
+using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
+using SpeedUnits = RedStar.Amounts.StandardUnits.SpeedUnits;
+
+using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
 
 namespace TempestMonitor.Models;
 [Table("SkyObservation")]
 public class SkyObservationModel : ReadingModel
 {
     public static readonly string TypeName = "obs_sky";
-    public static readonly Dictionary<string, Unit>? PropertyUnit = new();
+    public static readonly DictionaryOfStringUnit? PropertyUnit = new();
     static SkyObservationModel()
     {
         PropertyUnit.Add(nameof(Battery), ElectricUnits.Volt);

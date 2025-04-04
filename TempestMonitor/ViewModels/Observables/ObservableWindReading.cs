@@ -1,7 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using TempestMonitor.Models;
-using RedStar.Amounts;
-using System.Globalization;
+﻿using Amount = RedStar.Amounts.Amount;
+using CultureInfo = System.Globalization.CultureInfo;
+using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
+using WindReadingModel = TempestMonitor.Models.WindReadingModel;
 
 namespace TempestMonitor.ViewModels.Observables;
 

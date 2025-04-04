@@ -1,23 +1,25 @@
-﻿using IServiceProvider = System.IServiceProvider;
+﻿using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-using IDisposable = System.IDisposable;
 
+using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel; // For accessing the static model
 using DateTime = System.DateTime;
+using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler; // For foreground service handling
+using IDisposable = System.IDisposable;
+using IServiceProvider = System.IServiceProvider;
 using TimeSpan = System.TimeSpan;
+using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
+using CultureInfo = System.Globalization.CultureInfo;
 using GC = System.GC;
-using TimerCallback = System.Threading.TimerCallback;
-
+using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
+using ObservableObservation = TempestMonitor.ViewModels.Observables.ObservableObservation;
+using ObservableWindReading = TempestMonitor.ViewModels.Observables.ObservableWindReading;
+using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
+using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
+using ReadingsListenerService = TempestMonitor.Services.ReadingsListenerService;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
 using Timer = System.Threading.Timer; // Avoid conflict with System.Timers.Timer
-
-using System.ComponentModel;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using CommunityToolkit.Mvvm.Messaging;
-
-using TempestMonitor.Models;
-using TempestMonitor.ViewModels.Observables;
-using TempestMonitor.Services;
-using Serilog;
+using TimerCallback = System.Threading.TimerCallback;
+using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
 
 namespace TempestMonitor.ViewModels;
 

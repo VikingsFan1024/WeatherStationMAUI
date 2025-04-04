@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using SQLite;
-using static SQLite.SQLite3;
-using Serilog;
-using RedStar.Amounts;
-using RedStar.Amounts.StandardUnits;
+﻿using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
+using TableAttribute = SQLite.TableAttribute;
+using ColumnAttribute = SQLite.ColumnAttribute;
+using SpeedUnits = RedStar.Amounts.StandardUnits.SpeedUnits;
+using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
 
 namespace TempestMonitor.Models;
 
@@ -19,7 +11,7 @@ namespace TempestMonitor.Models;
 public class WindReadingModel : ReadingModel
 {
     public static readonly string TypeName = "rapid_wind";
-    public static readonly Dictionary<string, Unit> PropertyUnit = new();
+    public static readonly DictionaryOfStringUnit PropertyUnit = new();
     static WindReadingModel()
     {
         PropertyUnit.Add(nameof(Windspeed), SpeedUnits.MeterPerSecond);

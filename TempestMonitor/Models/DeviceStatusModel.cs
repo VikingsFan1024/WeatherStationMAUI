@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using SQLite;
-using Serilog;
-using System.Text.Json;
-using Unit = RedStar.Amounts.Unit;
+﻿using TableAttribute = SQLite.TableAttribute;
+using ColumnAttribute = SQLite.ColumnAttribute;
 using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
+using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
 
 namespace TempestMonitor.Models;
 [Table("DeviceStatus")]
 public class DeviceStatusModel : ReadingModel
 {
     public static readonly string TypeName = "device_status";
-    public static readonly Dictionary<string, Unit> PropertyUnit = new();
+    public static readonly DictionaryOfStringUnit PropertyUnit = new();
     static DeviceStatusModel()
     {
         PropertyUnit.Add(nameof(Voltage), ElectricUnits.Volt);

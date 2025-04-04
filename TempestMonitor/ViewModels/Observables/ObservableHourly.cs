@@ -1,22 +1,19 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using TempestMonitor.Models;
-using RedStar.Amounts;
+﻿using static System.Linq.Enumerable;  // for Select LINQ method
+
+using ObservableCollectionOfObservableHourly = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableHourly>;
+
+using Amount = RedStar.Amounts.Amount;
+using DateTime = System.DateTime;
+using HourlyModel = TempestMonitor.Models.HourlyModel;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
 
 namespace TempestMonitor.ViewModels.Observables;
 
-public partial class HourlyObservable : BaseObservable
+public partial class ObservableHourly : ObervableBase
 {
     private readonly HourlyModel _hourly;
 
-    public HourlyObservable(HourlyModel hourly, int rowNumber, SettingsModel settings) : base(settings)
+    public ObservableHourly(HourlyModel hourly, int rowNumber, SettingsModel settings) : base(settings)
     {
         _hourly = hourly;
         RowNumber = rowNumber;
@@ -64,12 +61,12 @@ public partial class HourlyObservable : BaseObservable
     public string PrecipitationIcon => _hourly.PrecipitationIcon;
     public string PrecipitationType => _hourly.PrecipitationType;
     public string WindDirectionCardinal => _hourly.WindDirectionCardinal;
-    public static ObservableCollection<HourlyObservable> ConvertToObservableCollection(
+    public static ObservableCollectionOfObservableHourly ConvertToObservableCollection(
         HourlyModel[] hourlies, SettingsModel settings, int takeCount = 24)
     {
         int rowNumber = 1;
-        return new ObservableCollection<HourlyObservable>(
-            hourlies.Select(hourly => new HourlyObservable(hourly, rowNumber++, settings))
+        return new ObservableCollectionOfObservableHourly(
+            hourlies.Select(hourly => new ObservableHourly(hourly, rowNumber++, settings))
         );
     }
 }

@@ -1,12 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TempestMonitor.Models;
-using RedStar.Amounts;
-using System.Globalization;
+﻿using Amount = RedStar.Amounts.Amount;
+using CultureInfo = System.Globalization.CultureInfo;
+using DateTime = System.DateTime;
+using ObservationModel = TempestMonitor.Models.ObservationModel;
+using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
 
 namespace TempestMonitor.ViewModels.Observables;
 

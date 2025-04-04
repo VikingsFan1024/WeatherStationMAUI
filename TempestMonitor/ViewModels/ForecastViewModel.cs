@@ -1,13 +1,16 @@
-﻿using IServiceProvider = System.IServiceProvider;
+﻿using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using CommunityToolkit.Mvvm.Messaging;
-
-using TempestMonitor.Models;
-using TempestMonitor.Services;
-using TempestMonitor.ViewModels.Observables;
+using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
+using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler; // For foreground service handling
+using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
+using IServiceProvider = System.IServiceProvider;
+using ObservableForecast = TempestMonitor.ViewModels.Observables.ObservableForecast; // For ObservableForecast
+using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
+using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
+using RequestForecastsService = TempestMonitor.Services.RequestForecastsService; // For RequestForecastsService
+using SettingsModel = TempestMonitor.Models.SettingsModel;
+using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
 
 namespace TempestMonitor.ViewModels;
 
@@ -20,7 +23,7 @@ sealed partial class ForecastViewModel(IServiceProvider serviceProvider) : INoti
     private readonly SettingsModel _settings = serviceProvider.GetRequiredService<SettingsModel>();
     private readonly ForegroundServiceHandler _foregroundServiceHandler = serviceProvider.GetRequiredService<ForegroundServiceHandler>();
 
-    ForecastObservable? _observableForecast;
+    ObservableForecast? _observableForecast;
 
     public void OnDisappearing()
     {
@@ -44,5 +47,5 @@ sealed partial class ForecastViewModel(IServiceProvider serviceProvider) : INoti
             OnPropertyChanged(nameof(ObservableForecast));
         }
     }
-    public ForecastObservable? ObservableForecast => _observableForecast;
+    public ObservableForecast? ObservableForecast => _observableForecast;
 }

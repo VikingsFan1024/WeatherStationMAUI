@@ -1,11 +1,11 @@
-﻿using SQLite;
-using System.Text.Json;
-//using RedStar.Amounts;
-//using RedStar.Amounts.StandardUnits;
-using System.Linq;
-using System;
-
-using DateTimeOffset = System.DateTimeOffset; // For DateTimeOffset.Now
+﻿using ColumnAttribute = SQLite.ColumnAttribute;
+using IgnoreAttribute = SQLite.IgnoreAttribute;
+using TableAttribute = SQLite.TableAttribute;
+using PrimaryKey = SQLite.PrimaryKeyAttribute;
+using JsonElement = System.Text.Json.JsonElement;
+using Guid = System.Guid;
+using static System.Linq.Enumerable; 
+using DateTimeOffset = System.DateTimeOffset;
 
 namespace TempestMonitor.Models;
 

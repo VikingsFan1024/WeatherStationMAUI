@@ -1,14 +1,18 @@
-﻿using IServiceProvider = System.IServiceProvider;
+﻿using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.Messaging;
+using ObservableCollectionOfObservableDaily = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableDaily>;
 
-using TempestMonitor.Models;
-using TempestMonitor.Services;
-using TempestMonitor.ViewModels.Observables;
+using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
+using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler; // For foreground service handling
+using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
+using IServiceProvider = System.IServiceProvider;
+using ObservableDaily = TempestMonitor.ViewModels.Observables.ObservableDaily; // For ObservableDaily
+using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
+using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
+using RequestForecastsService = TempestMonitor.Services.RequestForecastsService; // For RequestForecastsService
+using SettingsModel = TempestMonitor.Models.SettingsModel;
+using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
 
 namespace TempestMonitor.ViewModels;
 
@@ -21,8 +25,8 @@ sealed partial class DailyForecastViewModel(IServiceProvider serviceProvider) : 
     private readonly SettingsModel _settings = serviceProvider.GetRequiredService<SettingsModel>();
     private readonly ForegroundServiceHandler _foregroundServiceHandler = serviceProvider.GetRequiredService<ForegroundServiceHandler>();
 
-    private ObservableCollection<DailyObservable>? _dailyForecasts;
-    public ObservableCollection<DailyObservable>? DailyForecasts => _dailyForecasts;
+    private ObservableCollectionOfObservableDaily? _dailyForecasts;
+    public ObservableCollectionOfObservableDaily? DailyForecasts => _dailyForecasts;
 
     public void OnDisappearing()
     {
@@ -36,7 +40,7 @@ sealed partial class DailyForecastViewModel(IServiceProvider serviceProvider) : 
         (
             this, (r, m) =>
             {
-                _dailyForecasts = DailyObservable.ConvertToObservableCollection(
+                _dailyForecasts = ObservableDaily.ConvertToObservableCollection(
                     m.Forecast.Dailies, _settings);
                 OnPropertyChanged(nameof(DailyForecasts));
             }
@@ -46,7 +50,7 @@ sealed partial class DailyForecastViewModel(IServiceProvider serviceProvider) : 
             .MostRecentForecast?.Dailies;
 
         if (dailies is not null)
-            _dailyForecasts = DailyObservable.ConvertToObservableCollection(dailies, _settings);
+            _dailyForecasts = ObservableDaily.ConvertToObservableCollection(dailies, _settings);
 
         OnPropertyChanged(nameof(DailyForecasts));
     }

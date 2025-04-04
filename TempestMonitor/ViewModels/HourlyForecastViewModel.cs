@@ -1,15 +1,18 @@
-﻿using IServiceProvider = System.IServiceProvider;
+﻿using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using ObservableCollectionOfObservableHourly = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableHourly>;
 
-using CommunityToolkit.Mvvm.Messaging;
-
-using TempestMonitor.Models;
-using TempestMonitor.Services;
-using TempestMonitor.ViewModels.Observables;
+using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
+using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler; // For foreground service handling
+using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
+using IServiceProvider = System.IServiceProvider;
+using ObservableHourly = TempestMonitor.ViewModels.Observables.ObservableHourly;
+using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
+using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
+using RequestForecastsService = TempestMonitor.Services.RequestForecastsService; // For RequestForecastsService
+using SettingsModel = TempestMonitor.Models.SettingsModel;
+using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
 
 namespace TempestMonitor.ViewModels;
 
@@ -21,8 +24,8 @@ sealed partial class HourlyForecastViewModel(IServiceProvider serviceProvider) :
     private readonly SettingsModel _settings = serviceProvider.GetRequiredService<SettingsModel>();
     private readonly ForegroundServiceHandler _foregroundServiceHandler = serviceProvider.GetRequiredService<ForegroundServiceHandler>();
 
-    private ObservableCollection<HourlyObservable>? _hourlyForecasts;
-    public ObservableCollection<HourlyObservable>? HourlyForecasts => _hourlyForecasts;
+    private ObservableCollectionOfObservableHourly? _hourlyForecasts;
+    public ObservableCollectionOfObservableHourly? HourlyForecasts => _hourlyForecasts;
     public void OnDisappearing()
     {
         _foregroundServiceHandler.Unregister(this);
@@ -35,7 +38,7 @@ sealed partial class HourlyForecastViewModel(IServiceProvider serviceProvider) :
         (
             this, (r, m) =>
             {
-                _hourlyForecasts = HourlyObservable.ConvertToObservableCollection(
+                _hourlyForecasts = ObservableHourly.ConvertToObservableCollection(
                     m.Forecast.Hourlies, _settings);
                 OnPropertyChanged(nameof(HourlyForecasts));
             }
@@ -45,7 +48,7 @@ sealed partial class HourlyForecastViewModel(IServiceProvider serviceProvider) :
                 .MostRecentForecast?.Hourlies;
 
         if (hourlies is not null)
-            _hourlyForecasts = HourlyObservable.ConvertToObservableCollection(hourlies, _settings);
+            _hourlyForecasts = ObservableHourly.ConvertToObservableCollection(hourlies, _settings);
 
         OnPropertyChanged(nameof(HourlyForecasts));
     }

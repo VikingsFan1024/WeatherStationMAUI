@@ -1,21 +1,18 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using TempestMonitor.Models;
-using RedStar.Amounts;
+﻿using static System.Linq.Enumerable;  // for Select LINQ method
+
+using ObservableCollectionOfObservableDaily = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableDaily>;
+
+using Amount = RedStar.Amounts.Amount;
+using DailyModel = TempestMonitor.Models.DailyModel;
+using DateTime = System.DateTime;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
 
 namespace TempestMonitor.ViewModels.Observables;
-public partial class DailyObservable : BaseObservable
+public partial class ObservableDaily : ObervableBase
 {
     private readonly DailyModel _daily;
 
-    public DailyObservable(DailyModel daily, int rowNumber, SettingsModel settings) : base(settings)
+    public ObservableDaily(DailyModel daily, int rowNumber, SettingsModel settings) : base(settings)
     {
         _daily = daily;
         RowNumber = rowNumber;
@@ -42,12 +39,13 @@ public partial class DailyObservable : BaseObservable
     public string? PrecipitationType => _daily.PrecipitationType;
     public DateTime? Sunrise => Constants.UnixSecondsToLocalTime(_daily.Sunrise);
     public DateTime? Sunset => Constants.UnixSecondsToLocalTime(_daily.Sunset);
-    public static ObservableCollection<DailyObservable> ConvertToObservableCollection(
+    public static ObservableCollectionOfObservableDaily ConvertToObservableCollection(
         DailyModel[] dailies, SettingsModel settings)
     {
+        //ToDo: Change to use linq to create the collection
         int rowNumber = 1;
-        return new ObservableCollection<DailyObservable>(
-            dailies.Select(daily => new DailyObservable(daily, rowNumber++, settings))
+        return new ObservableCollectionOfObservableDaily(
+            dailies.Select(daily => new ObservableDaily(daily, rowNumber++, settings))
         );
     }
 }

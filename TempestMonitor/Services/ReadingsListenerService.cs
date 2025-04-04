@@ -1,87 +1,109 @@
-﻿using IServiceProvider = System.IServiceProvider;
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-using IDisposable = System.IDisposable;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using Serilog;
-using UdpReceiveResult = System.Net.Sockets.UdpReceiveResult;
-using UdpClient = System.Net.Sockets.UdpClient;
-using SocketException = System.Net.Sockets.SocketException; // for SocketException in ListenForStationUDPBroadcasts method
-using System.Text.Json;
-using System.Threading.Tasks.Dataflow;
-using TempestMonitor.Models;
-using System.Diagnostics;
-using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel;
-using System.Collections;
-using TempestMonitor;
-//using System.Net.WebSockets;
-using Microsoft.Maui;
-using System.Threading;
-using Exception = System.Exception; // for Exception in ListenForStationUDPBroadcasts method
-using OperationCanceledException = System.OperationCanceledException; // for OperationCanceledException in ListenForStationUDPBroadcasts method
-using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in ListenForStationUDPBroadcasts method
-using ValueTaskOfUdpReceiveResult = System.Threading.Tasks.ValueTask<System.Net.Sockets.UdpReceiveResult>;
-using TaskOfBool = System.Threading.Tasks.Task<bool>; // for Task<bool> in SendClassInstanceToProcessing method
+﻿using System.Threading.Tasks.Dataflow;
 
-using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
-using GC = System.GC; // for GC.SuppressFinalize(this) in Dispose method
-using Task = System.Threading.Tasks.Task;
+using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Send method
+using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+using static System.Threading.Tasks.Dataflow.DataflowBlock; // for BufferBlock and ActionBlock methods - SendAsync()
+
+using DataflowBlock = System.Threading.Tasks.Dataflow.DataflowBlock;
+
+using ActionBlockOfReadingModel = System.Threading.Tasks.Dataflow.ActionBlock<TempestMonitor.Models.ReadingModel>;
+using ValueChangedMessageOfAirObservationModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.AirObservationModel>;
+using ValueChangedMessageOfHubStatusModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.HubStatusModel>;
+using ValueChangedMessageOfLightningStrikeModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.LightningStrikeModel>;
+using ValueChangedMessageOfObservationModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.ObservationModel>;
+using ValueChangedMessageOfReadingModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.ReadingModel>;
+using ValueChangedMessageOfRainStartModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.RainStartModel>;
+using ValueChangedMessageOfSkyObservationModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.SkyObservationModel>;
+using ValueChangedMessageOfWindReadingModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.WindReadingModel>;
+using ValueChangedMessageOfDeviceStatusModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.DeviceStatusModel>;
+
+
 using AggregateException = System.AggregateException; // for AggregateException in Stop method
+using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel;
+using AirObservationModel = TempestMonitor.Models.AirObservationModel;
+using CancellationTokenSource = System.Threading.CancellationTokenSource; // for CancellationTokenSource in ListenForStationUDPBroadcasts method
+using DeviceStatusModel = TempestMonitor.Models.DeviceStatusModel; // for DeviceStatusModel in Send method
+using Exception = System.Exception; // for Exception in ListenForStationUDPBroadcasts method
+using GC = System.GC; // for GC.SuppressFinalize(this) in Dispose method
+using HubStatusModel = TempestMonitor.Models.HubStatusModel; // for HubStatusModel in Send method
+using IDisposable = System.IDisposable;
+using IServiceProvider = System.IServiceProvider;
+using JsonDocument = System.Text.Json.JsonDocument; // for JsonDocument in SetupDataflow and Send methods
+using LightningStrikeModel = TempestMonitor.Models.LightningStrikeModel; // for LightningStrikeModel in Send method
+using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
+using Log = Serilog.Log;
+using ObservationModel = TempestMonitor.Models.ObservationModel; // for ObservationModel in Send method
+using OperationCanceledException = System.OperationCanceledException; // for OperationCanceledException in ListenForStationUDPBroadcasts method
+using RainStartModel = TempestMonitor.Models.RainStartModel; // for RainStartModel in Send method
+using ReadingModel = TempestMonitor.Models.ReadingModel; // for ReadingModel in SetupDataflow and Send methods
+using SettingsModel = TempestMonitor.Models.SettingsModel; // for accessing settings in the constructor of ReadingsListenerService
+using SkyObservationModel = TempestMonitor.Models.SkyObservationModel; // for SkyObservationModel in Send method
+using SocketException = System.Net.Sockets.SocketException; // for SocketException in ListenForStationUDPBroadcasts method
+using Stopwatch = System.Diagnostics.Stopwatch; // for Stopwatch in ListenForStationUDPBroadcasts method
+using Task = System.Threading.Tasks.Task;
+using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in ListenForStationUDPBroadcasts method
+using TaskOfBool = System.Threading.Tasks.Task<bool>; // for Task<bool> in SendClassInstanceToProcessing method
+using TransformBlockOfByteArrayToReadingModel = System.Threading.Tasks.Dataflow.TransformBlock<byte[], TempestMonitor.Models.ReadingModel>; // for TransformBlock in SetupDataflow method
+using UdpClient = System.Net.Sockets.UdpClient;
+using UdpReceiveResult = System.Net.Sockets.UdpReceiveResult;
+using ValueTaskOfUdpReceiveResult = System.Threading.Tasks.ValueTask<System.Net.Sockets.UdpReceiveResult>;
+using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
+using WindReadingModel = TempestMonitor.Models.WindReadingModel; // for WindReadingModel in Send method
 
 namespace TempestMonitor.Services;
 
 sealed public partial class ReadingsListenerService(IServiceProvider serviceProvider) : IDisposable
 {
     public class WindReadingMessage(WindReadingModel windReading)
-        : ValueChangedMessage<WindReadingModel>(windReading)
+        : ValueChangedMessageOfWindReadingModel(windReading)
     {
         private readonly WindReadingModel _windReading = windReading;
         public WindReadingModel WindReading => _windReading;
     }
     public class ObservationReadingMessage(ObservationModel observationReading) :
-        ValueChangedMessage<ObservationModel>(observationReading)
+        ValueChangedMessageOfObservationModel(observationReading)
     {
         private readonly ObservationModel _observationReading = observationReading;
         public ObservationModel ObservationReading => _observationReading;
     }
     public class LightningStrikeMessage(LightningStrikeModel lightningStrikeReading) :
-        ValueChangedMessage<LightningStrikeModel>(lightningStrikeReading)
+        ValueChangedMessageOfLightningStrikeModel(lightningStrikeReading)
     {
         private readonly LightningStrikeModel _lightningStrikeReading = lightningStrikeReading;
         public LightningStrikeModel LightningStrikeReading => _lightningStrikeReading;
     }
     public class RainStartMessage(RainStartModel rainStartReading) :
-        ValueChangedMessage<RainStartModel>(rainStartReading)
+        ValueChangedMessageOfRainStartModel(rainStartReading)
     {
         private readonly RainStartModel _rainStartReading = rainStartReading;
         public RainStartModel RainStartReading => _rainStartReading;
     }
     public class HubStatusMessage(HubStatusModel hubStatusReading) :
-        ValueChangedMessage<HubStatusModel>(hubStatusReading)
+        ValueChangedMessageOfHubStatusModel(hubStatusReading)
     {
         private readonly HubStatusModel _hubStatusReading = hubStatusReading;
         public HubStatusModel HubStatusReading => _hubStatusReading;
     }
     public class DeviceStatusMessage(DeviceStatusModel deviceStatusReading) :
-        ValueChangedMessage<DeviceStatusModel>(deviceStatusReading)
+        ValueChangedMessageOfDeviceStatusModel(deviceStatusReading)
     {
         private readonly DeviceStatusModel _deviceStatusReading = deviceStatusReading;
         public DeviceStatusModel DeviceStatusReading => _deviceStatusReading;
     }
     public class AirObservationMessage(AirObservationModel airObservationReading) :
-        ValueChangedMessage<AirObservationModel>(airObservationReading)
+        ValueChangedMessageOfAirObservationModel(airObservationReading)
     {
         private readonly AirObservationModel _airObservationReading = airObservationReading;
         public AirObservationModel AirObservationReading => _airObservationReading;
     }
     public class SkyObservationMessage(SkyObservationModel skyObservationReading) :
-        ValueChangedMessage<SkyObservationModel>(skyObservationReading)
+        ValueChangedMessageOfSkyObservationModel(skyObservationReading)
     {
         private readonly SkyObservationModel _skyObservationReading = skyObservationReading;
         public SkyObservationModel SkyObservationReading => _skyObservationReading;
     }
     public class ReadingMessage(ReadingModel reading) : 
-        ValueChangedMessage<ReadingModel>(reading)
+        ValueChangedMessageOfReadingModel(reading)
     {
         private readonly object _reading = reading;
         public object Reading => _reading;
@@ -98,8 +120,8 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
 
     private CancellationTokenSource? _cancellationTokenSource;
 
-    private TransformBlock<byte[], ReadingModel>? _udpReadingToReadingBlock;
-    private ActionBlock<ReadingModel>? _readingToReferenceMessagesBlock;
+    private TransformBlockOfByteArrayToReadingModel? _udpReadingToReadingBlock;
+    private ActionBlockOfReadingModel? _readingToReferenceMessagesBlock;
 
     private ListOfTasks? _completionList;
 

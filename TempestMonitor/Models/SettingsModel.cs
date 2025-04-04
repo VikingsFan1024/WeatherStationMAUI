@@ -1,10 +1,16 @@
-﻿using Serilog;
-using RedStar.Amounts;
-using RedStar.Amounts.StandardUnits;
+﻿using UnitManager = RedStar.Amounts.UnitManager; // For UnitManager.GetUnitByName
 
-using System.IO;
-using System;
-using Microsoft.Maui.Storage; // For Preferences
+using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
+using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
+using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
+using PressureUnits = RedStar.Amounts.StandardUnits.PressureUnits;
+using SpeedUnits = RedStar.Amounts.StandardUnits.SpeedUnits;
+using Log = Serilog.Log;
+using Path = System.IO.Path; // For Path.Combine
+using Environment = System.Environment; // For Environment.GetFolderPath
+using Exception = System.Exception; // For Exception in SaveSetting method
+
+using Preferences = Microsoft.Maui.Storage.Preferences;
 
 namespace TempestMonitor.Models;
 

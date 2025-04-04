@@ -1,12 +1,9 @@
 ﻿using IServiceProvider = System.IServiceProvider;
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using Serilog;
-using TempestMonitor.Services;
-using TempestMonitor.Models;
-using TempestMonitor.ViewModels;
-using TempestMonitor.Views;
-using TempestMonitor.ViewLoaders;
+using Log = Serilog.Log;
+using MainViewModel = TempestMonitor.ViewModels.MainViewModel;
+using HomePageViewLoader = TempestMonitor.ViewLoaders.HomePageViewLoader;
 
 using ContentPage = Microsoft.Maui.Controls.ContentPage;
 using DeviceDisplay = Microsoft.Maui.Devices.DeviceDisplay;
