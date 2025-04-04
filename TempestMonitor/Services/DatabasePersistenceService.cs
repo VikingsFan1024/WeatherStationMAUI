@@ -1,15 +1,18 @@
-﻿using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
+﻿// static using for extension method classes
+using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 using static System.Threading.Tasks.Dataflow.DataflowBlock; // for BufferBlock and ActionBlock methods - SendAsync()
 
-using IServiceProvider = System.IServiceProvider;
-using IDisposable = System.IDisposable;
-
+// Aliases for types used in this file to keep the code cleaner
 using ActionBlockOfObject = System.Threading.Tasks.Dataflow.ActionBlock<object>;
+using BufferBlockOfObject = System.Threading.Tasks.Dataflow.BufferBlock<object>;
+using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
+using TaskOfBool = System.Threading.Tasks.Task<bool>;
+
+// using directives for precision in what specific classes are employed
 using AggregateException = System.AggregateException;
 using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel; // for ApplicationStatisticsModel, used to track statistics on saved records
 using AirObservationModel = TempestMonitor.Models.AirObservationModel; // for AirObservationModel
-using BufferBlockOfObject = System.Threading.Tasks.Dataflow.BufferBlock<object>;
 using CancellationTokenSource = System.Threading.CancellationTokenSource;
 using CurrentConditionsModel = TempestMonitor.Models.CurrentConditionsModel; // for CurrentConditionsModel
 using DailyModel = TempestMonitor.Models.DailyModel; // for DailyModel
@@ -22,8 +25,9 @@ using FileSystem = Microsoft.Maui.Storage.FileSystem;
 using ForecastModel = TempestMonitor.Models.ForecastModel; // for ForecastModel
 using HourlyModel = TempestMonitor.Models.HourlyModel; // for HourlyModel
 using HubStatusModel = TempestMonitor.Models.HubStatusModel; // for HubStatusModel
+using IDisposable = System.IDisposable;
+using IServiceProvider = System.IServiceProvider;
 using LightningStrikeModel = TempestMonitor.Models.LightningStrikeModel; // for LightningStrikeModel
-using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
 using Log = Serilog.Log;
 using ObservationModel = TempestMonitor.Models.ObservationModel; // for ObservationModel
 using RainStartModel = TempestMonitor.Models.RainStartModel; // for RainStartModel
@@ -35,7 +39,6 @@ using SQLiteConnection = SQLite.SQLiteConnection; // for SQLiteConnection, to av
 using StreamReader = System.IO.StreamReader;
 using Task = System.Threading.Tasks.Task;
 using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in RequestForecasts method
-using TaskOfBool = System.Threading.Tasks.Task<bool>; // for Task<bool> in SendClassInstanceToProcessing method
 using UnitsModel = TempestMonitor.Models.UnitsModel; // for UnitsModel, used in ForecastModel
 using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
 using WindReadingModel = TempestMonitor.Models.WindReadingModel; // for WindReadingModel, used in the database persistence service

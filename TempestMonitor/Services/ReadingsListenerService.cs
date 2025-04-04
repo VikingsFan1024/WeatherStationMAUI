@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks.Dataflow;
-
+﻿// static using for extension method classes
 using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Send method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 using static System.Threading.Tasks.Dataflow.DataflowBlock; // for BufferBlock and ActionBlock methods - SendAsync()
 
-using DataflowBlock = System.Threading.Tasks.Dataflow.DataflowBlock;
-
+// Aliases for types used in this file to keep the code cleaner
 using ActionBlockOfReadingModel = System.Threading.Tasks.Dataflow.ActionBlock<TempestMonitor.Models.ReadingModel>;
+using TaskOfBool = System.Threading.Tasks.Task<bool>;
+using TransformBlockOfByteArrayToReadingModel = System.Threading.Tasks.Dataflow.TransformBlock<byte[], TempestMonitor.Models.ReadingModel>; // for TransformBlock in SetupDataflow method
 using ValueChangedMessageOfAirObservationModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.AirObservationModel>;
 using ValueChangedMessageOfHubStatusModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.HubStatusModel>;
 using ValueChangedMessageOfLightningStrikeModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.LightningStrikeModel>;
@@ -17,38 +17,39 @@ using ValueChangedMessageOfSkyObservationModel = CommunityToolkit.Mvvm.Messaging
 using ValueChangedMessageOfWindReadingModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.WindReadingModel>;
 using ValueChangedMessageOfDeviceStatusModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.DeviceStatusModel>;
 
-
-using AggregateException = System.AggregateException; // for AggregateException in Stop method
+// using directives for precision in what specific classes are employed
+using AggregateException = System.AggregateException;
 using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel;
 using AirObservationModel = TempestMonitor.Models.AirObservationModel;
-using CancellationTokenSource = System.Threading.CancellationTokenSource; // for CancellationTokenSource in ListenForStationUDPBroadcasts method
-using DeviceStatusModel = TempestMonitor.Models.DeviceStatusModel; // for DeviceStatusModel in Send method
-using Exception = System.Exception; // for Exception in ListenForStationUDPBroadcasts method
-using GC = System.GC; // for GC.SuppressFinalize(this) in Dispose method
-using HubStatusModel = TempestMonitor.Models.HubStatusModel; // for HubStatusModel in Send method
+using CancellationTokenSource = System.Threading.CancellationTokenSource;
+using DeviceStatusModel = TempestMonitor.Models.DeviceStatusModel;
+using DataflowBlock = System.Threading.Tasks.Dataflow.DataflowBlock;
+using DataflowLinkOptions = System.Threading.Tasks.Dataflow.DataflowLinkOptions;
+using Exception = System.Exception;
+using ExecutionDataflowBlockOptions = System.Threading.Tasks.Dataflow.ExecutionDataflowBlockOptions;
+using GC = System.GC;
+using HubStatusModel = TempestMonitor.Models.HubStatusModel;
 using IDisposable = System.IDisposable;
 using IServiceProvider = System.IServiceProvider;
-using JsonDocument = System.Text.Json.JsonDocument; // for JsonDocument in SetupDataflow and Send methods
-using LightningStrikeModel = TempestMonitor.Models.LightningStrikeModel; // for LightningStrikeModel in Send method
+using JsonDocument = System.Text.Json.JsonDocument;
+using LightningStrikeModel = TempestMonitor.Models.LightningStrikeModel;
 using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
 using Log = Serilog.Log;
-using ObservationModel = TempestMonitor.Models.ObservationModel; // for ObservationModel in Send method
-using OperationCanceledException = System.OperationCanceledException; // for OperationCanceledException in ListenForStationUDPBroadcasts method
-using RainStartModel = TempestMonitor.Models.RainStartModel; // for RainStartModel in Send method
-using ReadingModel = TempestMonitor.Models.ReadingModel; // for ReadingModel in SetupDataflow and Send methods
-using SettingsModel = TempestMonitor.Models.SettingsModel; // for accessing settings in the constructor of ReadingsListenerService
-using SkyObservationModel = TempestMonitor.Models.SkyObservationModel; // for SkyObservationModel in Send method
-using SocketException = System.Net.Sockets.SocketException; // for SocketException in ListenForStationUDPBroadcasts method
-using Stopwatch = System.Diagnostics.Stopwatch; // for Stopwatch in ListenForStationUDPBroadcasts method
+using ObservationModel = TempestMonitor.Models.ObservationModel;
+using OperationCanceledException = System.OperationCanceledException;
+using RainStartModel = TempestMonitor.Models.RainStartModel;
+using ReadingModel = TempestMonitor.Models.ReadingModel;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
+using SkyObservationModel = TempestMonitor.Models.SkyObservationModel;
+using SocketException = System.Net.Sockets.SocketException;
+using Stopwatch = System.Diagnostics.Stopwatch;
 using Task = System.Threading.Tasks.Task;
-using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in ListenForStationUDPBroadcasts method
-using TaskOfBool = System.Threading.Tasks.Task<bool>; // for Task<bool> in SendClassInstanceToProcessing method
-using TransformBlockOfByteArrayToReadingModel = System.Threading.Tasks.Dataflow.TransformBlock<byte[], TempestMonitor.Models.ReadingModel>; // for TransformBlock in SetupDataflow method
+using TaskCanceledException = System.Threading.Tasks.TaskCanceledException;
 using UdpClient = System.Net.Sockets.UdpClient;
 using UdpReceiveResult = System.Net.Sockets.UdpReceiveResult;
 using ValueTaskOfUdpReceiveResult = System.Threading.Tasks.ValueTask<System.Net.Sockets.UdpReceiveResult>;
 using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
-using WindReadingModel = TempestMonitor.Models.WindReadingModel; // for WindReadingModel in Send method
+using WindReadingModel = TempestMonitor.Models.WindReadingModel;
 
 namespace TempestMonitor.Services;
 
@@ -190,7 +191,7 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
         if (_completionList is null) return false;
 
         _udpReadingToReadingBlock =
-            new TransformBlock<byte[], ReadingModel>
+            new TransformBlockOfByteArrayToReadingModel
             (
                 byteArray => new ReadingModel(JsonDocument.Parse(byteArray).RootElement.Clone()),
                 new ExecutionDataflowBlockOptions
@@ -204,7 +205,7 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
             );
 
         _readingToReferenceMessagesBlock =
-            new ActionBlock<ReadingModel>
+            new ActionBlockOfReadingModel
             (
                 readingModel => Send(readingModel),
                 new ExecutionDataflowBlockOptions

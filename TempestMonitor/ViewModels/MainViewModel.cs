@@ -1,9 +1,11 @@
-﻿using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
+﻿// static using for extension method classes
+using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel; // For accessing the static model
+// using directives for precision in what specific classes are employed
+using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel;
 using DateTime = System.DateTime;
-using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler; // For foreground service handling
+using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler;
 using IDisposable = System.IDisposable;
 using IServiceProvider = System.IServiceProvider;
 using TimeSpan = System.TimeSpan;
@@ -17,7 +19,7 @@ using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
 using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
 using ReadingsListenerService = TempestMonitor.Services.ReadingsListenerService;
 using SettingsModel = TempestMonitor.Models.SettingsModel;
-using Timer = System.Threading.Timer; // Avoid conflict with System.Timers.Timer
+using Timer = System.Threading.Timer;
 using TimerCallback = System.Threading.TimerCallback;
 using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
 

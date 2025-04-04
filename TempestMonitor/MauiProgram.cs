@@ -1,45 +1,45 @@
-﻿using SettingsModel = TempestMonitor.Models.SettingsModel;
-
-using ApplicationSettingsViewModel = TempestMonitor.ViewModels.ApplicationSettingsViewModel;
-using ApplicationStatisticsViewModel = TempestMonitor.ViewModels.ApplicationStatisticsViewModel;
-using DailyForecastViewModel = TempestMonitor.ViewModels.DailyForecastViewModel;
-using ForecastViewModel = TempestMonitor.ViewModels.ForecastViewModel;
-using HistoryViewModel = TempestMonitor.ViewModels.HistoryViewModel;
-using HourlyForecastViewModel = TempestMonitor.ViewModels.HourlyForecastViewModel;
-using LiveStationReadingsViewModel = TempestMonitor.ViewModels.LiveStationReadingsViewModel;
-using MainViewModel = TempestMonitor.ViewModels.MainViewModel;
-
-using ApplicationSettingsPage = TempestMonitor.Pages.ApplicationSettingsPage;
-using ApplicationStatisticsPage = TempestMonitor.Pages.ApplicationStatisticsPage;
-using DailyForecastPage = TempestMonitor.Pages.DailyForecastPage;
-using ForecastPage = TempestMonitor.Pages.ForecastPage;
-using HistoryPage = TempestMonitor.Pages.HistoryPage;
-using HourlyForecastPage = TempestMonitor.Pages.HourlyForecastPage;
-using LiveStationReadingsPage = TempestMonitor.Pages.LiveStationReadingsPage;
-using MainPage = TempestMonitor.Pages.MainPage;
-
-using DatabasePersistenceService = TempestMonitor.Services.DatabasePersistenceService;
-using DatabaseService = TempestMonitor.Services.DatabaseService;
-
-using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler;
-using RequestForecastsService = TempestMonitor.Services.RequestForecastsService;
-using ReadingsListenerService = TempestMonitor.Services.ReadingsListenerService;
-
-#if DEBUG
+﻿// static using for extension method classes
+using static Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions;
+#if DEBUG 
 using static Microsoft.Extensions.Logging.DebugLoggerFactoryExtensions;
 #endif
+using static Microsoft.Maui.Hosting.FontsMauiAppBuilderExtensions;
+using static Microsoft.Maui.Hosting.FontCollectionExtensions;
+using static CommunityToolkit.Maui.AppBuilderExtensions;
 
-using CommunityToolkit.Maui;
-
-using IFolderPicker = CommunityToolkit.Maui.Storage.IFolderPicker;
+// using directives for precision in what specific classes are employed
+using ApplicationSettingsPage = TempestMonitor.Pages.ApplicationSettingsPage;
+using ApplicationSettingsViewModel = TempestMonitor.ViewModels.ApplicationSettingsViewModel;
+using ApplicationStatisticsPage = TempestMonitor.Pages.ApplicationStatisticsPage;
+using ApplicationStatisticsViewModel = TempestMonitor.ViewModels.ApplicationStatisticsViewModel;
+using DailyForecastPage = TempestMonitor.Pages.DailyForecastPage;
+using DailyForecastViewModel = TempestMonitor.ViewModels.DailyForecastViewModel;
+using DatabasePersistenceService = TempestMonitor.Services.DatabasePersistenceService;
+using DatabaseService = TempestMonitor.Services.DatabaseService;
 using FolderPicker = CommunityToolkit.Maui.Storage.FolderPicker;
-
-using UnitManager = RedStar.Amounts.UnitManager;
-using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
+using ForecastPage = TempestMonitor.Pages.ForecastPage;
+using ForecastViewModel = TempestMonitor.ViewModels.ForecastViewModel;
+using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler;
+using HistoryPage = TempestMonitor.Pages.HistoryPage;
+using HistoryViewModel = TempestMonitor.ViewModels.HistoryViewModel;
+using HourlyForecastPage = TempestMonitor.Pages.HourlyForecastPage;
+using HourlyForecastViewModel = TempestMonitor.ViewModels.HourlyForecastViewModel;
+using IFolderPicker = CommunityToolkit.Maui.Storage.IFolderPicker;
+using LiveStationReadingsPage = TempestMonitor.Pages.LiveStationReadingsPage;
+using LiveStationReadingsViewModel = TempestMonitor.ViewModels.LiveStationReadingsViewModel;
+using MainPage = TempestMonitor.Pages.MainPage;
+using MainViewModel = TempestMonitor.ViewModels.MainViewModel;
 using MauiApp = Microsoft.Maui.Hosting.MauiApp;
-using Microsoft.Maui.Controls.Hosting; // For UseMauiApp
-using Microsoft.Maui.Hosting; // For MauiAppBuilder
-using Microsoft.Extensions.DependencyInjection; // For IServiceCollection
+using MauiAppBuilder = Microsoft.Maui.Hosting.MauiAppBuilder;
+using ReadingsListenerService = TempestMonitor.Services.ReadingsListenerService;
+using RequestForecastsService = TempestMonitor.Services.RequestForecastsService;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
+using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
+using UnitManager = RedStar.Amounts.UnitManager;
+
+//using static Microsoft.Maui.Controls.Hosting.AppHostBuilderExtensions;
+using Microsoft.Maui.Controls.Hosting;  // ToDo: Needed for UseMauiApp<App> in MauiApp.CreateBuilder() but unable to get to work with
+    // static using for extension method
 
 namespace TempestMonitor;
 public static class MauiProgram

@@ -1,4 +1,5 @@
-﻿using Amount = RedStar.Amounts.Amount;
+﻿// using directives for precision in what specific classes are employed
+using Amount = RedStar.Amounts.Amount;
 using SettingsModel = TempestMonitor.Models.SettingsModel;
 using StationModel = TempestMonitor.Models.StationModel;
 

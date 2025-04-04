@@ -1,7 +1,10 @@
-﻿using static System.Linq.Enumerable;  // for Select LINQ method
+﻿// static using for extension method classes
+using static System.Linq.Enumerable;
 
+// Aliases for types used in this file to keep the code cleaner
 using ObservableCollectionOfObservableHourly = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableHourly>;
 
+// using directives for precision in what specific classes are employed
 using Amount = RedStar.Amounts.Amount;
 using DateTime = System.DateTime;
 using HourlyModel = TempestMonitor.Models.HourlyModel;

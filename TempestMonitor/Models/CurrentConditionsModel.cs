@@ -1,6 +1,7 @@
-﻿using TableAttribute = SQLite.TableAttribute;
+﻿// using directives for precision in what specific classes are employed
 using ColumnAttribute = SQLite.ColumnAttribute;
 using JsonElement = System.Text.Json.JsonElement;
+using TableAttribute = SQLite.TableAttribute;
 
 namespace TempestMonitor.Models;
 

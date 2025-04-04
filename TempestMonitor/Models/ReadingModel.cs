@@ -1,12 +1,15 @@
-﻿using ColumnAttribute = SQLite.ColumnAttribute;
-using PrimaryKeyAttribute = SQLite.PrimaryKeyAttribute;
-using IgnoreAttribute = SQLite.IgnoreAttribute;
+﻿// Alaises for types used in the code to avoid conflicts and improve readability
 using ListOfStrings = System.Collections.Generic.List<string>;
+
+// Explicit using directives to be precise with types used in the code
+using ColumnAttribute = SQLite.ColumnAttribute;
 using DateTimeOffset = System.DateTimeOffset;
 using Guid = System.Guid;
-using NotSupportedException = System.NotSupportedException;
+using IgnoreAttribute = SQLite.IgnoreAttribute;
 using JsonElement = System.Text.Json.JsonElement;
 using Log = Serilog.Log;
+using NotSupportedException = System.NotSupportedException;
+using PrimaryKeyAttribute = SQLite.PrimaryKeyAttribute;
 
 namespace TempestMonitor.Models;
 
