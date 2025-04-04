@@ -1,14 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TempestMonitor.Models;
+﻿using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
+using UnitsModel = TempestMonitor.Models.UnitsModel;
 
 namespace TempestMonitor.ViewModels.Observables;
 
-public partial class UnitsObservable(UnitsModel units) : ObservableObject
+public partial class ObservableUnits(UnitsModel units) : ObservableObject
 {
     private readonly UnitsModel _units = units;
 

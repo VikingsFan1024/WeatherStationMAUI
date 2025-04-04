@@ -1,10 +1,8 @@
-using IServiceProvider = System.IServiceProvider;
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using Microsoft.Extensions.DependencyInjection;
-using TempestMonitor.ViewModels;
-
 using ContentView = Microsoft.Maui.Controls.ContentView;
+using HourlyForecastViewModel = TempestMonitor.ViewModels.HourlyForecastViewModel;
+using IServiceProvider = System.IServiceProvider;
 
 namespace TempestMonitor.Views.HourlyForecastDeviceViews;
 

@@ -1,16 +1,20 @@
+#if ANDROID
+using Toast = CommunityToolkit.Maui.Alerts.Toast; // Android uses the CommunityToolkit.Maui.Alerts.Toast for showing toast messages
+using ToastDuration = CommunityToolkit.Maui.Core.ToastDuration; // Android uses the ToastDuration enum for duration
+#endif
+
 using IServiceProvider = System.IServiceProvider;
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using CommunityToolkit.Maui.Storage;
-using Serilog;
-using TempestMonitor.ViewModels;
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
+using IFolderPicker = CommunityToolkit.Maui.Storage.IFolderPicker;
+using Log = Serilog.Log;
+using ApplicationSettingsViewModel = TempestMonitor.ViewModels.ApplicationSettingsViewModel;
 
 using CancellationTokenSource = System.Threading.CancellationTokenSource;
 using ContentPage = Microsoft.Maui.Controls.ContentPage;
 using EventArgs = System.EventArgs;
 using Exception = System.Exception;
+
 namespace TempestMonitor.Pages;
 public partial class ApplicationSettingsPage : ContentPage
 {

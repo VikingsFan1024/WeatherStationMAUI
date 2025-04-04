@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
-using static SQLite.SQLite3;
-using Serilog;
-using System.Text.Json;
-using RedStar.Amounts;
-using RedStar.Amounts.StandardUnits;
+﻿using ColumnAttribute = SQLite.ColumnAttribute;
+using TableAttribute = SQLite.TableAttribute;
+using static System.Linq.Enumerable;
 
 namespace TempestMonitor.Models;
 [Table("HubStatus")]

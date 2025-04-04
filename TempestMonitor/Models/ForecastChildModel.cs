@@ -1,10 +1,7 @@
-﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using ColumnAttribute = SQLite.ColumnAttribute;
+using IgnoreAttribute = SQLite.IgnoreAttribute;
+using Guid = System.Guid;
+using JsonElement = System.Text.Json.JsonElement;
 
 namespace TempestMonitor.Models;
 

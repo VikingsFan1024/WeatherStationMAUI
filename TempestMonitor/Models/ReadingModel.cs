@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-
+﻿using ColumnAttribute = SQLite.ColumnAttribute;
+using PrimaryKeyAttribute = SQLite.PrimaryKeyAttribute;
+using IgnoreAttribute = SQLite.IgnoreAttribute;
 using ListOfStrings = System.Collections.Generic.List<string>;
 using DateTimeOffset = System.DateTimeOffset;
 using Guid = System.Guid;
-using SQLite;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Serilog;
 using NotSupportedException = System.NotSupportedException;
+using JsonElement = System.Text.Json.JsonElement;
+using Log = Serilog.Log;
 
 namespace TempestMonitor.Models;
 
@@ -36,7 +35,6 @@ public class ReadingModel
     [Column("type")]
     public string Type { get; set; } = string.Empty;
     [Ignore]
-    [JsonIgnore]
     public JsonElement JsonElement { get; set; }
     public ReadingModel()
     {

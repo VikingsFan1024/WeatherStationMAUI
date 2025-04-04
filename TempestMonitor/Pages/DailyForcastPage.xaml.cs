@@ -1,10 +1,8 @@
 using IServiceProvider = System.IServiceProvider;
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using Microsoft.Extensions.DependencyInjection;
-
-using TempestMonitor.ViewModels;
-using TempestMonitor.ViewLoaders;
+using DailyForecastViewModel = TempestMonitor.ViewModels.DailyForecastViewModel;
+using DailyForecastViewLoader = TempestMonitor.ViewLoaders.DailyForecastViewLoader;
 
 namespace TempestMonitor.Pages;
 

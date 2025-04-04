@@ -1,41 +1,51 @@
-﻿using IServiceProvider = System.IServiceProvider;
+﻿using IDisposable = System.IDisposable;
+using IServiceProvider = System.IServiceProvider;
+
+using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Send method
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-using IDisposable = System.IDisposable;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using Microsoft.VisualBasic;
-using Serilog;
-using System.Diagnostics;
-using System.Net.Http.Json;
-using System.Net.Sockets;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks.Dataflow;
-using TempestMonitor.Models;
-using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel;
-using HttpClient = System.Net.Http.HttpClient; // for HttpClient
-using HttpRequestException = System.Net.Http.HttpRequestException;
-using System.Threading.Tasks;
-using TimeSpan = System.TimeSpan;
-using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
-using Exception = System.Exception; // for Exception
+using static System.Net.Http.Json.HttpClientJsonExtensions; // for GetFromJsonAsync<T> extension method
+using static System.Threading.Tasks.Dataflow.DataflowBlock; // for BufferBlock and ActionBlock methods - SendAsync()
+
+using ActionBlockOfForecastModel = System.Threading.Tasks.Dataflow.ActionBlock<TempestMonitor.Models.ForecastModel>; // for ActionBlock<ForecastModel>
 using AggregateException = System.AggregateException;
+using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel;
+using BufferBlockOfForecastModel = System.Threading.Tasks.Dataflow.BufferBlock<TempestMonitor.Models.ForecastModel>; // for BufferBlock<ForecastModel>
+using CancellationTokenSource = System.Threading.CancellationTokenSource; // for CancellationTokenSource
+using DataflowLinkOptions = System.Threading.Tasks.Dataflow.DataflowLinkOptions; // for DataflowLinkOptions
+using Exception = System.Exception;             // for Exception
+using ExecutionDataflowBlockOptions = System.Threading.Tasks.Dataflow.ExecutionDataflowBlockOptions; // for ExecutionDataflowBlockOptions
+using ForecastChildModel = TempestMonitor.Models.ForecastChildModel; // for ForecastChildModel, used in SendToDatabase method
+using ForecastModel = TempestMonitor.Models.ForecastModel; // for ForecastModel
+using HttpClient = System.Net.Http.HttpClient;  // for HttpClient
+using HttpRequestException = System.Net.Http.HttpRequestException;
+using JsonDocument = System.Text.Json.JsonDocument; // for JsonDocument in RequestForecasts method
+using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
+using Log = Serilog.Log;                        // Serilog for logging
 using OperationCanceledException = System.OperationCanceledException; // for OperationCanceledException in ListenForStationUDPBroadcasts method
+using ValueChangedMessageOfForecastModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.ForecastModel>;
+using ValueChangedMessageOfObject = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<object>; // for ForecastPartMessage
+using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
+using SettingsModel = TempestMonitor.Models.SettingsModel; // for SettingsModel, used to validate settings and get StationID and RestAPIKey
+using Stopwatch = System.Diagnostics.Stopwatch; // for Stopwatch to measure elapsed time of HTTP requests
+using Task = System.Threading.Tasks.Task; // for Task in async methods
 using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in RequestForecasts method
+using TaskOfBool = System.Threading.Tasks.Task<bool>; // for Task<bool> in RequestForecasts method
+using TaskOfJsonDocument = System.Threading.Tasks.Task<System.Text.Json.JsonDocument?>; // for Task<JsonDocument?> in RequestForecasts method
+using TimeSpan = System.TimeSpan;
 
 namespace TempestMonitor.Services;
 
 sealed public partial class RequestForecastsService(IServiceProvider serviceProvider) : IDisposable
 {
-    public class ForecastMessage(ForecastModel forecastModel) : 
-        ValueChangedMessage<ForecastModel>(forecastModel)
+    public class ForecastMessage(ForecastModel forecastModel) :
+        ValueChangedMessageOfForecastModel(forecastModel)
     {
         private readonly ForecastModel _forecastModel = forecastModel;
         public ForecastModel Forecast => _forecastModel;
     }
 
-    public class ForecastPartMessage(object forecastPart) : 
-        ValueChangedMessage<object>(forecastPart)
+    public class ForecastPartMessage(object forecastPart) :
+        ValueChangedMessageOfObject(forecastPart)
     {
         private readonly object _forecastPart = forecastPart;
         public object ForecastPart => _forecastPart;
@@ -52,8 +62,8 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
 
     private CancellationTokenSource? _cancellationTokenSource;
 
-    private BufferBlock<ForecastModel>? _forecastModelBufferBlock;
-    private ActionBlock<ForecastModel>? _forecastModelToUserInterfaceAndDatabaseBlock;
+    private BufferBlockOfForecastModel? _forecastModelBufferBlock;
+    private ActionBlockOfForecastModel? _forecastModelToUserInterfaceAndDatabaseBlock;
 
     private ListOfTasks? _completionList;
     private bool _isRunning;
@@ -78,7 +88,7 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
 
         Log.Information("Started");
     }
-    public async Task<bool> Init()
+    public async TaskOfBool Init()
     {
         if (_cancellationTokenSource is null) return false;
         if (_completionList is null) return false;
@@ -112,7 +122,7 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
         if (_completionList is null) return false;
 
         _forecastModelBufferBlock =
-            new BufferBlock<ForecastModel>
+            new BufferBlockOfForecastModel
             (
                 new ExecutionDataflowBlockOptions
                 {
@@ -125,7 +135,7 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
             );
 
         _forecastModelToUserInterfaceAndDatabaseBlock =
-            new ActionBlock<ForecastModel>
+            new ActionBlockOfForecastModel
             (
                 forecastModel =>
                 {
@@ -233,7 +243,7 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
 
         Log.Information("Stopped");
     }
-    public async Task<bool> RequestForecasts()
+    public async TaskOfBool RequestForecasts()
     {
         if (_forecastModelBufferBlock is null) return false;
         if (_cancellationTokenSource is null) return false;
@@ -259,7 +269,7 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
                 stopwatch.Start();
                 var requestString = $"{Constants.BaseForecastURL}?station_id={_settings.StationID}&token={_settings.RestAPIKey}";
 
-                Task<JsonDocument?>? taskOfJsonDocument = null;
+                TaskOfJsonDocument? taskOfJsonDocument = null;
                 JsonDocument? jsonDocument = null;
                 try
                 {

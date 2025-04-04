@@ -5,6 +5,7 @@ namespace TempestMonitor.ViewModels.History;
 public sealed class HourlyObservationSummary
 {
     public required long HoursBack { get; set; }
+    public long Hour => MaximumTimestamp.Hour; // Expose the hour of the maximum timestamp for convenience
     public required long Count { get; set; }
     public required long LightningStrikesDuringHour { get; set; }
     public required double MinimumTemperature { get; set; }
@@ -17,6 +18,7 @@ public sealed class HourlyObservationSummary
     public required double MaximumWindGust { get; set; }
     public required double AverageWindspeed { get; set; }
     public required double RainAccumulationDuringHour { get; set; }
+    public double RainAccumulationTotal { get; set; }
     public required double AverageLightningStrikeDistance { get; set; }
 
     public required double MinimumRelativeHumidity { get; set; }

@@ -8,10 +8,13 @@ using TimerCallback = System.Threading.TimerCallback;
 
 using Timer = System.Threading.Timer; // Avoid conflict with System.Timers.Timer
 
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using TempestMonitor.Models;
-using TempestMonitor.Services;
+using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel; // For accessing the static model
+using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
+using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler; // For foreground service handling
+using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
+using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
+using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
 
 namespace TempestMonitor.ViewModels;
 sealed partial class ApplicationStatisticsViewModel(IServiceProvider serviceProvider) : 

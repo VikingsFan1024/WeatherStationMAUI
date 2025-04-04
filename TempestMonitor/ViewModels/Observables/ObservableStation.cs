@@ -1,18 +1,13 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TempestMonitor.Models;
-using RedStar.Amounts;
+﻿using Amount = RedStar.Amounts.Amount;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
+using StationModel = TempestMonitor.Models.StationModel;
 
 namespace TempestMonitor.ViewModels.Observables;
 
-public partial class StationObservable : BaseObservable
+public partial class ObservableStation : ObervableBase
 {
     StationModel _station;
-    public StationObservable(StationModel station, SettingsModel settings) : base(settings)
+    public ObservableStation(StationModel station, SettingsModel settings) : base(settings)
     {
         _station = station;
         AGL = new Amount(

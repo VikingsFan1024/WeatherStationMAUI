@@ -1,17 +1,17 @@
-﻿using IServiceProvider = System.IServiceProvider;
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-using DateTimeOffset = System.DateTimeOffset;
-using DateTime = System.DateTime;
-using Mutex = System.Threading.Mutex;
-using Exception = System.Exception;
-using System.Linq;
+﻿using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
 
-using Serilog;
-using SQLite;
-using TempestMonitor.Models;
+using DateTime = System.DateTime;
+using DateTimeOffset = System.DateTimeOffset;
+using Exception = System.Exception;
+using IServiceProvider = System.IServiceProvider;
+using Log = Serilog.Log;
+using Mutex = System.Threading.Mutex;
+using ObservationModel = TempestMonitor.Models.ObservationModel;
+using SettingsModel = TempestMonitor.Models.SettingsModel; // For SettingsModel to get the database filename
+using SQLiteConnection = SQLite.SQLiteConnection; // for SQLiteConnection, to avoid ambiguity with System.Data.SQLite
 
 namespace TempestMonitor.Services;
-
 public class DatabaseService(IServiceProvider serviceProvider)
 {
     private readonly static Mutex _databaseConnectionMutex = new();

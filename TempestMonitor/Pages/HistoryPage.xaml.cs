@@ -1,7 +1,7 @@
 using IServiceProvider = System.IServiceProvider;
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using TempestMonitor.ViewModels;
+using HistoryViewModel = TempestMonitor.ViewModels.HistoryViewModel;
 
 using ContentPage = Microsoft.Maui.Controls.ContentPage;
 

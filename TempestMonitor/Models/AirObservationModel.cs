@@ -1,12 +1,13 @@
-﻿using SQLite;
-using StringUnitDictionary = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
-using Unit = RedStar.Amounts.Unit;
+﻿using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
+
+using TableAttribute = SQLite.TableAttribute;
+using ColumnAttribute = SQLite.ColumnAttribute;
+using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
 using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
 using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
 using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
 using TimeUnits = RedStar.Amounts.StandardUnits.TimeUnits;
 using PressureUnits = RedStar.Amounts.StandardUnits.PressureUnits;
-using System.Linq;
 
 namespace TempestMonitor.Models;
 
@@ -14,7 +15,7 @@ namespace TempestMonitor.Models;
 public class AirObservationModel : ReadingModel, IPropertyUnit
 {
     public static readonly string TypeName = "obs_air";
-    public static readonly StringUnitDictionary? PropertyUnit = new();
+    public static readonly DictionaryOfStringUnit? PropertyUnit = new();
 
     static AirObservationModel()
     {
@@ -66,7 +67,12 @@ public class AirObservationModel : ReadingModel, IPropertyUnit
     {
         var jsonElement = base.JsonElement;
         HubSN = jsonElement.GetProperty(@"hub_sn").GetString() ?? string.Empty;
-        var evt = jsonElement.GetProperty(@"evt").EnumerateArray().ToArray();
+        var evt = jsonElement.GetProperty(@"evt").EnumerateArray().ToArray(); // ToArray by System.Linq.Enumerable
+        if (evt is not null && evt.Length <= (int)AirObservationIndexes.ReportIntervalIndex)
+        {
+            // Not enough data in evt array to parse all fields, return empty
+            return this;
+        }
         AirObservationTimestamp = evt[(int)AirObservationIndexes.TimestampIndex].GetInt64();
         StationPressure = Constants.DoubleToLong(evt[(int)AirObservationIndexes.StationPressureIndex].GetDouble());
         AirTemperature = Constants.DoubleToLong(evt[(int)AirObservationIndexes.AirTemperatureIndex].GetDouble());

@@ -1,5 +1,6 @@
-﻿using SQLite;
-using System.Text.Json;
+﻿using ColumnAttribute = SQLite.ColumnAttribute;
+using TableAttribute = SQLite.TableAttribute;
+using JsonElement = System.Text.Json.JsonElement;
 
 namespace TempestMonitor.Models;
 

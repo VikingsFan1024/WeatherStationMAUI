@@ -1,14 +1,14 @@
-﻿using DateTime = System.DateTime;
-
-using TempestMonitor.Models;
-using RedStar.Amounts;
+﻿using Amount = RedStar.Amounts.Amount;
+using CurrentConditionsModel = TempestMonitor.Models.CurrentConditionsModel;
+using DateTime = System.DateTime;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
 
 namespace TempestMonitor.ViewModels.Observables;
 
-public partial class CurrentConditionsObservable : BaseObservable
+public partial class ObservableCurrentConditions : ObervableBase
 {
     private readonly CurrentConditionsModel _currentConditions;
-    public CurrentConditionsObservable(CurrentConditionsModel currentConditions, SettingsModel settings) 
+    public ObservableCurrentConditions(CurrentConditionsModel currentConditions, SettingsModel settings) 
         : base(settings)
     {
         _currentConditions = currentConditions;

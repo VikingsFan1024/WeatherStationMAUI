@@ -1,9 +1,12 @@
 ﻿using IServiceProvider = System.IServiceProvider;
 using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using TempestMonitor.Models;
+using SettingsModel = TempestMonitor.Models.SettingsModel;
+
+using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
+using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
+using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
+using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
 
 namespace TempestMonitor.ViewModels;
 sealed partial class ApplicationSettingsViewModel(IServiceProvider serviceProvider) : 
