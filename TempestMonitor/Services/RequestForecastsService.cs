@@ -141,19 +141,28 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
             (
                 forecastModel =>
                 {
-                    _mostRecentForecast = new ForecastModel(forecastModel.JsonElement);
+                    try
+                    {
+                        _mostRecentForecast = new ForecastModel(forecastModel.JsonElement);
 
-                    // Send to user interface
-                    WeakReferenceMessenger.Default.Send(new ForecastMessage(forecastModel));
+                        // Send to user interface
+                        WeakReferenceMessenger.Default.Send(new ForecastMessage(forecastModel));
 
-                    // Send to database
-                    SendToDatabase(forecastModel);
-                    SendToDatabase(forecastModel.CurrentConditions);
-                    SendToDatabase(forecastModel.Station);
-                    SendToDatabase(forecastModel.Status);
-                    SendToDatabase(forecastModel.Units);
-                    SendToDatabase(forecastModel.Dailies);
-                    SendToDatabase(forecastModel.Hourlies);
+                        // Send to database
+                        SendToDatabase(forecastModel);
+                        SendToDatabase(forecastModel.CurrentConditions);
+                        SendToDatabase(forecastModel.Station);
+                        SendToDatabase(forecastModel.Status);
+                        SendToDatabase(forecastModel.Units);
+                        SendToDatabase(forecastModel.Dailies);
+                        SendToDatabase(forecastModel.Hourlies);
+                    }
+
+                    catch (Exception exception)
+                    {
+                        Log.Error(exception, "Exception in ActionBlock processing ForecastModel");
+                        // Don't crash the block, just log the error
+                    }
                 },
                 new ExecutionDataflowBlockOptions
                 {

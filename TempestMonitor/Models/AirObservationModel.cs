@@ -6,6 +6,7 @@ using ColumnAttribute = SQLite.ColumnAttribute;
 using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
 using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
 using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
+using Log = Serilog.Log;
 using PressureUnits = RedStar.Amounts.StandardUnits.PressureUnits;
 using TableAttribute = SQLite.TableAttribute;
 using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
@@ -70,11 +71,28 @@ public class AirObservationModel : ReadingModel, IPropertyUnit
         var jsonElement = base.JsonElement;
         HubSN = jsonElement.GetProperty(@"hub_sn").GetString() ?? string.Empty;
         var evt = jsonElement.GetProperty(@"evt").EnumerateArray().ToArray(); // ToArray by System.Linq.Enumerable
-        if (evt is not null && evt.Length <= (int)AirObservationIndexes.ReportIntervalIndex)
+        if (evt is null)
         {
+            Log.Error($"AirObservationModel: evt was null for JsonElement {base.JsonElementString}");
+            return this; // return empty object, but log the error
+        }
+
+        if (evt.Length == 0)
+        {
+            Log.Error($"AirObservationModel: evt array was empty for JsonElement {base.JsonElementString}");
+            return this;
+        }
+
+        if (evt.Length <= (int)AirObservationIndexes.ReportIntervalIndex)
+        {
+            // Not enough data in evt array to parse all fields, log the error and return empty
+            // evt array must have at least ReportIntervalIndex + 1 elements to parse all fields
+            Log.Error($"AirObservationModel: Not enough data in evt array to parse all fields JsonElement {base.JsonElementString}");
+            Log.Error($"AirObservationModel: evt array only had a length of {evt.Length}");
             // Not enough data in evt array to parse all fields, return empty
             return this;
         }
+
         AirObservationTimestamp = evt[(int)AirObservationIndexes.TimestampIndex].GetInt64();
         StationPressure = Constants.DoubleToLong(evt[(int)AirObservationIndexes.StationPressureIndex].GetDouble());
         AirTemperature = Constants.DoubleToLong(evt[(int)AirObservationIndexes.AirTemperatureIndex].GetDouble());
