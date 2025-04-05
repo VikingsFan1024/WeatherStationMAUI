@@ -4,9 +4,9 @@ using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExte
 using static System.Threading.Tasks.Dataflow.DataflowBlock; // for BufferBlock and ActionBlock methods - SendAsync()
 
 // Aliases for types used in this file to keep the code cleaner
-using ActionBlockOfReadingModel = System.Threading.Tasks.Dataflow.ActionBlock<TempestMonitor.Models.ReadingModel>;
+using ActionBlockOfReadingModel = System.Threading.Tasks.Dataflow.ActionBlock<TempestMonitor.Models.ReadingModel?>;
 using TaskOfBool = System.Threading.Tasks.Task<bool>;
-using TransformBlockOfByteArrayToReadingModel = System.Threading.Tasks.Dataflow.TransformBlock<byte[], TempestMonitor.Models.ReadingModel>; // for TransformBlock in SetupDataflow method
+using TransformBlockOfByteArrayToReadingModel = System.Threading.Tasks.Dataflow.TransformBlock<byte[], TempestMonitor.Models.ReadingModel?>;
 using ValueChangedMessageOfAirObservationModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.AirObservationModel>;
 using ValueChangedMessageOfHubStatusModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.HubStatusModel>;
 using ValueChangedMessageOfLightningStrikeModel = CommunityToolkit.Mvvm.Messaging.Messages.ValueChangedMessage<TempestMonitor.Models.LightningStrikeModel>;
@@ -50,6 +50,7 @@ using UdpReceiveResult = System.Net.Sockets.UdpReceiveResult;
 using ValueTaskOfUdpReceiveResult = System.Threading.Tasks.ValueTask<System.Net.Sockets.UdpReceiveResult>;
 using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
 using WindReadingModel = TempestMonitor.Models.WindReadingModel;
+using System.Text.Json;
 
 namespace TempestMonitor.Services;
 
@@ -193,7 +194,36 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
         _udpReadingToReadingBlock =
             new TransformBlockOfByteArrayToReadingModel
             (
-                byteArray => new ReadingModel(JsonDocument.Parse(byteArray).RootElement.Clone()),
+                // ToDo: Consider using a JsonSerializerOptions to optimize parsing for performance
+                // ToDo: Consider using a custom JsonConverter for ReadingModel to handle deserialization directly
+                // ToDo: Consider using a custom factory method to create ReadingModel instances based on the type in the JSON to avoid unnecessary allocations
+                // ToDo: Consider using a caching mechanism for the JsonDocument to avoid multiple allocations in high throughput scenarios
+                // ToDo: Consider using a memory pool for byte arrays to avoid allocations in high throughput scenarios
+                // ToDo: Consider using a custom memory pool for byte arrays to avoid allocations in high throughput scenarios
+                // ToDo: Consider using a custom JsonConverter for ReadingModel to handle deserialization directly
+                byteArray => {
+                    // Handle null or empty byte array gracefully
+                    try
+                    {
+                        if (byteArray is null || byteArray.Length == 0)
+                        {
+                            Log.Warning("Received null or empty byte array, ignoring");
+                            return null; // Return null to indicate failure to parse
+                        }
+
+                        // The constructor of ReadingModel precludes use of using the more performant JsonSerializer.Deserialize<ReadingModel>(byteArray);
+                        var jsonDocument = JsonDocument.Parse(byteArray);
+
+                        return new ReadingModel(jsonDocument.RootElement);
+                    }
+
+                    catch (Exception exception)
+                    {
+                        Log.Error(exception, "Failed to parse byte array to ReadingModel");
+                        // To avoid crashing the pipeline, return null or handle accordingly
+                        return null;
+                    }
+                },
                 new ExecutionDataflowBlockOptions
                 {
                     NameFormat = nameof(_udpReadingToReadingBlock),
@@ -207,7 +237,23 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
         _readingToReferenceMessagesBlock =
             new ActionBlockOfReadingModel
             (
-                readingModel => Send(readingModel),
+                readingModel =>
+                {
+                    try
+                    {
+                        if (readingModel is null)
+                        {
+                            Log.Warning("Received null reading in ActionBlock, ignoring");
+                            return;
+                        }
+                        Send(readingModel);
+                    }
+
+                    catch (Exception exception)
+                    {
+                        Log.Error(exception, "Failed to send reading message");
+                    }
+                },
                 new ExecutionDataflowBlockOptions
                 {
                     NameFormat = nameof(_readingToReferenceMessagesBlock),
@@ -222,7 +268,7 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
             new DataflowLinkOptions { PropagateCompletion = true }
         );
 
-        _udpReadingToReadingBlock.LinkTo(DataflowBlock.NullTarget<ReadingModel>());
+        _udpReadingToReadingBlock.LinkTo(DataflowBlock.NullTarget<ReadingModel?>());
 
         _completionList.AddRange
         (
@@ -358,8 +404,14 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
 
         return true;
     }
-    private void Send(ReadingModel reading)
+    private void Send(ReadingModel? reading)
     {
+        if (reading is null)
+        {
+            Log.Warning("Received null reading, ignoring");
+            return;
+        }
+
         ReadingModel? theReading;
 
         if (reading.Type == WindReadingModel.TypeName)

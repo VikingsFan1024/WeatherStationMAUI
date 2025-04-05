@@ -191,8 +191,15 @@ sealed public partial class DatabasePersistenceService(IServiceProvider serviceP
         _classInstanceToDatabase = new ActionBlockOfObject(
             classInstance =>
             {
-                _databaseService.SaveBufferToDB(classInstance);
-                AdvanceInstanceToDatabaseCounter(classInstance);
+                try
+                {
+                    _databaseService.SaveBufferToDB(classInstance);
+                    AdvanceInstanceToDatabaseCounter(classInstance);
+                }
+                catch (Exception exception)
+                {
+                    Log.Error(exception, "Failed to save class instance to database: {classInstanceType}", classInstance.GetType());
+                }
             },
             new ExecutionDataflowBlockOptions
             {
