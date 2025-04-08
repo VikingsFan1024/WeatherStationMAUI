@@ -1,12 +1,3 @@
-// static using for extension method classes
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-
-// using directives for precision in what specific classes are employed
-using ContentPage = Microsoft.Maui.Controls.ContentPage;
-using HourlyForecastViewLoader = TempestMonitor.ViewLoaders.HourlyForecastViewLoader;
-using HourlyForecastViewModel = TempestMonitor.ViewModels.HourlyForecastViewModel;
-using IServiceProvider = System.IServiceProvider;
-
 namespace TempestMonitor.Pages;
 
 public partial class HourlyForecastPage : ContentPage

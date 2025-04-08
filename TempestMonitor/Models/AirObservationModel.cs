@@ -1,18 +1,4 @@
-﻿// static using for extension method classes
-using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
-
-// using directives for precision in what specific classes are employed
-using ColumnAttribute = SQLite.ColumnAttribute;
-using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
-using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
-using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
-using Log = Serilog.Log;
-using PressureUnits = RedStar.Amounts.StandardUnits.PressureUnits;
-using TableAttribute = SQLite.TableAttribute;
-using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
-using TimeUnits = RedStar.Amounts.StandardUnits.TimeUnits;
-
-namespace TempestMonitor.Models;
+﻿namespace TempestMonitor.Models;
 
 [Table("AirObservation")]
 public class AirObservationModel : ReadingModel, IPropertyUnit

@@ -1,9 +1,4 @@
-﻿// using directives for precision in what specific classes are employed
-using Amount = RedStar.Amounts.Amount;
-using SettingsModel = TempestMonitor.Models.SettingsModel;
-using StationModel = TempestMonitor.Models.StationModel;
-
-namespace TempestMonitor.ViewModels.Observables;
+﻿namespace TempestMonitor.ViewModels.Observables;
 
 public partial class ObservableStation : ObervableBase
 {

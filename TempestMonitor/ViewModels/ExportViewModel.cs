@@ -1,6 +1,6 @@
 ﻿namespace TempestMonitor.ViewModels;
 
-sealed partial class HistoryViewModel(IServiceProvider serviceProvider) : INotifyPropertyChanged
+sealed partial class ExportViewModel(IServiceProvider serviceProvider) : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     public void OnPropertyChanged([CallerMemberName] string name = "") => 

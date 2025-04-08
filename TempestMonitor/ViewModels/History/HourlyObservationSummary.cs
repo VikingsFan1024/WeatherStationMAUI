@@ -1,7 +1,4 @@
-﻿// using directives for precision in what specific classes are employed
-using DateTime = System.DateTime;
-
-namespace TempestMonitor.ViewModels.History;
+﻿namespace TempestMonitor.ViewModels.History;
 
 public sealed class HourlyObservationSummary
 {

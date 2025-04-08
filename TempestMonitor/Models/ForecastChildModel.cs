@@ -1,10 +1,4 @@
-﻿// using directives for precision in what specific classes are employed
-using ColumnAttribute = SQLite.ColumnAttribute;
-using Guid = System.Guid;
-using IgnoreAttribute = SQLite.IgnoreAttribute;
-using JsonElement = System.Text.Json.JsonElement;
-
-namespace TempestMonitor.Models;
+﻿namespace TempestMonitor.Models;
 
 public class ForecastChildModel
 {

@@ -1,12 +1,4 @@
-﻿// Aliases for types used in this file to keep the code cleaner
-using DictionaryOfStringUnit = System.Collections.Generic.Dictionary<string, RedStar.Amounts.Unit>;
-
-// using directives for precision in what specific classes are employed
-using ColumnAttribute = SQLite.ColumnAttribute;
-using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
-using TableAttribute = SQLite.TableAttribute;
-
-namespace TempestMonitor.Models;
+﻿namespace TempestMonitor.Models;
 [Table("DeviceStatus")]
 public class DeviceStatusModel : ReadingModel
 {

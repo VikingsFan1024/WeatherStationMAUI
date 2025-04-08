@@ -1,9 +1,4 @@
-﻿// using directives for precision in what specific classes are employed
-using ColumnAttribute = SQLite.ColumnAttribute;
-using JsonElement = System.Text.Json.JsonElement;
-using TableAttribute = SQLite.TableAttribute;
-
-namespace TempestMonitor.Models;
+﻿namespace TempestMonitor.Models;
 
 [Table("Status")]
 public class StatusModel : ForecastChildModel

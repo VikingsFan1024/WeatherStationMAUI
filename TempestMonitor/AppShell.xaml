@@ -63,4 +63,11 @@
             ContentTemplate="{DataTemplate pages:HistoryPage}"
             Route="HistoryPage" />
     </FlyoutItem>
+
+    <FlyoutItem Title="Export">
+        <ShellContent
+            Title="Export Json"
+            ContentTemplate="{DataTemplate pages:ExportPage}"
+            Route="ExportPage" />
+    </FlyoutItem>
 </Shell>

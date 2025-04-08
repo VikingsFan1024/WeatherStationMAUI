@@ -1,13 +1,6 @@
-﻿// using directives for precision in what specific classes are employed
-using ColumnAttribute = SQLite.ColumnAttribute;
-using IgnoreAttribute = SQLite.IgnoreAttribute;
-using JsonElement = System.Text.Json.JsonElement;
-using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
-using PressureUnitTypes = RedStar.Amounts.StandardUnits.PressureUnits;      // Naming conflict between property and PressureUnits in RedStar.Amounts.StandardUnits
+﻿using PressureUnitTypes = RedStar.Amounts.StandardUnits.PressureUnits;      // Naming conflict between property and PressureUnits in RedStar.Amounts.StandardUnits
 using SpeedUnitTypes = RedStar.Amounts.StandardUnits.SpeedUnits;            // Naming conflict between property and SpeedUnits in RedStar.Amounts.StandardUnits
-using TableAttribute = SQLite.TableAttribute;
 using TemperatureUnitTypes = RedStar.Amounts.StandardUnits.TemperatureUnits;// Naming conflict between property and TemperatureUnits in RedStar.Amounts.StandardUnits
-using Unit = RedStar.Amounts.Unit;
 
 namespace TempestMonitor.Models;
 

@@ -1,23 +1,4 @@
-﻿using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-using static Serilog.ConsoleLoggerConfigurationExtensions;
-using static Serilog.Enrichers.WithCaller.LoggerCallerEnrichmentConfiguration;
-using static Serilog.FileLoggerConfigurationExtensions;
-using static Serilog.LoggerEnrichmentConfigurationExtensions;
-using static Serilog.ThreadLoggerConfigurationExtensions;
-
-using Application = Microsoft.Maui.Controls.Application;
-using CompactJsonFormatter = Serilog.Formatting.Compact.CompactJsonFormatter;
-using CultureInfo = System.Globalization.CultureInfo;
-using IActivationState = Microsoft.Maui.IActivationState;
-using IServiceProvider = System.IServiceProvider;
-using Log = Serilog.Log;
-using LogEventLevel = Serilog.Events.LogEventLevel;
-using LoggerConfiguration = Serilog.LoggerConfiguration;
-using RollingInterval = Serilog.RollingInterval;
-using SettingsModel = TempestMonitor.Models.SettingsModel;
-using Window = Microsoft.Maui.Controls.Window;
-
-namespace TempestMonitor;
+﻿namespace TempestMonitor;
 
 public partial class App : Application
 {

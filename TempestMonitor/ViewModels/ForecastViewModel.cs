@@ -1,20 +1,4 @@
-﻿// static using for extension method classes
-using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-
-// using directives for precision in what specific classes are employed
-using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
-using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler;
-using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
-using IServiceProvider = System.IServiceProvider;
-using ObservableForecast = TempestMonitor.ViewModels.Observables.ObservableForecast;
-using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
-using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
-using RequestForecastsService = TempestMonitor.Services.RequestForecastsService;
-using SettingsModel = TempestMonitor.Models.SettingsModel;
-using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
-
-namespace TempestMonitor.ViewModels;
+﻿namespace TempestMonitor.ViewModels;
 
 sealed partial class ForecastViewModel(IServiceProvider serviceProvider) : INotifyPropertyChanged
 {

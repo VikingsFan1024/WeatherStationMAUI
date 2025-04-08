@@ -1,8 +1,4 @@
-﻿// using directives for precision in what specific classes are employed
-using DateTime = System.DateTime;
-
-namespace TempestMonitor.Models;
-
+﻿namespace TempestMonitor.Models;
 public struct ApplicationStatisticsModel
 {
     private static long _airObservationReceivedCount;

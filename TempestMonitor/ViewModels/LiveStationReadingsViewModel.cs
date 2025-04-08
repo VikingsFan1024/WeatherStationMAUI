@@ -1,27 +1,4 @@
-﻿// static using for extension method classes
-using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-
-// using directives for precision in what specific classes are employed
-using Amount = RedStar.Amounts.Amount;
-using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
-using ForegroundServiceHandler = TempestMonitor.Services.ForegroundServiceHandler;
-using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
-using IServiceProvider = System.IServiceProvider;
-using ObservationModel = TempestMonitor.Models.ObservationModel;
-using ObservableObservation = TempestMonitor.ViewModels.Observables.ObservableObservation;
-using ObservableWindReading = TempestMonitor.ViewModels.Observables.ObservableWindReading;
-using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
-using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
-using ReadingsListenerService = TempestMonitor.Services.ReadingsListenerService;
-using SettingsModel = TempestMonitor.Models.SettingsModel;
-using SpeedUnits = RedStar.Amounts.StandardUnits.SpeedUnits;
-using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
-using UnitManager = RedStar.Amounts.UnitManager;
-using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
-using WindReadingModel = TempestMonitor.Models.WindReadingModel;
-
-namespace TempestMonitor.ViewModels;
+﻿namespace TempestMonitor.ViewModels;
 
 sealed partial class LiveStationReadingsViewModel(IServiceProvider serviceProvider) : INotifyPropertyChanged
 {
