@@ -2,20 +2,20 @@
 #if DEBUG 
 global using static Microsoft.Extensions.Logging.DebugLoggerFactoryExtensions;
 #endif
-global using static System.Net.Http.Json.HttpClientJsonExtensions; // for GetFromJsonAsync<T> extension method
+global using static CommunityToolkit.Maui.AppBuilderExtensions;
 global using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
-global using static System.Threading.Tasks.Dataflow.DataflowBlock; // for BufferBlock and ActionBlock methods - SendAsync()
 global using static Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions;
 global using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-global using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
+global using static Microsoft.Maui.Hosting.FontCollectionExtensions;
+global using static Microsoft.Maui.Hosting.FontsMauiAppBuilderExtensions;
 global using static Serilog.ConsoleLoggerConfigurationExtensions;
 global using static Serilog.Enrichers.WithCaller.LoggerCallerEnrichmentConfiguration;
 global using static Serilog.FileLoggerConfigurationExtensions;
 global using static Serilog.LoggerEnrichmentConfigurationExtensions;
 global using static Serilog.ThreadLoggerConfigurationExtensions;
-global using static Microsoft.Maui.Hosting.FontsMauiAppBuilderExtensions;
-global using static Microsoft.Maui.Hosting.FontCollectionExtensions;
-global using static CommunityToolkit.Maui.AppBuilderExtensions;
+global using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
+global using static System.Net.Http.Json.HttpClientJsonExtensions; // for GetFromJsonAsync<T> extension method
+global using static System.Threading.Tasks.Dataflow.DataflowBlock; // for BufferBlock and ActionBlock methods - SendAsync()
 
 // Aliases for types used in this file to keep the code cleaner
 #if ANDROID
