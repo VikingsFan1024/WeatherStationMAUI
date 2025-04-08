@@ -1,11 +1,4 @@
-﻿// using directives for precision in what specific classes are employed
-using Amount = RedStar.Amounts.Amount;
-using CultureInfo = System.Globalization.CultureInfo;
-using DateTime = System.DateTime;
-using ObservationModel = TempestMonitor.Models.ObservationModel;
-using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
-using SettingsModel = TempestMonitor.Models.SettingsModel;
-
+﻿
 namespace TempestMonitor.ViewModels.Observables;
 
 public partial class ObservableObservation : ObservableObject

@@ -1,18 +1,4 @@
-﻿// using directives for precision in what specific classes are employed
-using ElectricUnits = RedStar.Amounts.StandardUnits.ElectricUnits;
-using Environment = System.Environment;
-using Exception = System.Exception;
-using LengthUnits = RedStar.Amounts.StandardUnits.LengthUnits;
-using Log = Serilog.Log;
-using Path = System.IO.Path;
-using Preferences = Microsoft.Maui.Storage.Preferences;
-using PressureUnits = RedStar.Amounts.StandardUnits.PressureUnits;
-using SpeedUnits = RedStar.Amounts.StandardUnits.SpeedUnits;
-using TemperatureUnits = RedStar.Amounts.StandardUnits.TemperatureUnits;
-using UnitManager = RedStar.Amounts.UnitManager;
-
-namespace TempestMonitor.Models;
-
+﻿namespace TempestMonitor.Models;
 public class SettingsModel
 {
     public static readonly string[] BatteryUnits =

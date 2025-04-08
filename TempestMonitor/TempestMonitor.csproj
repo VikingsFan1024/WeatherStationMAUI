@@ -61,6 +61,8 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.50" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+		<PackageReference Include="MongoDB.Bson.signed" Version="2.19.0" />
+		<PackageReference Include="MongoDB.Driver" Version="3.3.0" />
 		<PackageReference Include="Serilog" Version="4.2.0" />
 		<PackageReference Include="Serilog.Enrichers.Demystifier" Version="1.0.3" />
 		<PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
@@ -68,12 +70,25 @@
 		<PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+		<PackageReference Include="Serilog.Sinks.MongoDB" Version="7.0.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\RedStar.Amounts.Library\RedStar.Amounts.Library.csproj" />
 	  <ProjectReference Include="..\RedStar.Amounts.StandardUnits.Library\RedStar.Amounts.StandardUnits.Library.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\ExportPage.xaml.cs">
+	    <DependentUpon>ExportPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\ExportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

@@ -1,8 +1,4 @@
-﻿// using directives for precision in what specific classes are employed
-using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
-using UnitsModel = TempestMonitor.Models.UnitsModel;
-
-namespace TempestMonitor.ViewModels.Observables;
+﻿namespace TempestMonitor.ViewModels.Observables;
 
 public partial class ObservableUnits(UnitsModel units) : ObservableObject
 {

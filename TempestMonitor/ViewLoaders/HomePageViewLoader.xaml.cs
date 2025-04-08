@@ -1,12 +1,3 @@
-// using directives for precision in what specific classes are employed
-using ContentView = Microsoft.Maui.Controls.ContentView;
-using DeviceDisplay = Microsoft.Maui.Devices.DeviceDisplay;
-using DisplayInfoChangedEventArgs = Microsoft.Maui.Devices.DisplayInfoChangedEventArgs;
-using InvalidDataException = System.IO.InvalidDataException;
-using IServiceProvider = System.IServiceProvider;
-using Log = Serilog.Log;
-using MainPage = TempestMonitor.Pages.MainPage;
-
 namespace TempestMonitor.ViewLoaders;
 
 public partial class HomePageViewLoader : ContentView

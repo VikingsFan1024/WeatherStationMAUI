@@ -1,12 +1,4 @@
-﻿using static System.Linq.Enumerable; // For ToArray() by JsonElement.ArrayEnumerator
-
-using Convert = System.Convert;
-using DateTime = System.DateTime;
-using DateTimeOffset = System.DateTimeOffset;
-using JsonElement = System.Text.Json.JsonElement;
-using Math = System.Math;
-
-namespace TempestMonitor;
+﻿namespace TempestMonitor;
 
 public class Constants
 {

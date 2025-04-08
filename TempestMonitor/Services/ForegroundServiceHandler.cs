@@ -1,10 +1,4 @@
-﻿// static using for extension method classes
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-
-// using directives for precision in what specific classes are employed
-using IServiceProvider = System.IServiceProvider;
-
-namespace TempestMonitor.Services;
+﻿namespace TempestMonitor.Services;
 
 public class ForegroundServiceHandler
 {

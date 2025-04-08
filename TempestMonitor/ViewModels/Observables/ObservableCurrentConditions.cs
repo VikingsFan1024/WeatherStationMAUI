@@ -1,10 +1,4 @@
-﻿// using directives for precision in what specific classes are employed
-using Amount = RedStar.Amounts.Amount;
-using CurrentConditionsModel = TempestMonitor.Models.CurrentConditionsModel;
-using DateTime = System.DateTime;
-using SettingsModel = TempestMonitor.Models.SettingsModel;
-
-namespace TempestMonitor.ViewModels.Observables;
+﻿namespace TempestMonitor.ViewModels.Observables;
 
 public partial class ObservableCurrentConditions : ObervableBase
 {

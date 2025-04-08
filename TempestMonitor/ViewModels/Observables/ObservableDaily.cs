@@ -1,16 +1,4 @@
-﻿// static using for extension method classes
-using static System.Linq.Enumerable;  // for Select LINQ method
-
-// Aliases for types used in this file to keep the code cleaner
-using ObservableCollectionOfObservableDaily = System.Collections.ObjectModel.ObservableCollection<TempestMonitor.ViewModels.Observables.ObservableDaily>;
-
-// using directives for precision in what specific classes are employed
-using Amount = RedStar.Amounts.Amount;
-using DailyModel = TempestMonitor.Models.DailyModel;
-using DateTime = System.DateTime;
-using SettingsModel = TempestMonitor.Models.SettingsModel;
-
-namespace TempestMonitor.ViewModels.Observables;
+﻿namespace TempestMonitor.ViewModels.Observables;
 public partial class ObservableDaily : ObervableBase
 {
     private readonly DailyModel _daily;

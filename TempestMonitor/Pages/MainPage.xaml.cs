@@ -1,19 +1,4 @@
-﻿// static using for extension method classes
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-
-// using directives for precision in what specific classes are employed
-using ContentPage = Microsoft.Maui.Controls.ContentPage;
-using DeviceDisplay = Microsoft.Maui.Devices.DeviceDisplay;
-using DeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
-using DeviceType = Microsoft.Maui.Devices.DeviceType;
-using DisplayOrientation = Microsoft.Maui.Devices.DisplayOrientation;
-using DisplayRotation = Microsoft.Maui.Devices.DisplayRotation;
-using HomePageViewLoader = TempestMonitor.ViewLoaders.HomePageViewLoader;
-using IServiceProvider = System.IServiceProvider;
-using Log = Serilog.Log;
-using MainViewModel = TempestMonitor.ViewModels.MainViewModel;
-
-namespace TempestMonitor.Pages;
+﻿namespace TempestMonitor.Pages;
 public partial class MainPage : ContentPage
 {
     public MainPage(IServiceProvider serviceProvider)

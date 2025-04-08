@@ -1,15 +1,4 @@
-﻿// static using for extension method classes
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-
-// using directives for precision in what specific classes are employed
-using CallerMemberNameAttribute = System.Runtime.CompilerServices.CallerMemberNameAttribute;
-using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
-using IServiceProvider = System.IServiceProvider;
-using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
-using PropertyChangedEventHandler = System.ComponentModel.PropertyChangedEventHandler;
-using SettingsModel = TempestMonitor.Models.SettingsModel;
-
-namespace TempestMonitor.ViewModels;
+﻿namespace TempestMonitor.ViewModels;
 sealed partial class ApplicationSettingsViewModel(IServiceProvider serviceProvider) : 
     INotifyPropertyChanged
 {

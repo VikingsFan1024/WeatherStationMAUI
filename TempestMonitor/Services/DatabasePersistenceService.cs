@@ -1,49 +1,4 @@
-﻿// static using for extension method classes
-using static CommunityToolkit.Mvvm.Messaging.IMessengerExtensions;  // for Register method
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
-using static System.Threading.Tasks.Dataflow.DataflowBlock; // for BufferBlock and ActionBlock methods - SendAsync()
-
-// Aliases for types used in this file to keep the code cleaner
-using ActionBlockOfObject = System.Threading.Tasks.Dataflow.ActionBlock<object>;
-using BufferBlockOfObject = System.Threading.Tasks.Dataflow.BufferBlock<object>;
-using ListOfTasks = System.Collections.Generic.List<System.Threading.Tasks.Task>;
-using TaskOfBool = System.Threading.Tasks.Task<bool>;
-
-// using directives for precision in what specific classes are employed
-using AggregateException = System.AggregateException;
-using ApplicationStatisticsModel = TempestMonitor.Models.ApplicationStatisticsModel; // for ApplicationStatisticsModel, used to track statistics on saved records
-using AirObservationModel = TempestMonitor.Models.AirObservationModel; // for AirObservationModel
-using CancellationTokenSource = System.Threading.CancellationTokenSource;
-using CurrentConditionsModel = TempestMonitor.Models.CurrentConditionsModel; // for CurrentConditionsModel
-using DailyModel = TempestMonitor.Models.DailyModel; // for DailyModel
-using DataflowBlockOptions = System.Threading.Tasks.Dataflow.DataflowBlockOptions; // for DataflowBlockOptions
-using DataflowLinkOptions = System.Threading.Tasks.Dataflow.DataflowLinkOptions; // for DataflowLinkOptions
-using DeviceStatusModel = TempestMonitor.Models.DeviceStatusModel; // for DeviceStatusModel
-using Exception = System.Exception;
-using ExecutionDataflowBlockOptions = System.Threading.Tasks.Dataflow.ExecutionDataflowBlockOptions; // for ExecutionDataflowBlockOptions
-using FileSystem = Microsoft.Maui.Storage.FileSystem;
-using ForecastModel = TempestMonitor.Models.ForecastModel; // for ForecastModel
-using HourlyModel = TempestMonitor.Models.HourlyModel; // for HourlyModel
-using HubStatusModel = TempestMonitor.Models.HubStatusModel; // for HubStatusModel
-using IDisposable = System.IDisposable;
-using IServiceProvider = System.IServiceProvider;
-using LightningStrikeModel = TempestMonitor.Models.LightningStrikeModel; // for LightningStrikeModel
-using Log = Serilog.Log;
-using ObservationModel = TempestMonitor.Models.ObservationModel; // for ObservationModel
-using RainStartModel = TempestMonitor.Models.RainStartModel; // for RainStartModel
-using SettingsModel = TempestMonitor.Models.SettingsModel; // for SettingsModel, used to validate settings and get StationID and RestAPIKey
-using SkyObservationModel = TempestMonitor.Models.SkyObservationModel; // for SkyObservationModel
-using StationModel = TempestMonitor.Models.StationModel; // for StationModel, used in ForecastModel
-using StatusModel = TempestMonitor.Models.StatusModel; // for StatusModel
-using SQLiteConnection = SQLite.SQLiteConnection; // for SQLiteConnection, to avoid ambiguity with System.Data.SQLite
-using StreamReader = System.IO.StreamReader;
-using Task = System.Threading.Tasks.Task;
-using TaskCanceledException = System.Threading.Tasks.TaskCanceledException; // for TaskCanceledException in RequestForecasts method
-using UnitsModel = TempestMonitor.Models.UnitsModel; // for UnitsModel, used in ForecastModel
-using WeakReferenceMessenger = CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger;
-using WindReadingModel = TempestMonitor.Models.WindReadingModel; // for WindReadingModel, used in the database persistence service
-
-namespace TempestMonitor.Services;
+﻿namespace TempestMonitor.Services;
 sealed public partial class DatabasePersistenceService(IServiceProvider serviceProvider) : IDisposable
 {
     void IDisposable.Dispose()
@@ -178,7 +133,8 @@ sealed public partial class DatabasePersistenceService(IServiceProvider serviceP
         if (_cancellationTokenSource is null) return false;
         if (_completionList is null) return false;
 
-        _classInstanceToProcess = new BufferBlockOfObject(
+        _classInstanceToProcess = new 
+        (
             new DataflowBlockOptions
             {
                 NameFormat = nameof(_classInstanceToProcess),
@@ -188,7 +144,8 @@ sealed public partial class DatabasePersistenceService(IServiceProvider serviceP
             }
         );
 
-        _classInstanceToDatabase = new ActionBlockOfObject(
+        _classInstanceToDatabase = new 
+        (
             classInstance =>
             {
                 try
@@ -219,6 +176,7 @@ sealed public partial class DatabasePersistenceService(IServiceProvider serviceP
 
     private static void AdvanceInstanceToDatabaseCounter(object classInstance)
     {
+        // ToDo: Refactor this method to use a dictionary or similar structure to avoid the long if-else chain
         if (classInstance is ForecastModel)
             ApplicationStatisticsModel.IncrementForecastsSavedToDatabaseCount();
         else if (classInstance is StationModel)
