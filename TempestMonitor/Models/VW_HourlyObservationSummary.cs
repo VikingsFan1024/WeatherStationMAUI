@@ -26,6 +26,7 @@ public class VW_HourlyObservationSummary
     public int min_lightning_strike_count { get; set; }
     public int max_lightning_strike_count { get; set; }
     public float avg_lightning_strike_count { get; set; }
+    public int sum_lightning_strike_count { get; set; }
     public float avg_precipitation_type { get; set; }
     public int count_distinct_precipitation_type { get; set; }
     public float min_rain_accumulation_over_the_previous_minute { get; set; }

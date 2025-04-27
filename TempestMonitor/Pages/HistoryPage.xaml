@@ -60,69 +60,73 @@
                             <ColumnDefinition Width="60"/>
                             <!--18 avg_lightning_strike_count-->
                             <ColumnDefinition Width="60"/>
-                            <!--19 min_relative_humidity-->
+                            <!--19 sum_lightning_strike_count-->
                             <ColumnDefinition Width="60"/>
-                            <!--20 max_relative_humidity-->
+                            <!--20 min_relative_humidity-->
                             <ColumnDefinition Width="60"/>
-                            <!--21 avg_relative_humidity-->
+                            <!--21 max_relative_humidity-->
                             <ColumnDefinition Width="60"/>
-                            <!--22 min_wind_average-->
+                            <!--22 avg_relative_humidity-->
                             <ColumnDefinition Width="60"/>
-                            <!--23 max_wind_average-->
+                            <!--23 min_wind_average-->
+                            <ColumnDefinition Width="65"/>
+                            <!--24 max_wind_average-->
+                            <ColumnDefinition Width="65"/>
+                            <!--25 avg_wind_average-->
+                            <ColumnDefinition Width="65"/>
+                            <!--26 min_wind_direction-->
                             <ColumnDefinition Width="60"/>
-                            <!--24 avg_wind_average-->
+                            <!--27 max_wind_direction-->
                             <ColumnDefinition Width="60"/>
-                            <!--25 min_wind_direction-->
+                            <!--28 avg_wind_direction-->
                             <ColumnDefinition Width="60"/>
-                            <!--26 max_wind_direction-->
+                            <!--29 min_wind_gust-->
                             <ColumnDefinition Width="60"/>
-                            <!--27 avg_wind_direction-->
+                            <!--30 max_wind_gust-->
                             <ColumnDefinition Width="60"/>
-                            <!--28 min_wind_gust-->
+                            <!--31 avg_wind_gust-->
                             <ColumnDefinition Width="60"/>
-                            <!--29 max_wind_gust-->
+                            <!--32 min_wind_lull-->
                             <ColumnDefinition Width="60"/>
-                            <!--30 avg_wind_gust-->
+                            <!--33 max_wind_lull-->
                             <ColumnDefinition Width="60"/>
-                            <!--31 min_wind_lull-->
+                            <!--34 avg_wind_lull-->
                             <ColumnDefinition Width="60"/>
-                            <!--32 max_wind_lull-->
+                            <!--35 avg_wind_sample_interval-->
                             <ColumnDefinition Width="60"/>
-                            <!--33 avg_wind_lull-->
+                            <!--36 count_distinct_wind_sample_interval-->
                             <ColumnDefinition Width="60"/>
-                            <!--34 avg_wind_sample_interval-->
+                            <!--37 avg_reporting_interval-->
                             <ColumnDefinition Width="60"/>
-                            <!--35 count_distinct_wind_sample_interval-->
+                            <!--38 count_distinct_reporting_interval-->
                             <ColumnDefinition Width="60"/>
-                            <!--36 avg_reporting_interval-->
+                            <!--39 count_distinct_precipitation_type-->
                             <ColumnDefinition Width="60"/>
-                            <!--37 count_distinct_reporting_interval-->
+                            <!--40 sum_rain_accumulation_over_the_previous_minute-->
+                            <ColumnDefinition Width="65"/>
+                            <!--41 min_rain_accumulation_over_the_previous_minute-->
                             <ColumnDefinition Width="60"/>
-                            <!--38 sum_rain_accumulation_over_the_previous_minute-->
+                            <!--42 max_rain_accumulation_over_the_previous_minute-->
                             <ColumnDefinition Width="60"/>
-                            <!--39 min_rain_accumulation_over_the_previous_minute-->
+                            <!--43 avg_rain_accumulation_over_the_previous_minute-->
                             <ColumnDefinition Width="60"/>
-                            <!--40 max_rain_accumulation_over_the_previous_minute-->
+                            <!--44 min_uv-->
                             <ColumnDefinition Width="60"/>
-                            <!--41 avg_rain_accumulation_over_the_previous_minute-->
+                            <!--45 max_uv-->
                             <ColumnDefinition Width="60"/>
-                            <!--42 min_uv-->
+                            <!--46 avg_uv-->
                             <ColumnDefinition Width="60"/>
-                            <!--43 max_uv-->
+                            <!--47 min_solar_radiation-->
                             <ColumnDefinition Width="60"/>
-                            <!--44 avg_uv-->
+                            <!--48 max_solar_radiation-->
                             <ColumnDefinition Width="60"/>
-                            <!--45 min_solar_radiation-->
-                            <ColumnDefinition Width="60"/>
-                            <!--46 max_solar_radiation-->
-                            <ColumnDefinition Width="60"/>
-                            <!--47 avg_solar_radiation-->
+                            <!--49 avg_solar_radiation-->
                             <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="mn id" 
+                                Text="st id" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -131,7 +135,7 @@
                         <Border Grid.Column="1" StrokeThickness="1" >
                             <Label
                             TextColor="{StaticResource GoldVikings}"
-                            Text="hrs bck" 
+                            Text="hr bk" 
                             FontSize="Micro"
                             VerticalOptions="End"
                             HorizontalOptions="Start"
@@ -399,6 +403,15 @@
                             />
                         </Border>
                         <Border Grid.Column="19" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="sm lsc" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="20" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -416,7 +429,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="20" StrokeThickness="1" >
+                        <Border Grid.Column="21" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -434,7 +447,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="21" StrokeThickness="1" >
+                        <Border Grid.Column="22" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -452,7 +465,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="22" StrokeThickness="1" >
+                        <Border Grid.Column="23" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -470,7 +483,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="23" StrokeThickness="1" >
+                        <Border Grid.Column="24" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -488,7 +501,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="24" StrokeThickness="1" >
+                        <Border Grid.Column="25" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -506,7 +519,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="25" StrokeThickness="1" >
+                        <Border Grid.Column="26" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -524,7 +537,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="26" StrokeThickness="1" >
+                        <Border Grid.Column="27" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -542,7 +555,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="27" StrokeThickness="1" >
+                        <Border Grid.Column="28" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -560,7 +573,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="28" StrokeThickness="1" >
+                        <Border Grid.Column="29" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -578,7 +591,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="29" StrokeThickness="1" >
+                        <Border Grid.Column="30" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -596,7 +609,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="30" StrokeThickness="1" >
+                        <Border Grid.Column="31" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -614,7 +627,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="31" StrokeThickness="1" >
+                        <Border Grid.Column="32" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -632,7 +645,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="32" StrokeThickness="1" >
+                        <Border Grid.Column="33" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -650,7 +663,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="33" StrokeThickness="1" >
+                        <Border Grid.Column="34" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
@@ -668,7 +681,7 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border Grid.Column="34" StrokeThickness="1" >
+                        <Border Grid.Column="35" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
                                 Text="ag w si" 
@@ -677,7 +690,7 @@
                                 HorizontalOptions="Start"
                             />
                         </Border>
-                        <Border Grid.Column="35" StrokeThickness="1" >
+                        <Border Grid.Column="36" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
                                 Text="cd w si" 
@@ -686,7 +699,7 @@
                                 HorizontalOptions="Start"
                             />
                         </Border>
-                        <Border Grid.Column="36" StrokeThickness="1" >
+                        <Border Grid.Column="37" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
                                 Text="ag ri" 
@@ -695,7 +708,7 @@
                                 HorizontalOptions="Start"
                             />
                         </Border>
-                        <Border Grid.Column="37" StrokeThickness="1" >
+                        <Border Grid.Column="38" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
                                 Text="cd ri" 
@@ -704,19 +717,10 @@
                                 HorizontalOptions="Start"
                             />
                         </Border>
-                        <Border Grid.Column="38" StrokeThickness="1" >
-                            <Label
-                                TextColor="{StaticResource GoldVikings}"
-                                Text="sm ra opm" 
-                                FontSize="Micro"
-                                VerticalOptions="End"
-                                HorizontalOptions="Start"
-                            />
-                        </Border>
                         <Border Grid.Column="39" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="mn ra opm" 
+                                Text="cd pt" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -725,7 +729,7 @@
                         <Border Grid.Column="40" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="mx ra opm" 
+                                Text="sm ra opm" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -734,7 +738,7 @@
                         <Border Grid.Column="41" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="ag ra opm" 
+                                Text="mn ra opm" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -743,7 +747,7 @@
                         <Border Grid.Column="42" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="mn uv" 
+                                Text="mx ra opm" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -752,7 +756,7 @@
                         <Border Grid.Column="43" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="mx uv" 
+                                Text="ag ra opm" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -761,7 +765,7 @@
                         <Border Grid.Column="44" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="ag uv" 
+                                Text="mn uv" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -770,7 +774,7 @@
                         <Border Grid.Column="45" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="mn sr" 
+                                Text="mx uv" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -779,7 +783,7 @@
                         <Border Grid.Column="46" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="mx sr" 
+                                Text="ag uv" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -788,7 +792,25 @@
                         <Border Grid.Column="47" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
+                                Text="mn sr" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="48" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
                                 Text="mx sr" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="49" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="ag sr" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
@@ -841,63 +863,67 @@
                                 <ColumnDefinition Width="60"/>
                                 <!--18 avg_lightning_strike_count-->
                                 <ColumnDefinition Width="60"/>
-                                <!--19 min_relative_humidity-->
+                                <!--19 sum_lightning_strike_count-->
                                 <ColumnDefinition Width="60"/>
-                                <!--20 max_relative_humidity-->
+                                <!--20 min_relative_humidity-->
                                 <ColumnDefinition Width="60"/>
-                                <!--21 avg_relative_humidity-->
+                                <!--21 max_relative_humidity-->
                                 <ColumnDefinition Width="60"/>
-                                <!--22 min_wind_average-->
+                                <!--22 avg_relative_humidity-->
                                 <ColumnDefinition Width="60"/>
-                                <!--23 max_wind_average-->
+                                <!--23 min_wind_average-->
+                                <ColumnDefinition Width="65"/>
+                                <!--24 max_wind_average-->
+                                <ColumnDefinition Width="65"/>
+                                <!--25 avg_wind_average-->
+                                <ColumnDefinition Width="65"/>
+                                <!--26 min_wind_direction-->
                                 <ColumnDefinition Width="60"/>
-                                <!--24 avg_wind_average-->
+                                <!--27 max_wind_direction-->
                                 <ColumnDefinition Width="60"/>
-                                <!--25 min_wind_direction-->
+                                <!--28 avg_wind_direction-->
                                 <ColumnDefinition Width="60"/>
-                                <!--26 max_wind_direction-->
+                                <!--29 min_wind_gust-->
                                 <ColumnDefinition Width="60"/>
-                                <!--27 avg_wind_direction-->
+                                <!--30 max_wind_gust-->
                                 <ColumnDefinition Width="60"/>
-                                <!--28 min_wind_gust-->
+                                <!--31 avg_wind_gust-->
                                 <ColumnDefinition Width="60"/>
-                                <!--29 max_wind_gust-->
+                                <!--32 min_wind_lull-->
                                 <ColumnDefinition Width="60"/>
-                                <!--30 avg_wind_gust-->
+                                <!--33 max_wind_lull-->
                                 <ColumnDefinition Width="60"/>
-                                <!--31 min_wind_lull-->
+                                <!--34 avg_wind_lull-->
                                 <ColumnDefinition Width="60"/>
-                                <!--32 max_wind_lull-->
+                                <!--35 avg_wind_sample_interval-->
                                 <ColumnDefinition Width="60"/>
-                                <!--33 avg_wind_lull-->
+                                <!--36 count_distinct_wind_sample_interval-->
                                 <ColumnDefinition Width="60"/>
-                                <!--34 avg_wind_sample_interval-->
+                                <!--37 avg_reporting_interval-->
                                 <ColumnDefinition Width="60"/>
-                                <!--35 count_distinct_wind_sample_interval-->
+                                <!--38 count_distinct_reporting_interval-->
                                 <ColumnDefinition Width="60"/>
-                                <!--36 avg_reporting_interval-->
+                                <!--39 count_distinct_precipitation_type-->
                                 <ColumnDefinition Width="60"/>
-                                <!--37 count_distinct_reporting_interval-->
+                                <!--40 sum_rain_accumulation_over_the_previous_minute-->
+                                <ColumnDefinition Width="65"/>
+                                <!--41 min_rain_accumulation_over_the_previous_minute-->
                                 <ColumnDefinition Width="60"/>
-                                <!--38 sum_rain_accumulation_over_the_previous_minute-->
+                                <!--42 max_rain_accumulation_over_the_previous_minute-->
                                 <ColumnDefinition Width="60"/>
-                                <!--39 min_rain_accumulation_over_the_previous_minute-->
+                                <!--43 avg_rain_accumulation_over_the_previous_minute-->
                                 <ColumnDefinition Width="60"/>
-                                <!--40 max_rain_accumulation_over_the_previous_minute-->
+                                <!--44 min_uv-->
                                 <ColumnDefinition Width="60"/>
-                                <!--41 avg_rain_accumulation_over_the_previous_minute-->
+                                <!--45 max_uv-->
                                 <ColumnDefinition Width="60"/>
-                                <!--42 min_uv-->
+                                <!--46 avg_uv-->
                                 <ColumnDefinition Width="60"/>
-                                <!--43 max_uv-->
+                                <!--47 min_solar_radiation-->
                                 <ColumnDefinition Width="60"/>
-                                <!--44 avg_uv-->
+                                <!--48 max_solar_radiation-->
                                 <ColumnDefinition Width="60"/>
-                                <!--45 min_solar_radiation-->
-                                <ColumnDefinition Width="60"/>
-                                <!--46 max_solar_radiation-->
-                                <ColumnDefinition Width="60"/>
-                                <!--47 avg_solar_radiation-->
+                                <!--49 avg_solar_radiation-->
                                 <ColumnDefinition Width="60"/>
                             </Grid.ColumnDefinitions>
                             <Border Grid.Column="0" StrokeThickness="1" >
@@ -1056,7 +1082,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding min_relative_humidity, StringFormat='{0:##0}'}" 
+                                    Text="{Binding sum_lightning_strike_count, StringFormat='{0:#,##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1064,7 +1090,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding max_relative_humidity, StringFormat='{0:##0}'}" 
+                                    Text="{Binding min_relative_humidity, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1072,7 +1098,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_relative_humidity, StringFormat='{0:##0}'}" 
+                                    Text="{Binding max_relative_humidity, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1080,7 +1106,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding min_wind_average, StringFormat='{0:##0}'}" 
+                                    Text="{Binding avg_relative_humidity, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1088,7 +1114,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding max_wind_average, StringFormat='{0:##0}'}" 
+                                    Text="{Binding min_wind_average, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1096,7 +1122,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_wind_average, StringFormat='{0:##0}'}" 
+                                    Text="{Binding max_wind_average, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1104,7 +1130,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding min_wind_direction, StringFormat='{0:##0}'}" 
+                                    Text="{Binding avg_wind_average, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1112,7 +1138,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding max_wind_direction, StringFormat='{0:##0}'}" 
+                                    Text="{Binding min_wind_direction, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1120,7 +1146,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_wind_direction, StringFormat='{0:##0}'}" 
+                                    Text="{Binding max_wind_direction, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1128,7 +1154,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding min_wind_gust, StringFormat='{0:##0}'}" 
+                                    Text="{Binding avg_wind_direction, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1136,7 +1162,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding max_wind_gust, StringFormat='{0:##0}'}" 
+                                    Text="{Binding min_wind_gust, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1144,7 +1170,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_wind_gust, StringFormat='{0:##0}'}" 
+                                    Text="{Binding max_wind_gust, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1152,7 +1178,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding min_wind_lull, StringFormat='{0:##0}'}" 
+                                    Text="{Binding avg_wind_gust, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1160,7 +1186,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding max_wind_lull, StringFormat='{0:##0}'}" 
+                                    Text="{Binding min_wind_lull, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1168,7 +1194,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_wind_lull, StringFormat='{0:##0}'}" 
+                                    Text="{Binding max_wind_lull, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1176,7 +1202,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_wind_sample_interval, StringFormat='{0:##0.0}'}" 
+                                    Text="{Binding avg_wind_lull, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1184,7 +1210,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding count_distinct_wind_sample_interval, StringFormat='{0:##0}'}" 
+                                    Text="{Binding avg_wind_sample_interval, StringFormat='{0:##0.0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1192,7 +1218,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_reporting_interval, StringFormat='{0:##0.0}'}" 
+                                    Text="{Binding count_distinct_wind_sample_interval, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1200,7 +1226,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding count_distinct_reporting_interval, StringFormat='{0:##0}'}" 
+                                    Text="{Binding avg_reporting_interval, StringFormat='{0:##0.0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1208,7 +1234,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding sum_rain_accumulation_over_the_previous_minute, StringFormat='{0:#0.00}'}" 
+                                    Text="{Binding count_distinct_reporting_interval, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1216,7 +1242,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding min_rain_accumulation_over_the_previous_minute, StringFormat='{0:0.00}'}" 
+                                    Text="{Binding count_distinct_precipitation_type, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1224,7 +1250,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding max_rain_accumulation_over_the_previous_minute, StringFormat='{0:0.00}'}" 
+                                    Text="{Binding sum_rain_accumulation_over_the_previous_minute, StringFormat='{0:#0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1232,7 +1258,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_rain_accumulation_over_the_previous_minute, StringFormat='{0:0.00}'}" 
+                                    Text="{Binding min_rain_accumulation_over_the_previous_minute, StringFormat='{0:0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1240,7 +1266,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding min_uv, StringFormat='{0:#0.00}'}" 
+                                    Text="{Binding max_rain_accumulation_over_the_previous_minute, StringFormat='{0:0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1248,7 +1274,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding max_uv, StringFormat='{0:#0.00}'}" 
+                                    Text="{Binding avg_rain_accumulation_over_the_previous_minute, StringFormat='{0:0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1256,7 +1282,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_uv, StringFormat='{0:#0.00}'}" 
+                                    Text="{Binding min_uv, StringFormat='{0:#0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1264,7 +1290,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding min_solar_radiation, StringFormat='{0:###0}'}" 
+                                    Text="{Binding max_uv, StringFormat='{0:#0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1272,7 +1298,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding max_solar_radiation, StringFormat='{0:###0}'}" 
+                                    Text="{Binding avg_uv, StringFormat='{0:#0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
@@ -1280,7 +1306,23 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding avg_solar_radiation, StringFormat='{0:###0.0}'}" 
+                                    Text="{Binding min_solar_radiation, StringFormat='{0:###0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="48" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_solar_radiation, StringFormat='{0:###0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="49" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_solar_radiation, StringFormat='{0:###0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>

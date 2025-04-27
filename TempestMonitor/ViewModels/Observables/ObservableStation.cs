@@ -2,7 +2,7 @@
 
 public partial class ObservableStation : ObervableBase
 {
-    Station _station;
+    private readonly Station _station;
     public ObservableStation(
         TempestRedStarMapping tempestRedStarMapping, Station station, SettingsModel settings) : base(settings)
     {

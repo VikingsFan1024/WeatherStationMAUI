@@ -12,6 +12,7 @@ create table Observation
 	, illuminance                                real 		generated always as (json_extract(json_document, '$.obs[0][9]')) stored
 	, lightning_strike_average_distance          real 		generated always as (json_extract(json_document, '$.obs[0][14]')) stored
 	, lightning_strike_count                     integer 	generated always as (json_extract(json_document, '$.obs[0][15]')) stored
+	-- 0 = none, 1 = rain, 2 = hail, 3 = rain + hail (experimental)
 	, precipitation_type                         integer 	generated always as (json_extract(json_document, '$.obs[0][13]')) stored
 	, rain_accumulation_over_the_previous_minute real 		generated always as (json_extract(json_document, '$.obs[0][12]')) stored
 	, relative_humidity                          real 		generated always as (json_extract(json_document, '$.obs[0][8]')) stored

@@ -12,6 +12,7 @@ select
 	, illuminance
 	, lightning_strike_average_distance
 	, lightning_strike_count
+	-- 0 = none, 1 = rain, 2 = hail, 3 = rain + hail (experimental)
 	, precipitation_type
 	, rain_accumulation_over_the_previous_minute
 	, relative_humidity
