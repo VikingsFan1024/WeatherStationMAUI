@@ -1,22 +1,9 @@
 ﻿namespace TempestMonitor.Services;
 sealed public partial class RequestForecastsService(IServiceProvider serviceProvider) : IDisposable
 {
-    public class ForecastMessage(ForecastModel forecastModel) :
-        ValueChangedMessageOfForecastModel(forecastModel)
-    {
-        private readonly ForecastModel _forecastModel = forecastModel;
-        public ForecastModel Forecast => _forecastModel;
-    }
-
-    public class ForecastPartMessage(object forecastPart) :
-        ValueChangedMessageOfObject(forecastPart)
-    {
-        private readonly object _forecastPart = forecastPart;
-        public object ForecastPart => _forecastPart;
-    }
+    private DatabaseService databaseService = serviceProvider.GetRequiredService<DatabaseService>();
 
     private readonly IServiceProvider _serviceProvider = serviceProvider;
-    private ForecastModel? _mostRecentForecast;
     void IDisposable.Dispose()
     {
         Stop();
@@ -26,13 +13,11 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
 
     private CancellationTokenSource? _cancellationTokenSource;
 
-    private BufferBlockOfForecastModel? _forecastModelBufferBlock;
-    private ActionBlockOfForecastModel? _forecastModelToUserInterfaceAndDatabaseBlock;
+    private BufferBlockOfByteArray? _bufferBlockOfByteArray;
+    private ActionBlockOfByteArray? _actionBlockOfByteArray;
 
     private ListOfTasks? _completionList;
     private bool _isRunning;
-
-    public ForecastModel? MostRecentForecast => _mostRecentForecast;
 
     public void Start()
     {
@@ -85,83 +70,67 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
         if (_cancellationTokenSource is null) return false;
         if (_completionList is null) return false;
 
-        _forecastModelBufferBlock =
-            new
-            (
-                new ExecutionDataflowBlockOptions
-                {
-                    NameFormat = nameof(_forecastModelBufferBlock),
-                    BoundedCapacity = 1,
-                    MaxMessagesPerTask = 1,
-                    SingleProducerConstrained = true,
-                    CancellationToken = _cancellationTokenSource.Token
-                }
-            );
-
-        _forecastModelToUserInterfaceAndDatabaseBlock =
-            new
-            (
-                forecastModel =>
-                {
-                    try
-                    {
-                        _mostRecentForecast = new ForecastModel(forecastModel.JsonElement);
-
-                        // Send to user interface
-                        WeakReferenceMessenger.Default.Send(new ForecastMessage(forecastModel));
-
-                        // Send to database
-                        SendToDatabase(forecastModel);
-                        SendToDatabase(forecastModel.CurrentConditions);
-                        SendToDatabase(forecastModel.Station);
-                        SendToDatabase(forecastModel.Status);
-                        SendToDatabase(forecastModel.Units);
-                        SendToDatabase(forecastModel.Dailies);
-                        SendToDatabase(forecastModel.Hourlies);
-                    }
-
-                    catch (Exception exception)
-                    {
-                        Log.Error(exception, "Exception in ActionBlock processing ForecastModel");
-                        // Don't crash the block, just log the error
-                    }
-                },
-                new ExecutionDataflowBlockOptions
-                {
-                    NameFormat = nameof(_forecastModelBufferBlock),
-                    BoundedCapacity = 1,
-                    MaxMessagesPerTask = 1,
-                    SingleProducerConstrained = true,
-                    CancellationToken = _cancellationTokenSource.Token
-                }
-            );
-
-        _forecastModelBufferBlock.LinkTo(
-            _forecastModelToUserInterfaceAndDatabaseBlock,
-            new DataflowLinkOptions { PropagateCompletion = true }
+        _bufferBlockOfByteArray = new
+        (
+            new DataflowBlockOptions
+            {
+                NameFormat = nameof(_bufferBlockOfByteArray),
+                BoundedCapacity = 1,
+                MaxMessagesPerTask = 1,
+                CancellationToken = _cancellationTokenSource.Token
+            }
         );
+
+        _actionBlockOfByteArray = new
+        (
+            byteArray =>
+            {
+                try
+                {
+                    var databaseBaseModel = CreateDatabaseBaseModelSubClass(byteArray);
+
+                    if (databaseBaseModel is null)
+                    {
+                        Log.Warning("Received null or empty byte array, ignoring");
+                    }
+                    else
+                    {
+                        databaseService.SaveBufferToDB(databaseBaseModel);
+                    }
+                }
+
+                catch (Exception exception)
+                {
+                    Log.Error(exception, "Failed to parse byte array to databaseBaseModel");
+                }
+            },
+            new ExecutionDataflowBlockOptions
+            {
+                NameFormat = nameof(_actionBlockOfByteArray),
+                BoundedCapacity = 1,
+                MaxMessagesPerTask = 1,
+                SingleProducerConstrained = true,
+                CancellationToken = _cancellationTokenSource.Token
+            }
+        );
+
+        _bufferBlockOfByteArray.LinkTo(
+            _actionBlockOfByteArray, new DataflowLinkOptions { PropagateCompletion = true });
 
         _completionList.AddRange
         (
             [
-                _forecastModelBufferBlock.Completion,
-                _forecastModelToUserInterfaceAndDatabaseBlock.Completion,
+                _bufferBlockOfByteArray.Completion,
+                _actionBlockOfByteArray.Completion,
             ]
         );
 
         return true;
     }
-    private static void SendToDatabase(object? forecastPart)
+    public DatabaseBaseModel? CreateDatabaseBaseModelSubClass(byte[] byteArray)
     {
-        if (forecastPart is null) return;
-
-        if (forecastPart is ForecastChildModel[] ForecastChildModelArray)
-            foreach (var iForecastChildModelItem in ForecastChildModelArray)
-                SendToDatabase(iForecastChildModelItem);
-        else
-            WeakReferenceMessenger.Default.Send(new ForecastPartMessage(forecastPart));
+        return new WeatherForecastModel() { json_document = byteArray };
     }
-
     public void Stop()
     {
         if (!_isRunning)
@@ -218,7 +187,7 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
     }
     public async TaskOfBool RequestForecasts()
     {
-        if (_forecastModelBufferBlock is null) return false;
+        if (_bufferBlockOfByteArray is null) return false;
         if (_cancellationTokenSource is null) return false;
 
         HttpClient? httpClient = null;
@@ -242,16 +211,16 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
                 stopwatch.Start();
                 var requestString = $"{Constants.BaseForecastURL}?station_id={_settings.StationID}&token={_settings.RestAPIKey}";
 
-                TaskOfNullableJsonDocument? taskOfJsonDocument = null;
-                JsonDocument? jsonDocument = null;
+                TaskOfByteArray? taskOfByteArray = null;
+                byte[]? byteArray = null;
                 try
                 {
-                    taskOfJsonDocument = Task.Run(
-                        () => httpClient.GetFromJsonAsync<JsonDocument>(requestString, _cancellationTokenSource.Token));
-                    jsonDocument = await taskOfJsonDocument;
+                    taskOfByteArray = Task.Run(
+                        () => httpClient.GetByteArrayAsync(requestString, _cancellationTokenSource.Token));
+                    byteArray = await taskOfByteArray;
                 }
 
-                catch(HttpRequestException exception)
+                catch (HttpRequestException exception)
                 {
                     Log.Error(exception, "HttpRequestException in GetFromJsonAsync, continuing loop");
                     continue;
@@ -265,39 +234,39 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
 
                 stopwatch.Stop();
 
-                if (!taskOfJsonDocument.IsCompleted)
+                if (!taskOfByteArray.IsCompleted)
                 {
                     Log.Warning("taskOfJsonDocument is not completed, exiting loop, returning false");
                     return false;
                 }
 
-                if (taskOfJsonDocument.IsCanceled)
+                if (taskOfByteArray.IsCanceled)
                 {
                     Log.Information("taskOfJsonDocument is canceled, exiting loop, returning true");
                     return true;
                 }
 
-                if (taskOfJsonDocument.IsFaulted)
+                if (taskOfByteArray.IsFaulted)
                 {
-                    Log.Warning(taskOfJsonDocument.Exception, "taskOfJsonDocument is faulted, continuing loop");
+                    Log.Warning(taskOfByteArray.Exception, "taskOfJsonDocument is faulted, continuing loop");
                     continue;
                 }
 
-                if (!taskOfJsonDocument.IsCompletedSuccessfully)
+                if (!taskOfByteArray.IsCompletedSuccessfully)
                 {
                     Log.Warning("taskOfJsonDocument is not completed successfully, continuing loop");
                     continue;
                 }
 
-                if (jsonDocument is null)
+                if (byteArray is null)
                 {
-                    Log.Error("jsonDocument is null, continuing loop");
+                    Log.Error("byteArray is null, continuing loop");
                     continue;
                 }
 
                 ApplicationStatisticsModel.SetLastHttpResponse(stopwatch.ElapsedMilliseconds);
 
-                _ = _forecastModelBufferBlock.SendAsync(new ForecastModel(jsonDocument.RootElement));
+                _ = _bufferBlockOfByteArray.SendAsync(byteArray);
 
                 _cancellationTokenSource.Token.WaitHandle.WaitOne(
                     TimeSpan.FromMinutes(_settings.TimeBetweenHttpRequestsInMinutes));

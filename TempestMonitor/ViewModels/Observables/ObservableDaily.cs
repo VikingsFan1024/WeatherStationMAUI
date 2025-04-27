@@ -1,42 +1,42 @@
 ﻿namespace TempestMonitor.ViewModels.Observables;
 public partial class ObservableDaily : ObervableBase
 {
-    private readonly DailyModel _daily;
+    private readonly Daily _daily;
 
-    public ObservableDaily(DailyModel daily, int rowNumber, SettingsModel settings) : base(settings)
+    public ObservableDaily(TempestRedStarMapping tempestRedStarMapping, Daily daily, int rowNumber, SettingsModel settings) : base(settings)
     {
         _daily = daily;
         RowNumber = rowNumber;
-        AirTempHigh = new Amount(
-            Constants.LongToDouble(_daily.AirTempHigh),
-            _daily.Units.TemperatureUnit
-        ).ConvertedTo(_settings.TemperatureUnit).Value;
-        AirTempLow = new Amount(
-            Constants.LongToDouble(_daily.AirTempLow),
-            _daily.Units.TemperatureUnit
-        ).ConvertedTo(_settings.TemperatureUnit).Value;
+        air_temp_high = new Amount(_daily.air_temp_high, tempestRedStarMapping.units_temp)
+            .ConvertedTo(_settings.TemperatureUnit).Value;
+
+        air_temp_low = new Amount(_daily.air_temp_low, tempestRedStarMapping.units_temp)
+            .ConvertedTo(_settings.TemperatureUnit).Value;
+
+        sunset = Constants.UnixSecondsToDateTime(_daily.sunset);
+        sunrise = Constants.UnixSecondsToDateTime(_daily.sunrise);
     }
     public int RowNumber { get; private set; }
 
-    public double AirTempHigh { get; private set; }
-    public double AirTempLow { get; private set; }
-    public string Conditions => _daily.Conditions;
-    public double DayNum => _daily.DayNumber;
-    public DateTime DayStartLocal => Constants.UnixSecondsToLocalTime(_daily.DayStartLocal);
-    public string Icon => _daily.Icon;
-    public double MonthNumber => _daily.MonthNumber;
-    public string? PrecipitationIcon => _daily.PrecipitationIcon;
-    public double? PrecipitationProbability => Constants.LongToDouble(_daily.PrecipitationProbability);
-    public string? PrecipitationType => _daily.PrecipitationType;
-    public DateTime? Sunrise => Constants.UnixSecondsToLocalTime(_daily.Sunrise);
-    public DateTime? Sunset => Constants.UnixSecondsToLocalTime(_daily.Sunset);
+    public double air_temp_high { get; private set; }
+    public double air_temp_low { get; private set; }
+    public string conditions => _daily.conditions;
+    public double day_num => _daily.day_num;
+    public DateTime day_start_local => Constants.UnixSecondsToDateTime(_daily.day_start_local);
+    public string icon => _daily.icon;
+    public double month_num => _daily.month_num;
+    public string? precip_icon => _daily.precip_icon;
+    public double? precip_probability => _daily.precip_probability;
+    public string? precip_type => _daily.precip_type;
+    public DateTime? sunrise { get; private set; }
+    public DateTime? sunset { get; private set; }
     public static ObservableCollectionOfObservableDaily ConvertToObservableCollection(
-        DailyModel[] dailies, SettingsModel settings)
+        TempestRedStarMapping tempestRedStarMapping, Daily[] dailies, SettingsModel settings)
     {
-        //ToDo: Change to use linq to create the collection
         int rowNumber = 1;
+
         return new ObservableCollectionOfObservableDaily(
-            dailies.Select(daily => new ObservableDaily(daily, rowNumber++, settings))
+            dailies.Select(daily => new ObservableDaily(tempestRedStarMapping, daily, rowNumber++, settings))
         );
     }
 }

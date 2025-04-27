@@ -13,4 +13,10 @@ public partial class HistoryPage : ContentPage
         base.OnAppearing();
         (BindingContext as HistoryViewModel)?.OnAppearing();
     }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        (BindingContext as HistoryViewModel)?.OnDisappearing();
+    }
 }
