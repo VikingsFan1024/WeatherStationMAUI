@@ -1,18 +1,17 @@
-CREATE TABLE DeviceStatus
+create table DeviceStatus
 (
-	Id											TEXT		NOT NULL	UNIQUE
-	,JsonElementString							TEXT		NOT NULL
-	,type										TEXT		NOT NULL
-	,serial_number								TEXT		NOT NULL
-	,Timestamp     								INTEGER		NOT NULL
-	,hub_sn            							TEXT		NOT NULL
-	,firmware_revision							INTEGER		NOT NULL
-	,DeviceStatusTimestamp						INTEGER		NOT NULL
-	,uptime										INTEGER		NOT NULL
-	,voltage									INTEGER		NOT NULL
-	,rssi										INTEGER		NOT NULL
-	,hub_rssi									INTEGER		NOT NULL
-	,sensor_status								INTEGER		NOT NULL
-	,debug										INTEGER		NOT NULL
-	,PRIMARY KEY(id)
+    id                  integer primary key autoincrement
+    , json_document     text
+    , serial_number     text 	generated always as (json_extract(json_document, '$.serial_number')) stored
+    , timestamp_utc     text 	generated always as (json_extract(json_document, '$.timestamp')) stored
+	, type              text 	generated always as (json_extract(json_document, '$.type')) stored
+
+	, debug				integer	generated always as (json_extract(json_document, '$.debug')) stored
+	, firmware_revision	integer	generated always as (json_extract(json_document, '$.firmware_revision')) stored
+	, hub_rssi			integer	generated always as (json_extract(json_document, '$.hub_rssi')) stored
+	, rssi				integer	generated always as (json_extract(json_document, '$.rssi')) stored
+	, sensor_status		integer	generated always as (json_extract(json_document, '$.sensor_status')) stored
+	, uptime			integer	generated always as (json_extract(json_document, '$.uptime')) stored
+	, voltage			real	generated always as (json_extract(json_document, '$.voltage')) stored
+    , hub_sn            text 	generated always as (json_extract(json_document, '$.hub_sn')) stored
 )

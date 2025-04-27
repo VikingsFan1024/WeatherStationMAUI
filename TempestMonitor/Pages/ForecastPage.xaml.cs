@@ -1,3 +1,5 @@
+using TempestMonitor.ViewModels;
+
 namespace TempestMonitor.Pages;
 
 public partial class ForecastPage : ContentPage

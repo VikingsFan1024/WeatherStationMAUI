@@ -1,16 +1,18 @@
-﻿namespace TempestMonitor.ViewModels;
+﻿using TempestMonitor.ViewModels.Observables;
+
+namespace TempestMonitor.ViewModels;
 
 sealed partial class MainViewModel(IServiceProvider serviceProvider) : INotifyPropertyChanged, IDisposable
 {
     public event PropertyChangedEventHandler? PropertyChanged;
-    public void OnPropertyChanged([CallerMemberName] string name = "") => 
+    public void OnPropertyChanged([CallerMemberName] string name = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
     private readonly SettingsModel _settings = serviceProvider.GetRequiredService<SettingsModel>();
     private readonly ForegroundServiceHandler _foregroundServiceHandler = serviceProvider.GetRequiredService<ForegroundServiceHandler>();
 
-    private ObservableWindReading? _observableWindReading;
-    private ObservableObservation? _observableObservation;
+    private ObservableVW_WindModel? _observableVW_WindModel;
+    private ObservableVW_ObservationModel? _observableVW_Observation;
 
     private Timer? _timer;
     private DateTime _currentDateTime = DateTime.Now;
@@ -31,40 +33,40 @@ sealed partial class MainViewModel(IServiceProvider serviceProvider) : INotifyPr
         _timer = null;
         _timer = new Timer(new TimerCallback(UpdateReadings), null, TimeSpan.FromMilliseconds(1), TimeSpan.FromSeconds(1));
 
-        WeakReferenceMessenger.Default.Register<ReadingsListenerService.WindReadingMessage>
+        WeakReferenceMessenger.Default.Register<VW_Message<VW_WindModel>>
         (
             this, (r, m) =>
             {
-                _observableWindReading = new(m.WindReading, _settings);
-                OnPropertyChanged(nameof(WindReading));
+                _observableVW_WindModel = new(m.Model, _settings);
+                OnPropertyChanged(nameof(ObservableVW_WindModel));
             }
         );
 
-        WeakReferenceMessenger.Default.Register<ReadingsListenerService.ObservationReadingMessage>
+        WeakReferenceMessenger.Default.Register<VW_Message<VW_ObservationModel>>
         (
             this, (r, m) =>
             {
-                _observableObservation = new(m.ObservationReading, _settings);
-                OnPropertyChanged(nameof(ObservationReading));
+                _observableVW_Observation = new(m.Model, _settings);
+                OnPropertyChanged(nameof(ObservableVW_Observation));
                 OnPropertyChanged(nameof(TemperatureUnitSymbol));
             }
         );
 
-        var windReadingModel = serviceProvider.GetRequiredService<ReadingsListenerService>()
-            .MostRecentWindReading;
-        if (windReadingModel != null)
+        var vw_WindModel = serviceProvider.GetRequiredService<ReadingBroadcastService>()
+            .MostRecentVW_WindModel;
+        if (vw_WindModel is not null)
         {
-            _observableWindReading = new(windReadingModel, _settings);
-            OnPropertyChanged(nameof(WindReading));
+            _observableVW_WindModel = new(vw_WindModel, _settings);
+            OnPropertyChanged(nameof(ObservableVW_WindModel));
             OnPropertyChanged(nameof(WindspeedUnitSymbol));
         }
 
-        var observationReadingModel = serviceProvider.GetRequiredService<ReadingsListenerService>()
-            .MostRecentObservationReading;
-        if (observationReadingModel != null)
+        var vw_ObservationModel = serviceProvider.GetRequiredService<ReadingBroadcastService>()
+            .MostRecentVW_ObservationModel;
+        if (vw_ObservationModel != null)
         {
-            _observableObservation = new(observationReadingModel, _settings);
-            OnPropertyChanged(nameof(ObservationReading));
+            _observableVW_Observation = new(vw_ObservationModel, _settings);
+            OnPropertyChanged(nameof(ObservableVW_Observation));
             OnPropertyChanged(nameof(TemperatureUnitSymbol));
         }
     }
@@ -82,11 +84,11 @@ sealed partial class MainViewModel(IServiceProvider serviceProvider) : INotifyPr
     public long? MinutesSinceLastHttpResponse =>
         ApplicationStatisticsModel.LastHttpResponseDateTime is null ? null :
             (DateTime.Now - ApplicationStatisticsModel.LastHttpResponseDateTime).Value.Minutes;
-    public ObservableObservation? ObservationReading => _observableObservation;
+    public ObservableVW_ObservationModel? ObservableVW_Observation => _observableVW_Observation;
     public long? SecondsSinceLastUdpReading =>
         ApplicationStatisticsModel.LastUdpReadingDateTime is null ? null :
             (DateTime.Now - ApplicationStatisticsModel.LastUdpReadingDateTime).Value.Seconds;
-    public ObservableWindReading? WindReading => _observableWindReading;
+    public ObservableVW_WindModel? ObservableVW_WindModel => _observableVW_WindModel;
     private void UpdateReadings(object? stateInfo)
     {
         _currentDateTime = DateTime.Now;

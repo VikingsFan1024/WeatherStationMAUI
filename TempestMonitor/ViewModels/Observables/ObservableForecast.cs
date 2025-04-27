@@ -2,29 +2,33 @@
 
 public partial class ObservableForecast : ObservableObject
 {
-    private readonly ForecastModel _forecast;
+    private readonly WeatherForecastGraph _forecast;
     private readonly ObservableCurrentConditions _currentConditions;
-    private readonly ObservableCollectionOfObservableDaily _observableDailies;
     private readonly ObservableCollectionOfObservableHourly _observableHourlies;
+    private readonly ObservableCollectionOfObservableDaily _observableDailies;
     private readonly ObservableStation _stationObservable;
     private readonly ObservableUnits _unitsObservable;
-    public ObservableForecast(ForecastModel forecast, SettingsModel settings) : base()
+    public ObservableForecast(WeatherForecastGraph weatherForecast, SettingsModel settings) : base()
     {
-        _forecast = forecast;
-        _currentConditions = new ObservableCurrentConditions(forecast.CurrentConditions, settings);
-        _observableHourlies = ObservableHourly.ConvertToObservableCollection(forecast.Hourlies, settings);
-        _observableDailies = ObservableDaily.ConvertToObservableCollection(forecast.Dailies, settings);
-        _stationObservable = new ObservableStation(forecast.Station, settings);
-        _unitsObservable = new ObservableUnits(forecast.Units);
+        _forecast = weatherForecast;
+        var _tempestRedStarMapping = weatherForecast.GetTempestRedStarMapping();
+        _currentConditions = new ObservableCurrentConditions(
+            _tempestRedStarMapping, weatherForecast.current_conditions, settings);
+        _observableHourlies = ObservableHourly.ConvertToObservableCollection(
+            _tempestRedStarMapping, weatherForecast.forecast.hourly, settings);
+        _observableDailies = ObservableDaily.ConvertToObservableCollection(
+            _tempestRedStarMapping, weatherForecast.forecast.daily, settings);
+        _stationObservable = new ObservableStation(
+            _tempestRedStarMapping, weatherForecast.station, settings);
+        _unitsObservable = new ObservableUnits(weatherForecast.units);
     }
 
-    public DateTime Timestamp => Constants.UnixSecondsToLocalTime(_forecast.Timestamp);
-    public double Latitude => Constants.LongToDouble(_forecast.Latitude);
-    public string LocationName => _forecast.LocationName;
-    public double Longitude => Constants.LongToDouble(_forecast.Longitude);
-    public string Timezone => _forecast.Timezone;
-    public long TimezoneOffsetMinutes => _forecast.TimezoneOffsetMinutes;
-    public long SourceIdConditions => _forecast.SourceIdConditions;
+    public double latitude => _forecast.latitude;
+    public string location_name => _forecast.location_name;
+    public double longitude => _forecast.longitude;
+    public string timezone => _forecast.timezone;
+    public long timezone_offset_minutes => _forecast.timezone_offset_minutes;
+    public long source_id_conditions => _forecast.source_id_conditions;
     public ObservableCurrentConditions CurrentConditions => _currentConditions;
     public ObservableCollectionOfObservableDaily DailyForecasts => _observableDailies;
     public ObservableCollectionOfObservableHourly HourlyForecasts => _observableHourlies;

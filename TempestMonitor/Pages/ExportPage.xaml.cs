@@ -11,6 +11,6 @@ public partial class ExportPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        (BindingContext as ExportViewModel)?.OnAppearing();
+        ((ExportViewModel)BindingContext).OnAppearing();
     }
 }

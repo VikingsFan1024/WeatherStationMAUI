@@ -31,10 +31,9 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<ApplicationStatisticsViewModel>();
         mauiAppBuilder.Services.AddSingleton<DailyForecastPage>();
         mauiAppBuilder.Services.AddSingleton<DailyForecastViewModel>();
-        mauiAppBuilder.Services.AddSingleton<DatabasePersistenceService>();
         mauiAppBuilder.Services.AddSingleton<DatabaseService>();
         mauiAppBuilder.Services.AddSingleton<ExportPage>();
-        mauiAppBuilder.Services.AddSingleton<ExportViewModel>();
+        //mauiAppBuilder.Services.AddSingleton<ExportViewModel>();
         mauiAppBuilder.Services.AddSingleton<ForecastPage>();
         mauiAppBuilder.Services.AddSingleton<ForecastViewModel>();
         mauiAppBuilder.Services.AddSingleton<ForegroundServiceHandler>();
@@ -47,6 +46,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<LiveStationReadingsViewModel>();
         mauiAppBuilder.Services.AddSingleton<MainPage>();
         mauiAppBuilder.Services.AddSingleton<MainViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ReadingBroadcastService>();
         mauiAppBuilder.Services.AddSingleton<ReadingsListenerService>();
         mauiAppBuilder.Services.AddSingleton<RequestForecastsService>();
         mauiAppBuilder.Services.AddSingleton<SettingsModel>();

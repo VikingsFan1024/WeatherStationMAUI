@@ -6,8 +6,8 @@
     xmlns:converters="clr-namespace:TempestMonitor.Views.Converters;assembly=TempestMonitor"
     x:Class="TempestMonitor.Pages.HistoryPage"
     Title="Hourly Observation History"
+    xmlns:models="clr-namespace:TempestMonitor.Models;assembly=TempestMonitor"
     xmlns:viewmodels="clr-namespace:TempestMonitor.ViewModels;assembly=TempestMonitor"
-    xmlns:historymodels="clr-namespace:TempestMonitor.ViewModels.History;assembly=TempestMonitor"
     x:DataType="viewmodels:HistoryViewModel"
     >
     <ScrollView Orientation="Both"
@@ -18,213 +18,316 @@
             </ResourceDictionary>
         </ScrollView.Resources>
         <VerticalStackLayout>
-            <CollectionView ItemsSource="{Binding HourlyObservationSummaries}">
+            <CollectionView ItemsSource="{Binding VW_HourlyObservationSummaries}">
                 <CollectionView.Header>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="115"/>
+                            <!--0 min_id-->
+                            <ColumnDefinition Width="60"/>
+                            <!--1 hours_back-->
+                            <ColumnDefinition Width="50"/>
+                            <!--2 count-->
+                            <ColumnDefinition Width="50"/>
+                            <!--3 min_hour_minutes-->
+                            <ColumnDefinition Width="65"/>
+                            <!--4 min_air_temperature-->
                             <ColumnDefinition Width="70"/>
+                            <!--5 max_air_temperature-->
                             <ColumnDefinition Width="70"/>
+                            <!--6 avg_air_temperature-->
                             <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="75"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="75"/>
-                            <ColumnDefinition Width="70"/>
-                            <!--<ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="90"/>
-                            <ColumnDefinition Width="70"/>
+                            <!--7 min_battery-->
+                            <ColumnDefinition Width="60"/>
+                            <!--8 max_battery-->
+                            <ColumnDefinition Width="60"/>
+                            <!--9 avg_battery-->
+                            <ColumnDefinition Width="60"/>
+                            <!--10 min_illuminance-->
                             <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="90"/>-->
+                            <!--11 max_illuminance-->
+                            <ColumnDefinition Width="80"/>
+                            <!--12 avg_illuminance-->
+                            <ColumnDefinition Width="80"/>
+                            <!--13 min_lightning_strike_average_distance-->
+                            <ColumnDefinition Width="80"/>
+                            <!--14 max_lightning_strike_average_distance-->
+                            <ColumnDefinition Width="80"/>
+                            <!--15 avg_lightning_strike_average_distance-->
+                            <ColumnDefinition Width="80"/>
+                            <!--16 min_lightning_strike_count-->
+                            <ColumnDefinition Width="60"/>
+                            <!--17 max_lightning_strike_count-->
+                            <ColumnDefinition Width="60"/>
+                            <!--18 avg_lightning_strike_count-->
+                            <ColumnDefinition Width="60"/>
+                            <!--19 min_relative_humidity-->
+                            <ColumnDefinition Width="60"/>
+                            <!--20 max_relative_humidity-->
+                            <ColumnDefinition Width="60"/>
+                            <!--21 avg_relative_humidity-->
+                            <ColumnDefinition Width="60"/>
+                            <!--22 min_wind_average-->
+                            <ColumnDefinition Width="60"/>
+                            <!--23 max_wind_average-->
+                            <ColumnDefinition Width="60"/>
+                            <!--24 avg_wind_average-->
+                            <ColumnDefinition Width="60"/>
+                            <!--25 min_wind_direction-->
+                            <ColumnDefinition Width="60"/>
+                            <!--26 max_wind_direction-->
+                            <ColumnDefinition Width="60"/>
+                            <!--27 avg_wind_direction-->
+                            <ColumnDefinition Width="60"/>
+                            <!--28 min_wind_gust-->
+                            <ColumnDefinition Width="60"/>
+                            <!--29 max_wind_gust-->
+                            <ColumnDefinition Width="60"/>
+                            <!--30 avg_wind_gust-->
+                            <ColumnDefinition Width="60"/>
+                            <!--31 min_wind_lull-->
+                            <ColumnDefinition Width="60"/>
+                            <!--32 max_wind_lull-->
+                            <ColumnDefinition Width="60"/>
+                            <!--33 avg_wind_lull-->
+                            <ColumnDefinition Width="60"/>
+                            <!--34 avg_wind_sample_interval-->
+                            <ColumnDefinition Width="60"/>
+                            <!--35 count_distinct_wind_sample_interval-->
+                            <ColumnDefinition Width="60"/>
+                            <!--36 avg_reporting_interval-->
+                            <ColumnDefinition Width="60"/>
+                            <!--37 count_distinct_reporting_interval-->
+                            <ColumnDefinition Width="60"/>
+                            <!--38 sum_rain_accumulation_over_the_previous_minute-->
+                            <ColumnDefinition Width="60"/>
+                            <!--39 min_rain_accumulation_over_the_previous_minute-->
+                            <ColumnDefinition Width="60"/>
+                            <!--40 max_rain_accumulation_over_the_previous_minute-->
+                            <ColumnDefinition Width="60"/>
+                            <!--41 avg_rain_accumulation_over_the_previous_minute-->
+                            <ColumnDefinition Width="60"/>
+                            <!--42 min_uv-->
+                            <ColumnDefinition Width="60"/>
+                            <!--43 max_uv-->
+                            <ColumnDefinition Width="60"/>
+                            <!--44 avg_uv-->
+                            <ColumnDefinition Width="60"/>
+                            <!--45 min_solar_radiation-->
+                            <ColumnDefinition Width="60"/>
+                            <!--46 max_solar_radiation-->
+                            <ColumnDefinition Width="60"/>
+                            <!--47 avg_solar_radiation-->
+                            <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Column="0"
-                            TextColor="{StaticResource GoldVikings}"
-                            Text="Hour" 
-                            FontSize="Medium"
-                            VerticalOptions="End"
-                            HorizontalOptions="Start"
-                        />
-                        <Label
-                            Grid.Column="1"
-                            TextColor="{StaticResource GoldVikings}"
-                            Text="Hours Ago" 
-                            FontSize="Medium"
-                            VerticalOptions="End"
-                            HorizontalOptions="Start"
-                        />
-                        <Label
-                            Grid.Column="2"
-                            TextColor="{StaticResource GoldVikings}"
-                            Text="Count" 
-                            FontSize="Medium"
-                            VerticalOptions="End"
-                            HorizontalOptions="Start"
-                        />
-                        <Border
-                            Grid.Column="3"
-                            StrokeThickness="1"
-                        >
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    TextColor="{StaticResource GoldVikings}"
-                                    Text="High" 
-                                    FontSize="Medium"
-                                    VerticalOptions="End"
-                                    HorizontalOptions="Start"
-                                />
-                                <Label 
-                                    FontSize="15"
-                                    VerticalTextAlignment="Start"
-                                    HorizontalTextAlignment="Start" 
-                                    TextColor="{StaticResource GoldVikings}"                    
-                                    Text="{Binding Settings.TemperatureUnitSymbol, StringFormat='{0}'}"
-                                />
-                            </HorizontalStackLayout>
-                        </Border>
-                        <Border
-                            Grid.Column="4"
-                            StrokeThickness="1"
-                        >
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    TextColor="{StaticResource GoldVikings}"
-                                    Text="Low" 
-                                    FontSize="Medium"
-                                    VerticalOptions="End"
-                                    HorizontalOptions="Start"
-                                />
-                                <Label 
-                                    FontSize="15"
-                                    VerticalTextAlignment="Start"
-                                    HorizontalTextAlignment="Start" 
-                                    TextColor="{StaticResource GoldVikings}"                    
-                                    Text="{Binding Settings.TemperatureUnitSymbol, StringFormat='{0}'}"
-                                />
-                            </HorizontalStackLayout>
-                        </Border>
-                        <Border
-                            Grid.Column="5"
-                            StrokeThickness="1"
-                        >
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    TextColor="{StaticResource GoldVikings}"
-                                    Text="Gust" 
-                                    FontSize="Micro"
-                                    VerticalOptions="End"
-                                    HorizontalOptions="Start"
-                                />
-                                <Label 
-                                    FontSize="Micro"
-                                    VerticalTextAlignment="Start"
-                                    HorizontalTextAlignment="Start" 
-                                    TextColor="{StaticResource GoldVikings}"                    
-                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
-                                />
-                            </HorizontalStackLayout>
-                        </Border>
-                        <Border
-                            Grid.Column="6"
-                            StrokeThickness="1"
-                        >
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    TextColor="{StaticResource GoldVikings}"
-                                    Text="W Dir" 
-                                    FontSize="Medium"
-                                    VerticalOptions="End"
-                                    HorizontalOptions="Start"
-                                />
-                            </HorizontalStackLayout>
-                        </Border>
-                        <Border
-                            Grid.Column="7"
-                            StrokeThickness="1"
-                        >
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    TextColor="{StaticResource GoldVikings}"
-                                    Text="W Car" 
-                                    FontSize="Medium"
-                                    VerticalOptions="End"
-                                    HorizontalOptions="Start"
-                                />
-                            </HorizontalStackLayout>
-                        </Border>
-                        <Border
-                            Grid.Column="8"
-                            StrokeThickness="1"
-                        >
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    TextColor="{StaticResource GoldVikings}"
-                                    Text="Rain" 
-                                    FontSize="Medium"
-                                    VerticalOptions="End"
-                                    HorizontalOptions="Start"
-                                />
-                                <Label 
-                                    FontSize="Micro"
-                                    VerticalTextAlignment="Start"
-                                    HorizontalTextAlignment="Start" 
-                                    TextColor="{StaticResource GoldVikings}"                    
-                                    Text="{Binding Settings.PrecipitationUnitSymbol, StringFormat='{0}'}"
-                                />
-                            </HorizontalStackLayout>
-                        </Border>
-                        <Border
-                            Grid.Column="9"
-                            StrokeThickness="1"
-                        >
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    TextColor="{StaticResource GoldVikings}"
-                                    Text="R A" 
-                                    FontSize="Medium"
-                                    VerticalOptions="End"
-                                    HorizontalOptions="Start"
-                                />
-                                <Label 
-                                    FontSize="Micro"
-                                    VerticalTextAlignment="Start"
-                                    HorizontalTextAlignment="Start" 
-                                    TextColor="{StaticResource GoldVikings}"                    
-                                    Text="{Binding Settings.PrecipitationUnitSymbol, StringFormat='{0}'}"
-                                />
-                            </HorizontalStackLayout>
-                        </Border>
-                        <Border
-                            Grid.Column="10"
-                            StrokeThickness="1"
-                        >
+                        <Border Grid.Column="0" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="Strikes" 
+                                Text="mn id" 
                                 FontSize="Micro"
                                 VerticalOptions="End"
                                 HorizontalOptions="Start"
                             />
                         </Border>
-                        <Border
-                            Grid.Column="11"
-                            StrokeThickness="1"
-                        >
+                        <Border Grid.Column="1" StrokeThickness="1" >
+                            <Label
+                            TextColor="{StaticResource GoldVikings}"
+                            Text="hrs bck" 
+                            FontSize="Micro"
+                            VerticalOptions="End"
+                            HorizontalOptions="Start"
+                        />
+                        </Border>
+                        <Border Grid.Column="2" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="count" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="3" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="start" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="4" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
-                                    Text="Dist" 
-                                    FontSize="Medium"
+                                    Text="min" 
+                                    FontSize="Micro"
                                     VerticalOptions="End"
                                     HorizontalOptions="Start"
                                 />
                                 <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.TemperatureUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="5" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="max" 
                                     FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.TemperatureUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="6" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="avg" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.TemperatureUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="7" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mn b" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.BatteryUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="8" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mx b" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.BatteryUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="9" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="av b" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.BatteryUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="10" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mn il" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.IlluminanceUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="11" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mx il" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.IlluminanceUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="12" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="av il" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.IlluminanceUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="13" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mn lsad" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
                                     VerticalTextAlignment="Start"
                                     HorizontalTextAlignment="Start" 
                                     TextColor="{StaticResource GoldVikings}"                    
@@ -232,20 +335,80 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <!--<Border
-                            Grid.Column="9"
-                            StrokeThickness="1"
-                        >
+                        <Border Grid.Column="14" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
-                                    Text="RH" 
-                                    FontSize="Medium"
+                                    Text="mx lsad" 
+                                    FontSize="Micro"
                                     VerticalOptions="End"
                                     HorizontalOptions="Start"
                                 />
                                 <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.DistanceUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="15" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="av lsad" 
                                     FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.DistanceUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="16" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="mn lsc" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Center"
+                            />
+                        </Border>
+                        <Border Grid.Column="17" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="mx lsc" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Center"
+                            />
+                        </Border>
+                        <Border Grid.Column="18" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="av lsc" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="19" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mn h" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
                                     VerticalTextAlignment="Start"
                                     HorizontalTextAlignment="Start" 
                                     TextColor="{StaticResource GoldVikings}"                    
@@ -253,320 +416,874 @@
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border
-                            Grid.Column="10"
-                            StrokeThickness="1"
-                        >
+                        <Border Grid.Column="20" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
-                                    Text="Bat" 
-                                    FontSize="Medium"
+                                    Text="mx h" 
+                                    FontSize="Micro"
                                     VerticalOptions="End"
                                     HorizontalOptions="Start"
                                 />
                                 <Label 
-                                    FontSize="Micro"
+                                    FontSize="10"
                                     VerticalTextAlignment="Start"
                                     HorizontalTextAlignment="Start" 
                                     TextColor="{StaticResource GoldVikings}"                    
-                                    Text="{Binding Settings.BatteryUnitSymbol}"
+                                    Text="%"
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border
-                            Grid.Column="11"
-                            StrokeThickness="1"
-                        >
+                        <Border Grid.Column="21" StrokeThickness="1" >
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <Label
                                     TextColor="{StaticResource GoldVikings}"
-                                    Text="Ill" 
-                                    FontSize="Medium"
+                                    Text="ag h" 
+                                    FontSize="Micro"
                                     VerticalOptions="End"
                                     HorizontalOptions="Start"
                                 />
                                 <Label 
-                                    FontSize="Micro"
+                                    FontSize="10"
                                     VerticalTextAlignment="Start"
                                     HorizontalTextAlignment="Start" 
                                     TextColor="{StaticResource GoldVikings}"                    
-                                    Text="lux"
+                                    Text="%"
                                 />
                             </HorizontalStackLayout>
                         </Border>
-                        <Border
-                            Grid.Column="12"
-                            StrokeThickness="1"
-                        >
+                        <Border Grid.Column="22" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mn w ag" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="23" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mx w ag" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="24" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="ag wa ag" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="25" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mn wd" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="°"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="26" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mx wd" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="°"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="27" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="ag wd" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="°"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="28" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mn wg" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="29" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mx wg" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="30" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="ag wg" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="31" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mn wl" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="32" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="mx wl" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="33" StrokeThickness="1" >
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    TextColor="{StaticResource GoldVikings}"
+                                    Text="ag wl" 
+                                    FontSize="Micro"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label 
+                                    FontSize="10"
+                                    VerticalTextAlignment="Start"
+                                    HorizontalTextAlignment="Start" 
+                                    TextColor="{StaticResource GoldVikings}"                    
+                                    Text="{Binding Settings.WindspeedUnitSymbol, StringFormat='{0}'}"
+                                />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="34" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="UV" 
-                                FontSize="Medium"
+                                Text="ag w si" 
+                                FontSize="Micro"
                                 VerticalOptions="End"
-                                HorizontalOptions="Center"
+                                HorizontalOptions="Start"
                             />
                         </Border>
-                        <Border
-                            Grid.Column="13"
-                            StrokeThickness="1"
-                        >
+                        <Border Grid.Column="35" StrokeThickness="1" >
                             <Label
                                 TextColor="{StaticResource GoldVikings}"
-                                Text="SR" 
-                                FontSize="Medium"
+                                Text="cd w si" 
+                                FontSize="Micro"
                                 VerticalOptions="End"
-                                HorizontalOptions="Center"
+                                HorizontalOptions="Start"
                             />
                         </Border>
-                        <Border
-                            Grid.Column="14"
-                            StrokeThickness="1"
-                        >
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    TextColor="{StaticResource GoldVikings}"
-                                    Text="Press" 
-                                    FontSize="Medium"
-                                    VerticalOptions="End"
-                                    HorizontalOptions="Start"
-                                />
-                                <Label 
-                                    FontSize="15"
-                                    VerticalTextAlignment="Start"
-                                    HorizontalTextAlignment="Start" 
-                                    TextColor="{StaticResource GoldVikings}"                    
-                                    Text="{Binding Settings.PressureUnitSymbol}"
-                                />
-                            </HorizontalStackLayout>
-                        </Border>-->
+                        <Border Grid.Column="36" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="ag ri" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="37" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="cd ri" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="38" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="sm ra opm" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="39" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="mn ra opm" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="40" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="mx ra opm" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="41" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="ag ra opm" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="42" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="mn uv" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="43" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="mx uv" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="44" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="ag uv" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="45" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="mn sr" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="46" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="mx sr" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
+                        <Border Grid.Column="47" StrokeThickness="1" >
+                            <Label
+                                TextColor="{StaticResource GoldVikings}"
+                                Text="mx sr" 
+                                FontSize="Micro"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                            />
+                        </Border>
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type historymodels:HourlyObservationSummary}">
+                    <DataTemplate x:DataType="{x:Type models:VW_HourlyObservationSummary}">
                         <Grid
                                 Margin="0,0,0,0"
                                 Padding="0,0,0,0"
                             >
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="115"/>
+                                <!--0 min_id-->
+                                <ColumnDefinition Width="60"/>
+                                <!--1 hours_back-->
+                                <ColumnDefinition Width="50"/>
+                                <!--2 count-->
+                                <ColumnDefinition Width="50"/>
+                                <!--3 min_hour_minutes-->
+                                <ColumnDefinition Width="65"/>
+                                <!--4 min_air_temperature-->
                                 <ColumnDefinition Width="70"/>
+                                <!--5 max_air_temperature-->
                                 <ColumnDefinition Width="70"/>
+                                <!--6 avg_air_temperature-->
                                 <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="75"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="75"/>
-                                <ColumnDefinition Width="70"/>
-                                <!--<ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="90"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="90"/>-->
+                                <!--7 min_battery-->
+                                <ColumnDefinition Width="60"/>
+                                <!--8 max_battery-->
+                                <ColumnDefinition Width="60"/>
+                                <!--9 avg_battery-->
+                                <ColumnDefinition Width="60"/>
+                                <!--10 min_illuminance-->
+                                <ColumnDefinition Width="80"/>
+                                <!--11 max_illuminance-->
+                                <ColumnDefinition Width="80"/>
+                                <!--12 avg_illuminance-->
+                                <ColumnDefinition Width="80"/>
+                                <!--13 min_lightning_strike_average_distance-->
+                                <ColumnDefinition Width="80"/>
+                                <!--14 max_lightning_strike_average_distance-->
+                                <ColumnDefinition Width="80"/>
+                                <!--15 avg_lightning_strike_average_distance-->
+                                <ColumnDefinition Width="80"/>
+                                <!--16 min_lightning_strike_count-->
+                                <ColumnDefinition Width="60"/>
+                                <!--17 max_lightning_strike_count-->
+                                <ColumnDefinition Width="60"/>
+                                <!--18 avg_lightning_strike_count-->
+                                <ColumnDefinition Width="60"/>
+                                <!--19 min_relative_humidity-->
+                                <ColumnDefinition Width="60"/>
+                                <!--20 max_relative_humidity-->
+                                <ColumnDefinition Width="60"/>
+                                <!--21 avg_relative_humidity-->
+                                <ColumnDefinition Width="60"/>
+                                <!--22 min_wind_average-->
+                                <ColumnDefinition Width="60"/>
+                                <!--23 max_wind_average-->
+                                <ColumnDefinition Width="60"/>
+                                <!--24 avg_wind_average-->
+                                <ColumnDefinition Width="60"/>
+                                <!--25 min_wind_direction-->
+                                <ColumnDefinition Width="60"/>
+                                <!--26 max_wind_direction-->
+                                <ColumnDefinition Width="60"/>
+                                <!--27 avg_wind_direction-->
+                                <ColumnDefinition Width="60"/>
+                                <!--28 min_wind_gust-->
+                                <ColumnDefinition Width="60"/>
+                                <!--29 max_wind_gust-->
+                                <ColumnDefinition Width="60"/>
+                                <!--30 avg_wind_gust-->
+                                <ColumnDefinition Width="60"/>
+                                <!--31 min_wind_lull-->
+                                <ColumnDefinition Width="60"/>
+                                <!--32 max_wind_lull-->
+                                <ColumnDefinition Width="60"/>
+                                <!--33 avg_wind_lull-->
+                                <ColumnDefinition Width="60"/>
+                                <!--34 avg_wind_sample_interval-->
+                                <ColumnDefinition Width="60"/>
+                                <!--35 count_distinct_wind_sample_interval-->
+                                <ColumnDefinition Width="60"/>
+                                <!--36 avg_reporting_interval-->
+                                <ColumnDefinition Width="60"/>
+                                <!--37 count_distinct_reporting_interval-->
+                                <ColumnDefinition Width="60"/>
+                                <!--38 sum_rain_accumulation_over_the_previous_minute-->
+                                <ColumnDefinition Width="60"/>
+                                <!--39 min_rain_accumulation_over_the_previous_minute-->
+                                <ColumnDefinition Width="60"/>
+                                <!--40 max_rain_accumulation_over_the_previous_minute-->
+                                <ColumnDefinition Width="60"/>
+                                <!--41 avg_rain_accumulation_over_the_previous_minute-->
+                                <ColumnDefinition Width="60"/>
+                                <!--42 min_uv-->
+                                <ColumnDefinition Width="60"/>
+                                <!--43 max_uv-->
+                                <ColumnDefinition Width="60"/>
+                                <!--44 avg_uv-->
+                                <ColumnDefinition Width="60"/>
+                                <!--45 min_solar_radiation-->
+                                <ColumnDefinition Width="60"/>
+                                <!--46 max_solar_radiation-->
+                                <ColumnDefinition Width="60"/>
+                                <!--47 avg_solar_radiation-->
+                                <ColumnDefinition Width="60"/>
                             </Grid.ColumnDefinitions>
-                            <Border
-                                Grid.Column="0"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="0" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding Hour, StringFormat='{0:##0}:00'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_id, StringFormat='{0:#####0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="1"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="1" StrokeThickness="1">
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding HoursBack, StringFormat='{0:##0}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding hours_back, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="2"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="2" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding Count, StringFormat='{0:##0}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding count, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="3"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="3" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding MaximumTemperature, StringFormat='{0:##0.0}°'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_hour_minutes, StringFormat='{0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="4"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="4" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding MinimumTemperature, StringFormat='{0:##0.0}°'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_air_temperature, StringFormat='{0:##0.0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="5"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="5" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding MaximumWindGust, StringFormat='{0:##0.00}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_air_temperature, StringFormat='{0:##0.0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="6"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="6" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AverageWindDirection, StringFormat='{0:##0}°'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_air_temperature, StringFormat='{0:##0.0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="7"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="7" StrokeThickness="1" >
                                 <Label
-                                    HorizontalOptions="Start"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AverageWindDirectionShortCardinal, StringFormat='{0}'}" 
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_battery, StringFormat='{0:##0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="8"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="8" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding RainAccumulationDuringHour, StringFormat='{0:##0.000}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_battery, StringFormat='{0:##0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="9"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="9" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding RainAccumulationTotal, StringFormat='{0:##0.000}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_battery, StringFormat='{0:##0.00}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="10"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="10" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding LightningStrikesDuringHour, StringFormat='{0:#,##0}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_illuminance, StringFormat='{0:#,##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="11"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="11" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AverageLightningStrikeDistance, StringFormat='{0:##0.00}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_illuminance, StringFormat='{0:#,##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <!--<Border
-                                Grid.Column="9"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="12" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AverageRelativeHumidity, StringFormat='{0:##0}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_illuminance, StringFormat='{0:#,##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="10"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="13" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AverageBattery, StringFormat='{0:##0.00}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_lightning_strike_average_distance, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="11"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="14" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AverageIlluminance, StringFormat='{0:###,##0}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_lightning_strike_average_distance, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="12"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="15" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AverageUV, StringFormat='{0:#0.00}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_lightning_strike_average_distance, StringFormat='{0:##0}'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="13"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="16" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AverageSolarRadiation, StringFormat='{0:#0.00}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_lightning_strike_count, StringFormat='{0:#,##0'}" 
                                     FontSize="Medium"
                                 />
                             </Border>
-                            <Border
-                                Grid.Column="14"
-                                StrokeThickness="1"
-                            >
+                            <Border Grid.Column="17" StrokeThickness="1" >
                                 <Label
                                     HorizontalOptions="End"
-                                    TextColor="{Binding HoursBack, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AverageStationPressure, StringFormat='{0:#0.00}'}" 
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_lightning_strike_count, StringFormat='{0:#,##0}'}" 
                                     FontSize="Medium"
                                 />
-                            </Border>-->
+                            </Border>
+                            <Border Grid.Column="18" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_lightning_strike_count, StringFormat='{0:#,##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="19" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_relative_humidity, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="20" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_relative_humidity, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="21" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_relative_humidity, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="22" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_wind_average, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="23" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_wind_average, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="24" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_wind_average, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="25" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_wind_direction, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="26" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_wind_direction, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="27" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_wind_direction, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="28" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_wind_gust, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="29" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_wind_gust, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="30" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_wind_gust, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="31" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_wind_lull, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="32" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_wind_lull, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="33" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_wind_lull, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="34" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_wind_sample_interval, StringFormat='{0:##0.0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="35" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding count_distinct_wind_sample_interval, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="36" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_reporting_interval, StringFormat='{0:##0.0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="37" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding count_distinct_reporting_interval, StringFormat='{0:##0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="38" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding sum_rain_accumulation_over_the_previous_minute, StringFormat='{0:#0.00}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="39" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_rain_accumulation_over_the_previous_minute, StringFormat='{0:0.00}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="40" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_rain_accumulation_over_the_previous_minute, StringFormat='{0:0.00}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="41" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_rain_accumulation_over_the_previous_minute, StringFormat='{0:0.00}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="42" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_uv, StringFormat='{0:#0.00}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="43" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_uv, StringFormat='{0:#0.00}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="44" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_uv, StringFormat='{0:#0.00}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="45" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding min_solar_radiation, StringFormat='{0:###0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="46" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding max_solar_radiation, StringFormat='{0:###0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
+                            <Border Grid.Column="47" StrokeThickness="1" >
+                                <Label
+                                    HorizontalOptions="End"
+                                    TextColor="{Binding hours_back, Converter={StaticResource RowIndexToColorConverter}}" 
+                                    Text="{Binding avg_solar_radiation, StringFormat='{0:###0.0}'}" 
+                                    FontSize="Medium"
+                                />
+                            </Border>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -193,7 +193,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding AirTemperature, StringFormat='{0:##0.00}'}" 
+                                    Text="{Binding air_temperature, StringFormat='{0:##0.00}'}" 
                                 />
                             </Border>
                             <Border
@@ -203,7 +203,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding Conditions}" 
+                                    Text="{Binding conditions}" 
                                 />
                             </Border>
                             <Border
@@ -213,7 +213,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding FeelsLike, StringFormat='{0:##0.00}'}" 
+                                    Text="{Binding feels_like, StringFormat='{0:##0.00}'}" 
                                 />
                             </Border>
                             <Border
@@ -223,7 +223,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding Icon}" 
+                                    Text="{Binding icon}" 
                                 />
                             </Border>
                             <Border
@@ -233,7 +233,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding Time, StringFormat='{0:ddd}'}" 
+                                    Text="{Binding time, StringFormat='{0:ddd}'}" 
                                 />
                             </Border>
                             <Border
@@ -243,7 +243,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding LocalDay, StringFormat='{0:##}'}" 
+                                    Text="{Binding local_day, StringFormat='{0:##}'}" 
                                 />
                             </Border>
                             <Border
@@ -253,7 +253,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding LocalHour, StringFormat='{0:00}'}" 
+                                    Text="{Binding local_hour, StringFormat='{0:00}'}" 
                                 />
                             </Border>
                             <Border
@@ -263,7 +263,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding Precipitation, StringFormat='{0:#0.00}'}" 
+                                    Text="{Binding precip, StringFormat='{0:#0.00}'}" 
                                 />
                             </Border>
                             <Border
@@ -273,7 +273,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding PrecipitationIcon}" 
+                                    Text="{Binding precip_icon}" 
                                 />
                             </Border>
                             <Border
@@ -283,7 +283,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding PrecipitationProbability, StringFormat='{0:#0}'}" 
+                                    Text="{Binding precip_probability, StringFormat='{0:#0}'}" 
                                 />
                             </Border>
                             <Border
@@ -293,7 +293,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding PrecipitationType}" 
+                                    Text="{Binding precip_type}" 
                                 />
                             </Border>
                             <Border
@@ -303,7 +303,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding RelativeHumidity, StringFormat='{0:##0}'}" 
+                                    Text="{Binding relative_humidity, StringFormat='{0:##0}'}" 
                                 />
                             </Border>
                             <Border
@@ -313,7 +313,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding SeaLevelPressure, StringFormat='{0:###0}'}" 
+                                    Text="{Binding sea_level_pressure, StringFormat='{0:###0}'}" 
                                 />
                             </Border>
                             <Border
@@ -323,7 +323,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding StationPressure, StringFormat='{0:##0}'}" 
+                                    Text="{Binding station_pressure, StringFormat='{0:##0}'}" 
                                 />
                             </Border>
                             <Border
@@ -333,7 +333,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding Time, StringFormat='{0:HH}'}" 
+                                    Text="{Binding time, StringFormat='{0:HH}'}" 
                                 />
                             </Border>
                             <Border
@@ -343,7 +343,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding UV, StringFormat='{0:0}'}"  
+                                    Text="{Binding uv, StringFormat='{0:0}'}"  
                                 />
                             </Border>
                             <Border
@@ -353,7 +353,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding WindAvg, StringFormat='{0:##0}'}" 
+                                    Text="{Binding wind_avg, StringFormat='{0:##0}'}" 
                                 />
                             </Border>
                             <Border
@@ -363,7 +363,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding WindDirection, StringFormat='{0:##0}'}" 
+                                    Text="{Binding wind_direction, StringFormat='{0:##0}'}" 
                                 />
                             </Border>
                             <Border
@@ -373,7 +373,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     TextColor="{Binding RowNumber, Converter={StaticResource RowIndexToColorConverter}}" 
-                                    Text="{Binding WindDirectionCardinal, StringFormat='{0}'}" 
+                                    Text="{Binding wind_direction_cardinal, StringFormat='{0}'}" 
                                 />
                             </Border>
                         </Grid>

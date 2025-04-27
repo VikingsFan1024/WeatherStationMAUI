@@ -18,22 +18,27 @@ sealed partial class HourlyForecastViewModel(IServiceProvider serviceProvider) :
     public void OnAppearing()
     {
         _foregroundServiceHandler.Register(this);
-        WeakReferenceMessenger.Default.Register<RequestForecastsService.ForecastMessage>
+        WeakReferenceMessenger.Default.Register<VW_Message<WeatherForecastGraph>>
         (
             this, (r, m) =>
             {
                 _hourlyForecasts = ObservableHourly.ConvertToObservableCollection(
-                    m.Forecast.Hourlies, _settings);
+                    m.Model.GetTempestRedStarMapping(), m.Model.forecast.hourly, _settings);
                 OnPropertyChanged(nameof(HourlyForecasts));
             }
         );
 
-        var hourlies = serviceProvider.GetRequiredService<RequestForecastsService>()
-                .MostRecentForecast?.Hourlies;
+        //var vw_WeatherForecastModel = serviceProvider.GetRequiredService<ReadingBroadcastService>()
+        //        .MostRecentVW_WeatherForecastModel;
 
-        if (hourlies is not null)
-            _hourlyForecasts = ObservableHourly.ConvertToObservableCollection(hourlies, _settings);
+        //if (vw_WeatherForecastModel is not null)
+        //{
+        //    var hourlies = vw_WeatherForecastModel.forecast.hourly;
+        //    if (hourlies is not null)
+        //        _hourlyForecasts = ObservableHourly.ConvertToObservableCollection(
+        //            vw_WeatherForecastModel.GetTempestRedStarMapping(), hourlies, _settings);
+        //}
 
-        OnPropertyChanged(nameof(HourlyForecasts));
+        //OnPropertyChanged(nameof(HourlyForecasts));
     }
-}   
+}

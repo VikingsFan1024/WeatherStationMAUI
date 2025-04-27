@@ -32,14 +32,14 @@ public class PageToDeviceContentView
         new PageContentViewToDeviceData(){ PageName=nameof(MainPage), Width=1080, Height=2400, ViewType=typeof(MainView1080x2400)},   //Motorola Moto G 5G Stylus Portrait
 
         new PageContentViewToDeviceData(){ PageName=nameof(DailyForecastPage), Width=1920, Height=1200, ViewType=typeof(DailyForecastView1920x1200)},
-        new PageContentViewToDeviceData(){ PageName=nameof(DailyForecastPage), Width=2176, Height=1812, ViewType=typeof(DailyForecastView2176x1812)},
-        new PageContentViewToDeviceData(){ PageName=nameof(DailyForecastPage), Width=1812, Height=2176, ViewType=typeof(DailyForecastView1812x2176)},
-        new PageContentViewToDeviceData(){ PageName=nameof(DailyForecastPage), Width=2304, Height=1440, ViewType=typeof(DailyForecastView2304x1440)},        
+        //new PageContentViewToDeviceData(){ PageName=nameof(DailyForecastPage), Width=2176, Height=1812, ViewType=typeof(DailyForecastView2176x1812)},
+        //new PageContentViewToDeviceData(){ PageName=nameof(DailyForecastPage), Width=1812, Height=2176, ViewType=typeof(DailyForecastView1812x2176)},
+        //new PageContentViewToDeviceData(){ PageName=nameof(DailyForecastPage), Width=2304, Height=1440, ViewType=typeof(DailyForecastView2304x1440)},        
 
         new PageContentViewToDeviceData(){ PageName=nameof(HourlyForecastPage), Width=1920, Height=1200, ViewType=typeof(HourlyForecastView1920x1200)},
-        new PageContentViewToDeviceData(){ PageName=nameof(HourlyForecastPage), Width=2176, Height=1812, ViewType=typeof(HourlyForecastView2176x1812)},
-        new PageContentViewToDeviceData(){ PageName=nameof(HourlyForecastPage), Width=1812, Height=2176, ViewType=typeof(HourlyForecastView1812x2176)},
-        new PageContentViewToDeviceData(){ PageName=nameof(HourlyForecastPage), Width=2304, Height=1440, ViewType=typeof(HourlyForecastView2304x1440)},
+        //new PageContentViewToDeviceData(){ PageName=nameof(HourlyForecastPage), Width=2176, Height=1812, ViewType=typeof(HourlyForecastView2176x1812)},
+        //new PageContentViewToDeviceData(){ PageName=nameof(HourlyForecastPage), Width=1812, Height=2176, ViewType=typeof(HourlyForecastView1812x2176)},
+        //new PageContentViewToDeviceData(){ PageName=nameof(HourlyForecastPage), Width=2304, Height=1440, ViewType=typeof(HourlyForecastView2304x1440)},
     ];
 
     public PageToDeviceContentView() { }

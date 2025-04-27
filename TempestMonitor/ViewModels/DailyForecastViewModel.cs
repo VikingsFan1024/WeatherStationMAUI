@@ -3,7 +3,7 @@
 sealed partial class DailyForecastViewModel(IServiceProvider serviceProvider) : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
-    public void OnPropertyChanged([CallerMemberName] string name = "") => 
+    public void OnPropertyChanged([CallerMemberName] string name = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
     private readonly SettingsModel _settings = serviceProvider.GetRequiredService<SettingsModel>();
@@ -14,28 +14,24 @@ sealed partial class DailyForecastViewModel(IServiceProvider serviceProvider) : 
 
     public void OnDisappearing()
     {
+        // Unregister call will stop services if only user and think that's always true
         _foregroundServiceHandler.Unregister(this);
+
         WeakReferenceMessenger.Default.UnregisterAll(this);
     }
     public void OnAppearing()
     {
-        _foregroundServiceHandler.Register(this);
-        WeakReferenceMessenger.Default.Register<RequestForecastsService.ForecastMessage>
+        WeakReferenceMessenger.Default.Register<VW_Message<WeatherForecastGraph>>
         (
             this, (r, m) =>
             {
                 _dailyForecasts = ObservableDaily.ConvertToObservableCollection(
-                    m.Forecast.Dailies, _settings);
+                    m.Model.GetTempestRedStarMapping(), m.Model.forecast.daily, _settings);
                 OnPropertyChanged(nameof(DailyForecasts));
             }
         );
 
-        var dailies = serviceProvider.GetRequiredService<RequestForecastsService>()
-            .MostRecentForecast?.Dailies;
-
-        if (dailies is not null)
-            _dailyForecasts = ObservableDaily.ConvertToObservableCollection(dailies, _settings);
-
-        OnPropertyChanged(nameof(DailyForecasts));
+        // Register call will start services if only user and think that's always true
+        _foregroundServiceHandler.Register(this);
     }
 }
