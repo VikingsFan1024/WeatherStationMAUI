@@ -68,6 +68,8 @@ SELECT
 	,MIN(lightning_strike_count)						min_lightning_strike_count
 	,MAX(lightning_strike_count)						max_lightning_strike_count
 	,AVG(lightning_strike_count)						avg_lightning_strike_count
+	-- new
+	,SUM(lightning_strike_count)						sum_lightning_strike_count
 
 	,AVG(precipitation_type)							avg_precipitation_type
 	,COUNT(DISTINCT precipitation_type)					count_distinct_precipitation_type
