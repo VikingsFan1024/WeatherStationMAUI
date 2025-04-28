@@ -1,6 +1,4 @@
-﻿using TempestMonitor.Models;
-
-namespace TempestMonitor;
+﻿namespace TempestMonitor;
 
 public class MonitorSQLiteConnection : SQLiteConnection
 {

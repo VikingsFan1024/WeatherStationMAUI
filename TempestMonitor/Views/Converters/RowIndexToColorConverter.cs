@@ -1,4 +1,5 @@
-﻿namespace TempestMonitor.Views.Converters;
+﻿using Type = System.Type;                    // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+namespace TempestMonitor.Views.Converters;
 
 public class RowIndexToColorConverter : IValueConverter
 {

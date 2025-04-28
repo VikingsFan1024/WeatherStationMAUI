@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.IO;
-
+﻿using Exception = System.Exception; // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
 namespace TempestMonitor.Services;
 public class DatabaseService
 {
@@ -34,7 +32,7 @@ public class DatabaseService
     {
         try
         {
-            using var databaseConnection = new SQLiteConnection(_settings.DatabaseFilename);
+            using var databaseConnection = new MonitorSQLiteConnection(_settings.DatabaseFilename);
 
             foreach (var tableName in _tableNames)
             {
@@ -67,6 +65,7 @@ public class DatabaseService
 
         catch (Exception exception)
         {
+            // ToDo: If we get here we can't continue so display error and exit app
             Log.Error(exception, "Exception");
             return false;
         }
@@ -90,8 +89,8 @@ public class DatabaseService
             try
             {
                 var results = databaseConnection.Query<VW_HourlyObservationSummary>(
-                        "select * from VW_HourlyObservationSummary where hours_back < ? order by hours_back",
-                        hoursBack + 1).ToArray();
+                    "select * from VW_HourlyObservationSummary where hours_back < ? order by hours_back",
+                    hoursBack + 1).ToArray();
 
                 return results;
             }

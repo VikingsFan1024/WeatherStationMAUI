@@ -1,3 +1,4 @@
+using Exception = System.Exception;  // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
 namespace TempestMonitor.Pages;
 public partial class ApplicationSettingsPage : ContentPage
 {

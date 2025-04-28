@@ -24,6 +24,7 @@ public partial class App : Application
             .MinimumLevel.Debug()
             .CreateLogger();
 
+        Log.Information("Starting TempestMonitor");
         InitializeComponent();
     }
     protected override Window CreateWindow(IActivationState? activationState)

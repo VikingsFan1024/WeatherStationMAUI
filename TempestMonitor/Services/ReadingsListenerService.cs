@@ -1,6 +1,5 @@
-﻿using System.Diagnostics;
-using TempestMonitor.Models;
-
+﻿using Exception = System.Exception;          // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+using Task = System.Threading.Tasks.Task;    // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
 namespace TempestMonitor.Services;
 
 sealed public partial class ReadingsListenerService(IServiceProvider serviceProvider) : IDisposable
@@ -330,8 +329,6 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
         var utf8JsonReader = new System.Text.Json.Utf8JsonReader(byteArray);
         while (utf8JsonReader.Read())
         {
-            Debug.Write(utf8JsonReader.TokenType);
-
             switch (utf8JsonReader.TokenType)
             {
                 case System.Text.Json.JsonTokenType.StartObject:

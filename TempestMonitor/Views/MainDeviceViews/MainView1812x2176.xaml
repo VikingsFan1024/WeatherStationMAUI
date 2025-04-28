@@ -61,7 +61,7 @@
                 TextColor="{StaticResource GoldVikings}"                    
                 VerticalTextAlignment="Center"
                 HorizontalTextAlignment="Center" 
-                Text="{Binding ObservationReading.AirTemperature, StringFormat='{0:###}'}"
+                Text="{Binding ObservableVW_Observation.air_temperature, StringFormat='{0:###}'}"
             />
         </Border>
         <Border
@@ -74,7 +74,7 @@
                 TextColor="{StaticResource GoldVikings}"
                 VerticalTextAlignment="Center"
                 HorizontalTextAlignment="Center" 
-                Text="{Binding WindReading.WindDirectionShortCardinal, StringFormat='{0}'}"
+                Text="{Binding ObservableVW_WindModel.wind_direction_short_cardinal, StringFormat='{0}'}"
             />
         </Border>
         <Border
@@ -89,7 +89,7 @@
                 TextColor="{StaticResource GoldVikings}" 
                 VerticalTextAlignment="Center" 
                 HorizontalTextAlignment="Center" 
-                Text="{Binding WindReading.Windspeed, StringFormat='{0:##0}'}"
+                Text="{Binding ObservableVW_WindModel.wind_speed, StringFormat='{0:##0}'}"
             />
         </Border>
         <Border
@@ -130,7 +130,7 @@
                 TextColor="{StaticResource GoldVikings}" 
                 VerticalTextAlignment="Center"
                 HorizontalTextAlignment="Center" 
-                Text="{Binding ObservationReading.RelativeHumidity, StringFormat='{0:###}'}"/>
+                Text="{Binding ObservableVW_Observation.relative_humidity, StringFormat='{0:###}'}"/>
         </Border>
         <Border
             Grid.Row="4"
@@ -143,7 +143,7 @@
                 TextColor="{StaticResource GoldVikings}" 
                 VerticalTextAlignment="Center" 
                 HorizontalTextAlignment="Center" 
-                Text="{Binding ObservationReading.UV, StringFormat='{0:#0}'}"
+                Text="{Binding ObservableVW_Observation.uv, StringFormat='{0:#0}'}"
             />
         </Border>
     </Grid>
