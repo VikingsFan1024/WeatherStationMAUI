@@ -1,4 +1,6 @@
-﻿namespace TempestMonitor.Services;
+﻿using Exception = System.Exception;          // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+using Task = System.Threading.Tasks.Task;    // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+namespace TempestMonitor.Services;
 sealed public partial class RequestForecastsService(IServiceProvider serviceProvider) : IDisposable
 {
     private DatabaseService databaseService = serviceProvider.GetRequiredService<DatabaseService>();

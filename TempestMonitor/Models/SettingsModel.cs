@@ -1,4 +1,5 @@
-﻿namespace TempestMonitor.Models;
+﻿using Exception = System.Exception;  // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+namespace TempestMonitor.Models;
 public class SettingsModel
 {
     public static readonly string[] BatteryUnits =
@@ -67,9 +68,9 @@ public class SettingsModel
     public string WindspeedUnitSymbol => UnitManager.GetUnitByName(WindspeedUnit).Symbol;
 
     public string DatabaseFilename => Path.Combine(DatabaseFolder, "TempestMonitor.db");
-    public string DatabaseFolder { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Databases");
+    public string DatabaseFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     public string LogFilename => Path.Combine(LogFolder, "TempestMonitor.log");
-    public string LogFolder { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Logs");
+    public string LogFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     public string RestAPIKey { get; set; } = @"Rest API Key";
     public string StationID { get; set; } = @"160805";
     public long TimeBetweenHttpRequestsInMinutes { get; set; } = 15;

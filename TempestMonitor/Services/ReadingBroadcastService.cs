@@ -1,5 +1,5 @@
-﻿using System.Text.Json;
-
+﻿using Exception = System.Exception;          // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+using Task = System.Threading.Tasks.Task;    // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
 namespace TempestMonitor.Services;
 
 public class ReadingBroadcastService(IServiceProvider serviceProvider)
@@ -71,7 +71,6 @@ public class ReadingBroadcastService(IServiceProvider serviceProvider)
                             // ToDo: Find a way to get rid of these hard coded strings in the case statement
                             case "Wind":
                                 var vw_WindModel = databaseService.GetReadingByRowId<VW_WindModel>(tablenameRowId.RowId);
-                                ApplicationStatisticsModel.IncrementWindReadingSavedToDatabaseCount();
                                 ApplicationStatisticsModel.IncrementWindReadingReceivedCount();
                                 MostRecentVW_WindModel = vw_WindModel;
                                 WeakReferenceMessenger.Default.Send(new VW_Message<VW_WindModel>(vw_WindModel));
@@ -79,45 +78,45 @@ public class ReadingBroadcastService(IServiceProvider serviceProvider)
 
                             case "Observation":
                                 var vw_ObservationModel = databaseService.GetReadingByRowId<VW_ObservationModel>(tablenameRowId.RowId);
-                                ApplicationStatisticsModel.IncrementObservationReadingSavedToDatabaseCount();
+                                ApplicationStatisticsModel.IncrementObservationReadingReceivedCount();
                                 MostRecentVW_ObservationModel = vw_ObservationModel;
                                 WeakReferenceMessenger.Default.Send(new VW_Message<VW_ObservationModel>(vw_ObservationModel));
                                 break;
 
                             case "DeviceStatus":
                                 var vw_DeviceStatusModel = databaseService.GetReadingByRowId<VW_DeviceStatusModel>(tablenameRowId.RowId);
-                                ApplicationStatisticsModel.IncrementDeviceStatusSavedToDatabaseCount();
+                                ApplicationStatisticsModel.IncrementDeviceStatusReceivedCount();
                                 MostRecentVW_DeviceStatusModel = vw_DeviceStatusModel;
                                 WeakReferenceMessenger.Default.Send(new VW_Message<VW_DeviceStatusModel>(vw_DeviceStatusModel));
                                 break;
 
                             case "HubStatus":
                                 var vw_HubStatusModel = databaseService.GetReadingByRowId<VW_HubStatusModel>(tablenameRowId.RowId);
-                                ApplicationStatisticsModel.IncrementHubStatusSavedToDatabaseCount();
+                                ApplicationStatisticsModel.IncrementHubStatusReceivedCount();
                                 WeakReferenceMessenger.Default.Send(new VW_Message<VW_HubStatusModel>(vw_HubStatusModel));
                                 break;
 
                             case "LightningStrike":
                                 var vw_LightningStrikeModel = databaseService.GetReadingByRowId<VW_LightningStrikeModel>(tablenameRowId.RowId);
-                                ApplicationStatisticsModel.IncrementLightningStrikeSavedToDatabaseCount();
+                                ApplicationStatisticsModel.IncrementLightningStrikeReceivedCount();
                                 WeakReferenceMessenger.Default.Send(new VW_Message<VW_LightningStrikeModel>(vw_LightningStrikeModel));
                                 break;
 
                             case "RainStart":
                                 var vw_RainStartModel = databaseService.GetReadingByRowId<VW_RainStartModel>(tablenameRowId.RowId);
-                                ApplicationStatisticsModel.IncrementRainStartSavedToDatabaseCount();
+                                ApplicationStatisticsModel.IncrementRainStartReceivedCount();
                                 WeakReferenceMessenger.Default.Send(new VW_Message<VW_RainStartModel>(vw_RainStartModel));
                                 break;
 
                             case "WeatherForecast":
                                 var weatherForecastModel = databaseService.GetReadingByRowId<WeatherForecastModel>(tablenameRowId.RowId);
+                                ApplicationStatisticsModel.IncrementForecastReceivedCount();
                                 var weatherForecastGraph = JsonSerializer.Deserialize<Models.WeatherForecastGraph>(weatherForecastModel.json_document);
                                 if (weatherForecastGraph is null)
                                 {
                                     Log.Warning("vw_WeatherForecastModel is null");
                                     return;
                                 }
-                                ApplicationStatisticsModel.IncrementForecastsSavedToDatabaseCount();
                                 MostRecentVW_WeatherForecastModel = weatherForecastGraph;
                                 WeakReferenceMessenger.Default.Send(new VW_Message<WeatherForecastGraph>(weatherForecastGraph));
                                 break;
