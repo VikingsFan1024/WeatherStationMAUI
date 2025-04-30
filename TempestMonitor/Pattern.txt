@@ -1,0 +1,15 @@
+1.1 UDP Reading service gets reading and Sends to local dataflow
+1.2 UDP Reading service dataflow creates instance of a class with a Table name and a jsonDocument (BasePersistenceObject)
+1.3 UDP Reading service dataflow send message with instance of a class with Table name and a jsonDocument
+1.1 HTTP Forecast service gets reading and Sends to local dataflow
+1.2 HTTP Forecast service dataflow creates instance of a class with a Table name and a jsonDocument
+1.3 HTTP Forecast service dataflow send message with instance of a class with Table name and a jsonDocument
+
+5.1 SQLite persistance service registers for message of class instance with Table name and a jsonDocument
+5.2 SQLite persistance service saves row to Table specified with jsonDocument column set to value
+6.1 MongoDB persistance service registers for message of class instance with Table name and a jsonDocument
+6.1 MongoDB persistance service save row to Table specified with jsonDocument column set to value
+
+7.1 Broadcast service registers for message of class instance with Table name and a jsonDocument
+7.2 Broadcast service creates instance of Observable_VW_? class corresponding to Table name and deserializes from jsonDocument
+7.3 Broadcast service sends message of VW_? class for those listening to it - User Interface

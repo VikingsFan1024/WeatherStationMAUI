@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls.Hosting;  // ToDo: Needed for UseMauiApp<App> in MauiApp.CreateBuilder() but unable to get to work with
+﻿using Microsoft.Maui.Controls.Hosting;
+using TempestMonitor.Services;  // ToDo: Needed for UseMauiApp<App> in MauiApp.CreateBuilder() but unable to get to work with
 
 namespace TempestMonitor;
 public static class MauiProgram
@@ -29,6 +30,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<ApplicationSettingsViewModel>();
         mauiAppBuilder.Services.AddSingleton<ApplicationStatisticsPage>();
         mauiAppBuilder.Services.AddSingleton<ApplicationStatisticsViewModel>();
+        mauiAppBuilder.Services.AddSingleton<AzureMongoDBService>();
         mauiAppBuilder.Services.AddSingleton<DailyForecastPage>();
         mauiAppBuilder.Services.AddSingleton<DailyForecastViewModel>();
         mauiAppBuilder.Services.AddSingleton<DatabaseService>();
@@ -50,6 +52,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<ReadingsListenerService>();
         mauiAppBuilder.Services.AddSingleton<RequestForecastsService>();
         mauiAppBuilder.Services.AddSingleton<SettingsModel>();
+        mauiAppBuilder.Services.AddSingleton<SQLiteDBService>();
 
         return mauiAppBuilder;
     }

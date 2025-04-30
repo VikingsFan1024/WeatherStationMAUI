@@ -26,24 +26,6 @@ sealed partial class HistoryViewModel(IServiceProvider serviceProvider) : INotif
         if (vw_HourlyObservationSummaryArray is not null)
             _vw_HourlyObservationSummaries = new(vw_HourlyObservationSummaryArray);
 
-        //    if (_hourlyObservationSummaries.Any())
-        //    {
-        //        var first = _hourlyObservationSummaries.First(); // Get the first summary
-        //        first.RainAccumulationTotal = first.RainAccumulationDuringHour; // Initialize the total with the first summary's value
-
-        //        var result = _hourlyObservationSummaries
-        //            .Select((summary, index) =>
-        //            {
-        //                if (index == 0) return summary;
-        //                // The first summary already has the initialized total
-        //                // For subsequent summaries, accumulate the rain total from the previous summary
-        //                summary.RainAccumulationTotal = _hourlyObservationSummaries[index - 1].RainAccumulationTotal +
-        //                                               summary.RainAccumulationDuringHour;
-        //                return summary;
-        //            }).ToList();
-        //    }
-        //}
-
         OnPropertyChanged(nameof(VW_HourlyObservationSummaries));
         OnPropertyChanged(nameof(Settings));
     }

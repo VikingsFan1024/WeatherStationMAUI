@@ -1,4 +1,5 @@
-﻿using Exception = System.Exception;          // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+﻿using TempestMonitor.Models;
+using Exception = System.Exception;          // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
 using Task = System.Threading.Tasks.Task;    // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
 namespace TempestMonitor.Services;
 
@@ -97,15 +98,15 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
             {
                 try
                 {
-                    var databaseBaseModel = CreateDatabaseBaseModelSubClass(byteArray);
+                    var tableToClass = CreateDatabaseBaseModelSubClass(byteArray);
 
-                    if (databaseBaseModel is null)
+                    if (tableToClass is null)
                     {
                         Log.Warning("Received null or empty byte array, ignoring");
                     }
                     else
                     {
-                        databaseService.SaveBufferToDB(databaseBaseModel);
+                        WeakReferenceMessenger.Default.Send(new VW_Message<TempestMonitor.Models.TableAndReadingTypeToDataAssociation>(tableToClass));
                     }
                 }
 
@@ -316,12 +317,11 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
         Log.Information("Stopped");
     }
 
-    public DatabaseBaseModel? CreateDatabaseBaseModelSubClass(byte[] byteArray)
+    public TableAndReadingTypeToDataAssociation? CreateDatabaseBaseModelSubClass(byte[] byteArray)
     {
-
         if (byteArray is null || byteArray.Length == 0)
         {
-            Log.Warning("Received null or empty byte array, ignoring");
+            Log.Error("Received null or empty byte array, ignoring");
             return null;
         }
 
@@ -346,29 +346,20 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
             if (readingType is not null) break;
         }
 
-        switch (readingType)
+        if (readingType is null)
         {
-            case WindModel.type:
-                return new WindModel() { json_document = byteArray };
-
-            case ObservationModel.type:
-                return new ObservationModel() { json_document = byteArray };
-
-            case DeviceStatusModel.type:
-                return new DeviceStatusModel() { json_document = byteArray };
-
-            case HubStatusModel.type:
-                return new HubStatusModel() { json_document = byteArray };
-
-            case LightningStrikeModel.type:
-                return new LightningStrikeModel() { json_document = byteArray };
-
-            case RainStartModel.type:
-                return new RainStartModel() { json_document = byteArray };
-
-            default:
-                Log.Warning($"Unknown reading type {readingType}");
-                return null;
+            Log.Warning("Received null or empty reading type, ignoring");
+            return null;
         }
+
+        var jsonString = System.Text.Encoding.UTF8.GetString(byteArray);
+        var tableToClass = TableAndReadingTypeToDataAssociation.CreateDataTypeInstance(readingType, jsonString);
+        if (tableToClass is null)
+        {
+            Log.Warning($"Unknown reading type {readingType}");
+            return null;
+        }
+
+        return tableToClass;
     }
 }

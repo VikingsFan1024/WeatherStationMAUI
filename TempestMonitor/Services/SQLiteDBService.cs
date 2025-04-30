@@ -1,17 +1,12 @@
 ﻿using Exception = System.Exception;          // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
 using Task = System.Threading.Tasks.Task;    // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
 namespace TempestMonitor.Services;
-
-public class ReadingBroadcastService(IServiceProvider serviceProvider)
+public class SQLiteDBService(IServiceProvider serviceProvider)
 {
     private DatabaseService databaseService = serviceProvider.GetRequiredService<DatabaseService>();
     private CancellationTokenSource? _cancellationTokenSource;
     private bool _isRunning;
     private ListOfTasks? _completionList;
-    public VW_WindModel? MostRecentVW_WindModel { get; private set; } = null;
-    public VW_ObservationModel? MostRecentVW_ObservationModel { get; private set; } = null;
-    public WeatherForecastGraph? MostRecentVW_WeatherForecastModel { get; private set; } = null;
-
     public void Start()
     {
         if (_isRunning)
@@ -61,15 +56,21 @@ public class ReadingBroadcastService(IServiceProvider serviceProvider)
             {
                 try
                 {
-                    m.Model.DataTypeInstance?.DeserializeAndSend();
+                    var classInstance = m.Model.DataTypeInstance;
+                    if (classInstance is null)
+                    {
+                        Log.Error("classInstance is null");
+                        return;
+                    }
+                    databaseService.SaveBufferToDB(classInstance);
                 }
-
                 catch (Exception exception)
                 {
-                    Log.Error(exception, $"Exception in HandleWeakReferenceMessages when DeserializingAndSend() of {m.Model.DataType.Name}");
+                    Log.Error(exception, "Exception");
                 }
             }
         );
+
     }
 
     public void Stop()
