@@ -1,5 +1,5 @@
 ﻿namespace TempestMonitor.Models;
-public class WeatherForecastGraph : DatabaseBaseModel
+public class WeatherForecastGraph : DatabaseBaseModel_VW
 {
     public CurrentConditions current_conditions { get; set; }
     public Forecast forecast { get; set; }

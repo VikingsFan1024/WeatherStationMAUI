@@ -89,15 +89,15 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
             {
                 try
                 {
-                    var databaseBaseModel = CreateDatabaseBaseModelSubClass(byteArray);
+                    var tableToClass = CreateDatabaseBaseModelSubClass(byteArray);
 
-                    if (databaseBaseModel is null)
+                    if (tableToClass is null)
                     {
                         Log.Warning("Received null or empty byte array, ignoring");
                     }
                     else
                     {
-                        databaseService.SaveBufferToDB(databaseBaseModel);
+                        WeakReferenceMessenger.Default.Send(new VW_Message<TempestMonitor.Models.TableAndReadingTypeToDataAssociation>(tableToClass));
                     }
                 }
 
@@ -129,9 +129,24 @@ sealed public partial class RequestForecastsService(IServiceProvider serviceProv
 
         return true;
     }
-    public DatabaseBaseModel? CreateDatabaseBaseModelSubClass(byte[] byteArray)
+    public TempestMonitor.Models.TableAndReadingTypeToDataAssociation? CreateDatabaseBaseModelSubClass(byte[] byteArray)
     {
-        return new WeatherForecastModel() { json_document = byteArray };
+        try
+        {
+            var jsonString = System.Text.Encoding.UTF8.GetString(byteArray);
+            var tableClass = TempestMonitor.Models.TableAndReadingTypeToDataAssociation.CreateDataTypeInstanceFromTableName("WeatherForecast", jsonString);
+            if (tableClass is null)
+            {
+                Log.Error("tableClass is null");
+                return null;
+            }
+            return tableClass;
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "Failed to parse byte array to databaseBaseModel");
+            return null;
+        }
     }
     public void Stop()
     {

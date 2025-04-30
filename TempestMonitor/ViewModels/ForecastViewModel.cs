@@ -9,7 +9,7 @@ sealed partial class ForecastViewModel(IServiceProvider serviceProvider) : INoti
     private readonly SettingsModel _settings = serviceProvider.GetRequiredService<SettingsModel>();
     private readonly ForegroundServiceHandler _foregroundServiceHandler = serviceProvider.GetRequiredService<ForegroundServiceHandler>();
 
-    ObservableForecast? _observableForecast;
+    ObservableWeatherForecastGraph? _observableForecast;
 
     public void OnDisappearing()
     {
@@ -36,5 +36,5 @@ sealed partial class ForecastViewModel(IServiceProvider serviceProvider) : INoti
             OnPropertyChanged(nameof(ObservableForecast));
         }
     }
-    public ObservableForecast? ObservableForecast => _observableForecast;
+    public ObservableWeatherForecastGraph? ObservableForecast => _observableForecast;
 }

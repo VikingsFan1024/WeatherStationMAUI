@@ -1,16 +1,11 @@
-﻿namespace TempestMonitor.Models;
+﻿using Exception = System.Exception;          // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+namespace TempestMonitor.Models;
 [Table("VW_Wind")]
-public class VW_WindModel : DatabaseBaseModel
+public class VW_WindModel : DatabaseBaseModel_VW
 {
     [Ignore]
     public static Unit WindSpeedUnit { get; } = SpeedUnits.MeterPerSecond;
 
-    [Column("type")]
-    public string type { get; set; } = string.Empty;
-    [Column("serial_number")]
-    public string serial_number { get; set; } = string.Empty;
-    [Column("hub_sn")]
-    public string hub_sn { get; set; } = string.Empty;
     [Column("timestamp_local")]
     public long timestamp_local { get; set; }
     [Column("wind_speed")]

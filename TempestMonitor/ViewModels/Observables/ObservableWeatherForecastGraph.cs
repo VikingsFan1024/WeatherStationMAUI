@@ -1,16 +1,16 @@
 ﻿namespace TempestMonitor.ViewModels.Observables;
 
-public partial class ObservableForecast : ObservableObject
+public partial class ObservableWeatherForecastGraph : ObservableObject
 {
-    private readonly WeatherForecastGraph _forecast;
+    private readonly WeatherForecastGraph _weatherForecastGraph;
     private readonly ObservableCurrentConditions _currentConditions;
     private readonly ObservableCollectionOfObservableHourly _observableHourlies;
     private readonly ObservableCollectionOfObservableDaily _observableDailies;
     private readonly ObservableStation _stationObservable;
     private readonly ObservableUnits _unitsObservable;
-    public ObservableForecast(WeatherForecastGraph weatherForecast, SettingsModel settings) : base()
+    public ObservableWeatherForecastGraph(WeatherForecastGraph weatherForecast, SettingsModel settings) : base()
     {
-        _forecast = weatherForecast;
+        _weatherForecastGraph = weatherForecast;
         var _tempestRedStarMapping = weatherForecast.GetTempestRedStarMapping();
         _currentConditions = new ObservableCurrentConditions(
             _tempestRedStarMapping, weatherForecast.current_conditions, settings);
@@ -23,12 +23,12 @@ public partial class ObservableForecast : ObservableObject
         _unitsObservable = new ObservableUnits(weatherForecast.units);
     }
 
-    public double latitude => _forecast.latitude;
-    public string location_name => _forecast.location_name;
-    public double longitude => _forecast.longitude;
-    public string timezone => _forecast.timezone;
-    public long timezone_offset_minutes => _forecast.timezone_offset_minutes;
-    public long source_id_conditions => _forecast.source_id_conditions;
+    public double latitude => _weatherForecastGraph.latitude;
+    public string location_name => _weatherForecastGraph.location_name;
+    public double longitude => _weatherForecastGraph.longitude;
+    public string timezone => _weatherForecastGraph.timezone;
+    public long timezone_offset_minutes => _weatherForecastGraph.timezone_offset_minutes;
+    public long source_id_conditions => _weatherForecastGraph.source_id_conditions;
     public ObservableCurrentConditions CurrentConditions => _currentConditions;
     public ObservableCollectionOfObservableDaily DailyForecasts => _observableDailies;
     public ObservableCollectionOfObservableHourly HourlyForecasts => _observableHourlies;

@@ -1,6 +1,6 @@
 ﻿namespace TempestMonitor.Models;
 [Table("VW_Observation")]
-public class VW_ObservationModel : DatabaseBaseModel
+public class VW_ObservationModel : DatabaseBaseModel_VW
 {
     public static readonly DictionaryOfStringUnit PropertyUnit = new();
     static VW_ObservationModel()
@@ -16,13 +16,12 @@ public class VW_ObservationModel : DatabaseBaseModel
         PropertyUnit.Add(nameof(wind_lull), SpeedUnits.MeterPerSecond);
     }
 
-    //ToDo: Change from pascal case to all lower with underscore like elsewhere for consistency
     [Column("air_temperature")]
     public double air_temperature { get; set; }
     [Column("battery")]
     public double battery { get; set; }
     [Column("firmware_revision")]
-    public long FirmwareRevision { get; set; }
+    public long firmware_revision { get; set; }
     [Column("hub_sn")]
     public string hub_sn { get; set; } = string.Empty;
     [Column("illuminance")]

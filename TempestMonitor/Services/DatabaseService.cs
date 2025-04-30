@@ -120,61 +120,6 @@ public class DatabaseService
             _databaseConnectionMutex.ReleaseMutex();
         }
     }
-    //    public ObservationModel[]? GetLast24HoursOfSavedObservations(
-    //        long currentLocalTimeInUnixSeconds = 0)
-    //    {
-    //        if (currentLocalTimeInUnixSeconds == 0)
-    //            currentLocalTimeInUnixSeconds = GetCurrentLocalUnixSeconds();
-
-    //        var twentyFourLocalHoursBackUnixSeconds = currentLocalTimeInUnixSeconds - 86400; // 24 hours in seconds
-
-    //        try
-    //        {
-    //            _databaseConnectionMutex.WaitOne();
-    //            using var databaseConnection = new SQLiteConnection(_settings.DatabaseFilename);
-
-    //            try
-    //            {
-    //                var last24HoursOfObservationModels = databaseConnection.Table<ObservationModel>()
-    //                    .Where
-    //                    (
-    //                        x =>
-    //                            x.ObservationTimestamp >= twentyFourLocalHoursBackUnixSeconds &&
-    //                            x.ObservationTimestamp <= currentLocalTimeInUnixSeconds
-    //                    )
-    //                    .Select(x => x)
-    //                    .OrderBy(x => x.ObservationTimestamp)
-    //                    .ToArray();
-
-    //                return last24HoursOfObservationModels;
-    //            }
-
-    //            // No result generates InvalidOperationException
-    //            catch (System.InvalidOperationException invalidOperationException)
-    //            {
-    //                Log.Error(invalidOperationException, "Exception no results");
-    //                return null;
-    //            }
-
-    //            catch (Exception exception)
-    //            {
-    //                Log.Error(exception, "Exception");
-    //                throw;
-    //            }
-    //        }
-
-    //        catch (Exception exception)
-    //        {
-    //            Log.Error(exception, "Exception");
-    //            throw;
-    //        }
-
-    //        finally
-    //        {
-    //            _databaseConnectionMutex.ReleaseMutex();
-    //        }
-    //    }
-
     public ObservationModel[]? GetObservationModels(long skipCount = 0, long fetchCount = 0)
     {
         try
@@ -239,39 +184,39 @@ public class DatabaseService
         return result;
     }
 
-    public T GetReadingByRowId<T>(long rowId) where T : DatabaseBaseModel, new()
-    {
-        try
-        {
-            _databaseConnectionMutex.WaitOne();
-            using var databaseConnection = new MonitorSQLiteConnection(_settings.DatabaseFilename);
-            try
-            {
-                var dataRow = databaseConnection.Table<T>()
-                    .Where(x => x.Id == rowId)
-                    .First();
-                return dataRow;
-            }
-            // No result generates InvalidOperationException
-            catch (System.InvalidOperationException invalidOperationException)
-            {
-                Log.Error(invalidOperationException, "Exception no results");
-                throw;
-            }
-            catch (Exception exception)
-            {
-                Log.Error(exception, "Exception");
-                throw;
-            }
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "Exception");
-            throw;
-        }
-        finally
-        {
-            _databaseConnectionMutex.ReleaseMutex();
-        }
-    }
+    //public T GetReadingByRowId<T>(long rowId) where T : DatabaseBaseModel, new()
+    //{
+    //    try
+    //    {
+    //        _databaseConnectionMutex.WaitOne();
+    //        using var databaseConnection = new MonitorSQLiteConnection(_settings.DatabaseFilename);
+    //        try
+    //        {
+    //            var dataRow = databaseConnection.Table<T>()
+    //                .Where(x => x.Id == rowId)
+    //                .First();
+    //            return dataRow;
+    //        }
+    //        // No result generates InvalidOperationException
+    //        catch (System.InvalidOperationException invalidOperationException)
+    //        {
+    //            Log.Error(invalidOperationException, "Exception no results");
+    //            throw;
+    //        }
+    //        catch (Exception exception)
+    //        {
+    //            Log.Error(exception, "Exception");
+    //            throw;
+    //        }
+    //    }
+    //    catch (Exception exception)
+    //    {
+    //        Log.Error(exception, "Exception");
+    //        throw;
+    //    }
+    //    finally
+    //    {
+    //        _databaseConnectionMutex.ReleaseMutex();
+    //    }
+    //}
 }

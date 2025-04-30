@@ -107,13 +107,37 @@
             Grid.Column="2"
             StrokeThickness="0"
         >
-            <Label 
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label 
                 FontSize="45"
                 TextColor="{StaticResource GoldVikings}"
                 VerticalTextAlignment="End"
                 HorizontalTextAlignment="Center" 
                 Text="{Binding ObservableVW_WindModel.wind_direction_short_cardinal, StringFormat='{0}'}"
             />
+            <Label 
+                    FontSize="45"
+                    TextColor="{StaticResource GoldVikings}"
+                    VerticalTextAlignment="End"
+                    HorizontalTextAlignment="Center" 
+                    Text="  ("
+                />
+            <Label 
+                    FontSize="45"
+                    TextColor="{StaticResource GoldVikings}"
+                    VerticalTextAlignment="End"
+                    HorizontalTextAlignment="Center" 
+                    Text="{Binding ObservableVW_WindModel.wind_direction, StringFormat='{0}'}"
+                />
+            <Label 
+                    FontSize="45"
+                    TextColor="{StaticResource GoldVikings}"
+                    VerticalTextAlignment="End"
+                    HorizontalTextAlignment="Center" 
+                    Text="°)"
+                />
+                </HorizontalStackLayout>
+
         </Border>
         <Border
             Grid.Row="2"
