@@ -1,62 +1,10 @@
-﻿namespace TempestMonitor.Services;
+﻿using TempestMonitor.Models;
+using Exception = System.Exception;          // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+using Task = System.Threading.Tasks.Task;    // When in GlobalUsings.cs and targeting android created a conflict with a HotReload file
+namespace TempestMonitor.Services;
 
 sealed public partial class ReadingsListenerService(IServiceProvider serviceProvider) : IDisposable
 {
-    public class WindReadingMessage(WindReadingModel windReading)
-        : ValueChangedMessageOfWindReadingModel(windReading)
-    {
-        private readonly WindReadingModel _windReading = windReading;
-        public WindReadingModel WindReading => _windReading;
-    }
-    public class ObservationReadingMessage(ObservationModel observationReading) :
-        ValueChangedMessageOfObservationModel(observationReading)
-    {
-        private readonly ObservationModel _observationReading = observationReading;
-        public ObservationModel ObservationReading => _observationReading;
-    }
-    public class LightningStrikeMessage(LightningStrikeModel lightningStrikeReading) :
-        ValueChangedMessageOfLightningStrikeModel(lightningStrikeReading)
-    {
-        private readonly LightningStrikeModel _lightningStrikeReading = lightningStrikeReading;
-        public LightningStrikeModel LightningStrikeReading => _lightningStrikeReading;
-    }
-    public class RainStartMessage(RainStartModel rainStartReading) :
-        ValueChangedMessageOfRainStartModel(rainStartReading)
-    {
-        private readonly RainStartModel _rainStartReading = rainStartReading;
-        public RainStartModel RainStartReading => _rainStartReading;
-    }
-    public class HubStatusMessage(HubStatusModel hubStatusReading) :
-        ValueChangedMessageOfHubStatusModel(hubStatusReading)
-    {
-        private readonly HubStatusModel _hubStatusReading = hubStatusReading;
-        public HubStatusModel HubStatusReading => _hubStatusReading;
-    }
-    public class DeviceStatusMessage(DeviceStatusModel deviceStatusReading) :
-        ValueChangedMessageOfDeviceStatusModel(deviceStatusReading)
-    {
-        private readonly DeviceStatusModel _deviceStatusReading = deviceStatusReading;
-        public DeviceStatusModel DeviceStatusReading => _deviceStatusReading;
-    }
-    public class AirObservationMessage(AirObservationModel airObservationReading) :
-        ValueChangedMessageOfAirObservationModel(airObservationReading)
-    {
-        private readonly AirObservationModel _airObservationReading = airObservationReading;
-        public AirObservationModel AirObservationReading => _airObservationReading;
-    }
-    public class SkyObservationMessage(SkyObservationModel skyObservationReading) :
-        ValueChangedMessageOfSkyObservationModel(skyObservationReading)
-    {
-        private readonly SkyObservationModel _skyObservationReading = skyObservationReading;
-        public SkyObservationModel SkyObservationReading => _skyObservationReading;
-    }
-    public class ReadingMessage(ReadingModel reading) : 
-        ValueChangedMessageOfReadingModel(reading)
-    {
-        private readonly object _reading = reading;
-        public object Reading => _reading;
-    }
-
     void IDisposable.Dispose()
     {
         Stop();
@@ -68,13 +16,11 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
 
     private CancellationTokenSource? _cancellationTokenSource;
 
-    private TransformBlockOfByteArrayToReadingModel? _udpReadingToReadingBlock;
-    private ActionBlockOfReadingModel? _readingToReferenceMessagesBlock;
+    private BufferBlockOfByteArray? _bufferBlockOfByteArray;
+    private ActionBlockOfByteArray? _actionBlockOfByteArray;
 
     private ListOfTasks? _completionList;
 
-    private AirObservationModel? _mostRecentAirObservationReading;
-    public AirObservationModel? MostRecentAirObservationReading => _mostRecentAirObservationReading;
     private DeviceStatusModel? _mostRecentDeviceStatusReading;
     public DeviceStatusModel? MostRecentDeviceStatusReading => _mostRecentDeviceStatusReading;
     private HubStatusModel? _mostRecentHubStatusReading;
@@ -82,13 +28,11 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
     private LightningStrikeModel? _mostRecentLightningStrikeReading;
     public LightningStrikeModel? MostRecentLightningStrikeReading => _mostRecentLightningStrikeReading;
     private ObservationModel? _mostRecentObservationReading;
-    public ObservationModel? MostRecentObservationReading => _mostRecentObservationReading;    
+    public ObservationModel? MostRecentObservationReading => _mostRecentObservationReading;
     private RainStartModel? _mostRecentRainStartReading;
     public RainStartModel? MostRecentRainStartReading => _mostRecentRainStartReading;
-    private SkyObservationModel? _mostRecentSkyObservationReading;
-    public SkyObservationModel? MostRecentSkyObservationReading => _mostRecentSkyObservationReading;
-    private WindReadingModel? _mostRecentWindReading;
-    public WindReadingModel? MostRecentWindReading => _mostRecentWindReading;
+
+    private DatabaseService databaseService = serviceProvider.GetRequiredService<DatabaseService>();
 
     private bool _isRunning;
 
@@ -137,90 +81,58 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
         if (_cancellationTokenSource is null) return false;
         if (_completionList is null) return false;
 
-        _udpReadingToReadingBlock =
-            new
-            (
-                // ToDo: Consider using a JsonSerializerOptions to optimize parsing for performance
-                // ToDo: Consider using a custom JsonConverter for ReadingModel to handle deserialization directly
-                // ToDo: Consider using a custom factory method to create ReadingModel instances based on the type in the JSON to avoid unnecessary allocations
-                // ToDo: Consider using a caching mechanism for the JsonDocument to avoid multiple allocations in high throughput scenarios
-                // ToDo: Consider using a memory pool for byte arrays to avoid allocations in high throughput scenarios
-                // ToDo: Consider using a custom memory pool for byte arrays to avoid allocations in high throughput scenarios
-                // ToDo: Consider using a custom JsonConverter for ReadingModel to handle deserialization directly
-                byteArray => {
-                    // Handle null or empty byte array gracefully
-                    try
-                    {
-                        if (byteArray is null || byteArray.Length == 0)
-                        {
-                            Log.Warning("Received null or empty byte array, ignoring");
-                            return null; // Return null to indicate failure to parse
-                        }
-
-                        // The constructor of ReadingModel precludes use of using the more performant JsonSerializer.Deserialize<ReadingModel>(byteArray);
-                        var jsonDocument = JsonDocument.Parse(byteArray);
-
-                        return new ReadingModel(jsonDocument.RootElement);
-                    }
-
-                    catch (Exception exception)
-                    {
-                        Log.Error(exception, "Failed to parse byte array to ReadingModel");
-                        // To avoid crashing the pipeline, return null or handle accordingly
-                        return null;
-                    }
-                },
-                new ExecutionDataflowBlockOptions
-                {
-                    NameFormat = nameof(_udpReadingToReadingBlock),
-                    BoundedCapacity = 1,
-                    MaxMessagesPerTask = 1,
-                    SingleProducerConstrained = true,
-                    CancellationToken = _cancellationTokenSource.Token
-                }
-            );
-
-        _readingToReferenceMessagesBlock =
-            new
-            (
-                readingModel =>
-                {
-                    try
-                    {
-                        if (readingModel is null)
-                        {
-                            Log.Warning("Received null reading in ActionBlock, ignoring");
-                            return;
-                        }
-                        Send(readingModel);
-                    }
-
-                    catch (Exception exception)
-                    {
-                        Log.Error(exception, "Failed to send reading message");
-                    }
-                },
-                new ExecutionDataflowBlockOptions
-                {
-                    NameFormat = nameof(_readingToReferenceMessagesBlock),
-                    BoundedCapacity = 1,
-                    MaxMessagesPerTask = 1,
-                    CancellationToken = _cancellationTokenSource.Token
-                }
-            );
-
-        _udpReadingToReadingBlock.LinkTo(
-            _readingToReferenceMessagesBlock,
-            new DataflowLinkOptions { PropagateCompletion = true }
+        _bufferBlockOfByteArray = new
+        (
+            new DataflowBlockOptions
+            {
+                NameFormat = nameof(_bufferBlockOfByteArray),
+                BoundedCapacity = 1,
+                MaxMessagesPerTask = 1,
+                CancellationToken = _cancellationTokenSource.Token
+            }
         );
 
-        _udpReadingToReadingBlock.LinkTo(DataflowBlock.NullTarget<ReadingModel?>());
+        _actionBlockOfByteArray = new
+        (
+            byteArray =>
+            {
+                try
+                {
+                    var tableToClass = CreateDatabaseBaseModelSubClass(byteArray);
+
+                    if (tableToClass is null)
+                    {
+                        Log.Warning("Received null or empty byte array, ignoring");
+                    }
+                    else
+                    {
+                        WeakReferenceMessenger.Default.Send(new VW_Message<TempestMonitor.Models.TableAndReadingTypeToDataAssociation>(tableToClass));
+                    }
+                }
+
+                catch (Exception exception)
+                {
+                    Log.Error(exception, "Failed to parse byte array to databaseBaseModel");
+                }
+            },
+            new ExecutionDataflowBlockOptions
+            {
+                NameFormat = nameof(_actionBlockOfByteArray),
+                BoundedCapacity = 1,
+                MaxMessagesPerTask = 1,
+                SingleProducerConstrained = true,
+                CancellationToken = _cancellationTokenSource.Token
+            }
+        );
+
+        _bufferBlockOfByteArray.LinkTo(
+            _actionBlockOfByteArray, new DataflowLinkOptions { PropagateCompletion = true });
 
         _completionList.AddRange
         (
             [
-                _udpReadingToReadingBlock.Completion,
-                _readingToReferenceMessagesBlock.Completion
+                _bufferBlockOfByteArray.Completion,
+                _actionBlockOfByteArray.Completion,
             ]
         );
 
@@ -228,7 +140,7 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
     }
     private async TaskOfBool ListenForStationUDPBroadcasts()
     {
-        if (_udpReadingToReadingBlock is null) return false;
+        if (_bufferBlockOfByteArray is null) return false;
         if (_cancellationTokenSource is null) return false;
 
         UdpClient? udpClient = null;
@@ -306,7 +218,7 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
 
                 ApplicationStatisticsModel.SetLastUdpReading(stopwatch.ElapsedMilliseconds);
 
-                var taskOfBool = _udpReadingToReadingBlock.SendAsync(udpReceiveResult.Buffer);
+                var taskOfBool = _bufferBlockOfByteArray.SendAsync(udpReceiveResult.Buffer);
 
                 taskOfBool.Wait(_cancellationTokenSource.Token);
             }
@@ -349,84 +261,6 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
         Log.Information("Exiting ListenForStationUDPBroadcasts due to cancellation, returning true");
 
         return true;
-    }
-    private void Send(ReadingModel? reading)
-    {
-        if (reading is null)
-        {
-            Log.Warning("Received null reading, ignoring");
-            return;
-        }
-
-        ReadingModel? theReading;
-
-        if (reading.Type == WindReadingModel.TypeName)
-        {
-            theReading = _mostRecentWindReading = new WindReadingModel(reading);
-            ApplicationStatisticsModel.IncrementWindReadingReceivedCount();
-            WeakReferenceMessenger.Default.Send(
-                new WindReadingMessage(_mostRecentWindReading));
-        }
-        else if (reading.Type == ObservationModel.TypeName)
-        {
-            theReading = _mostRecentObservationReading = new ObservationModel(reading);
-            ApplicationStatisticsModel.IncrementObservationReadingReceivedCount();
-
-            WeakReferenceMessenger.Default.Send(
-                new ObservationReadingMessage(_mostRecentObservationReading));
-        }
-        else if (reading.Type == LightningStrikeModel.TypeName)
-        {
-            theReading = _mostRecentLightningStrikeReading = new LightningStrikeModel(reading);
-            ApplicationStatisticsModel.IncrementLightningStrikeReceivedCount();
-            WeakReferenceMessenger.Default.Send(
-                new LightningStrikeMessage(_mostRecentLightningStrikeReading));
-        }
-        else if (reading.Type == RainStartModel.TypeName)
-        {
-            theReading = _mostRecentRainStartReading = new RainStartModel(reading);
-            ApplicationStatisticsModel.IncrementRainStartReceivedCount();
-            WeakReferenceMessenger.Default.Send(
-                new RainStartMessage(_mostRecentRainStartReading));
-        }
-        else if (reading.Type == HubStatusModel.TypeName)
-        {
-            theReading = _mostRecentHubStatusReading = new HubStatusModel(reading);
-            ApplicationStatisticsModel.IncrementHubStatusReceivedCount();
-            WeakReferenceMessenger.Default.Send(
-                new HubStatusMessage(_mostRecentHubStatusReading));
-        }
-        else if (reading.Type == DeviceStatusModel.TypeName)
-        {
-            theReading = _mostRecentDeviceStatusReading = new DeviceStatusModel(reading);
-            ApplicationStatisticsModel.IncrementDeviceStatusReceivedCount();
-            WeakReferenceMessenger.Default.Send(
-                new DeviceStatusMessage(_mostRecentDeviceStatusReading));
-        }
-        else if (reading.Type == AirObservationModel.TypeName)
-        {
-            theReading = _mostRecentAirObservationReading = new AirObservationModel(reading);
-            ApplicationStatisticsModel.IncrementAirObservationReceivedCount();
-            WeakReferenceMessenger.Default.Send(
-                new AirObservationMessage(_mostRecentAirObservationReading));
-        }
-        else if (reading.Type == SkyObservationModel.TypeName)
-        {
-            theReading = _mostRecentSkyObservationReading = new SkyObservationModel(reading);
-            ApplicationStatisticsModel.IncrementSkyObservationReceivedCount();
-            WeakReferenceMessenger.Default.Send(
-                new SkyObservationMessage(_mostRecentSkyObservationReading));
-        }
-        else
-        {
-            Log.Information($"Unknown reading type {reading.Type}");
-            Log.Information($"Json {reading.JsonElementString}");
-            return;
-        }
-
-        if (theReading is null) return;
-
-        WeakReferenceMessenger.Default.Send(new ReadingMessage(theReading));
     }
     public void Stop()
     {
@@ -479,7 +313,53 @@ sealed public partial class ReadingsListenerService(IServiceProvider serviceProv
         _completionList = null;
 
         _isRunning = false;
-       
+
         Log.Information("Stopped");
+    }
+
+    public TableAndReadingTypeToDataAssociation? CreateDatabaseBaseModelSubClass(byte[] byteArray)
+    {
+        if (byteArray is null || byteArray.Length == 0)
+        {
+            Log.Error("Received null or empty byte array, ignoring");
+            return null;
+        }
+
+        string? readingType = null;
+        var utf8JsonReader = new System.Text.Json.Utf8JsonReader(byteArray);
+        while (utf8JsonReader.Read())
+        {
+            switch (utf8JsonReader.TokenType)
+            {
+                case System.Text.Json.JsonTokenType.StartObject:
+                    break;
+
+                case System.Text.Json.JsonTokenType.PropertyName:
+                    if (utf8JsonReader.ValueTextEquals("type"))
+                    {
+                        utf8JsonReader.Read();
+                        readingType = utf8JsonReader.GetString();
+                    }
+                    break;
+            }
+
+            if (readingType is not null) break;
+        }
+
+        if (readingType is null)
+        {
+            Log.Warning("Received null or empty reading type, ignoring");
+            return null;
+        }
+
+        var jsonString = System.Text.Encoding.UTF8.GetString(byteArray);
+        var tableToClass = TableAndReadingTypeToDataAssociation.CreateDataTypeInstance(readingType, jsonString);
+        if (tableToClass is null)
+        {
+            Log.Warning($"Unknown reading type {readingType}");
+            return null;
+        }
+
+        return tableToClass;
     }
 }

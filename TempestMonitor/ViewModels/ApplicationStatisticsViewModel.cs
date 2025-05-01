@@ -26,39 +26,20 @@ sealed partial class ApplicationStatisticsViewModel(IServiceProvider serviceProv
         _foregroundServiceHandler?.Register(this);
         _timer = new Timer(new TimerCallback(UpdateStatistics), null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
-    public long AirObservationReceivedCount => ApplicationStatisticsModel.AirObservationReceivedCount;
     public long DeviceStatusReceivedCount => ApplicationStatisticsModel.DeviceStatusReceivedCount;
+    public long ForecastReceivedCount => ApplicationStatisticsModel.ForecastReceivedCount;
     public long HubStatusReceivedCount => ApplicationStatisticsModel.HubStatusReceivedCount;
     public long LightningStrikeReceivedCount => ApplicationStatisticsModel.LightningStrikeReceivedCount;
     public long ObservationReadingReceivedCount => ApplicationStatisticsModel.ObservationReadingReceivedCount;
-    public long SkyObservationReceivedCount => ApplicationStatisticsModel.SkyObservationReceivedCount;
     public long RainStartReceivedCount => ApplicationStatisticsModel.RainStartReceivedCount;
     public long WindReadingReceivedCount => ApplicationStatisticsModel.WindReadingReceivedCount;
 
-    public long AirObservationSavedToDatabaseCount => ApplicationStatisticsModel.AirObservationSavedToDatabaseCount;
-    public long DeviceStatusSavedToDatabaseCount => ApplicationStatisticsModel.DeviceStatusSavedToDatabaseCount;
-    public long HubStatusSavedToDatabaseCount => ApplicationStatisticsModel.HubStatusSavedToDatabaseCount;
-    public long LightningStrikeSavedToDatabaseCount => ApplicationStatisticsModel.LightingStrikeSavedToDatabaseCount;
-    public long ObservationReadingSavedToDatabaseCount => ApplicationStatisticsModel.ObservationReadingSavedToDatabaseCount;
-    public long RainStartSavedToDatabaseCount => ApplicationStatisticsModel.RainStartSavedToDatabaseCount;
-    public long SkyObservationSavedToDatabaseCount => ApplicationStatisticsModel.SkyObservationSavedToDatabaseCount;
-    public long WindReadingSavedToDatabaseCount => ApplicationStatisticsModel.WindReadingSavedToDatabaseCount;
-
-    public long ForecastsSavedToDatabaseCount => ApplicationStatisticsModel.ForecastsSavedToDatabaseCount;
-    public long ForecastCurrentConditionsSavedToDatabaseCount => ApplicationStatisticsModel.ForecastCurrentConditionsSavedToDatabaseCount;
-    public long ForecastStationsSavedToDatabaseCount => ApplicationStatisticsModel.ForecastStationsSavedToDatabaseCount;
-    public long ForecastStatusesSavedToDatabaseCount => ApplicationStatisticsModel.ForecastStatusesSavedToDatabaseCount;
-    public long ForecastUnitsSavedToDatabaseCount => ApplicationStatisticsModel.ForecastUnitsSavedToDatabaseCount;
-    public long ForecastHoursSavedToDatabaseCount => ApplicationStatisticsModel.ForecastHourliesSavedToDatabaseCount;
-    public long ForecastDailiesSavedToDatabaseCount => ApplicationStatisticsModel.ForecastDailiesSavedToDatabaseCount;
-
-    public DateTime? LastAirObservationReceivedDateTime => ApplicationStatisticsModel.LastAirObservationReceivedDateTime;
     public DateTime? LastDeviceStatusReceivedDateTime => ApplicationStatisticsModel.LastDeviceStatusReceivedDateTime;
+    public DateTime? LastForecastReceivedDateTime => ApplicationStatisticsModel.LastForecastReceivedDateTime;
     public DateTime? LastHubStatusReceivedDateTime => ApplicationStatisticsModel.LastHubStatusReceivedDateTime;
     public DateTime? LastLightningStrikeReceivedDateTime => ApplicationStatisticsModel.LastLightningStrikeReceivedDateTime;
     public DateTime? LastObservationReadingReceivedDateTime => ApplicationStatisticsModel.LastObservationReadingReceivedDateTime;
     public DateTime? LastRainStartReceivedDateTime => ApplicationStatisticsModel.LastRainStartReceivedDateTime;
-    public DateTime? LastSkyObservationReceivedDateTIme => ApplicationStatisticsModel.LastSkyObservationReceivedDateTime;
     public DateTime? LastWindReadingReceivedDateTime => ApplicationStatisticsModel.LastWindReadingReceivedDateTime;
 
     public DateTime CurrentTime => DateTime.Now;
@@ -71,10 +52,8 @@ sealed partial class ApplicationStatisticsViewModel(IServiceProvider serviceProv
     public long LastHttpResponseWaitMilliseconds => ApplicationStatisticsModel.LastHttpResponseWaitMilliseconds;
     public long UdpWaitTimeTotalMilliseconds => ApplicationStatisticsModel.UdpWaitTimeTotalMilliseconds;
     public long HttpResponseWaitTimeTotalMilliseconds => ApplicationStatisticsModel.HttpResponseWaitTimeTotalMilliseconds;
-    public string AreUdpBroadcastsBeingListenedFor =>
-        ApplicationStatisticsModel.AreUdpBroadcastsBeingListenedFor ? "Yes" : "No";
-    public string AreHttpRequestsBeingMade =>
-        ApplicationStatisticsModel.AreHttpRequestsBeingMade ? "Yes" : "No";
+    public string AreUdpBroadcastsBeingListenedFor => ApplicationStatisticsModel.AreUdpBroadcastsBeingListenedFor ? "Yes" : "No";
+    public string AreHttpRequestsBeingMade => ApplicationStatisticsModel.AreHttpRequestsBeingMade ? "Yes" : "No";
     public double? AverageUdpReadingWaitMilliseconds
     {
         get
@@ -96,45 +75,27 @@ sealed partial class ApplicationStatisticsViewModel(IServiceProvider serviceProv
     public long? TimeBetweenHttpRequestsInMinutes => _settings.TimeBetweenHttpRequestsInMinutes;
     private void UpdateStatistics(object? stateInfo)
     {
-        OnPropertyChanged(nameof(AirObservationReceivedCount));
-        OnPropertyChanged(nameof(LastAirObservationReceivedDateTime));
-        OnPropertyChanged(nameof(AirObservationSavedToDatabaseCount));
-
         OnPropertyChanged(nameof(DeviceStatusReceivedCount));
         OnPropertyChanged(nameof(LastDeviceStatusReceivedDateTime));
-        OnPropertyChanged(nameof(DeviceStatusSavedToDatabaseCount));
+
+        OnPropertyChanged(nameof(ForecastReceivedCount));
+        OnPropertyChanged(nameof(LastForecastReceivedDateTime));
 
         OnPropertyChanged(nameof(HubStatusReceivedCount));
         OnPropertyChanged(nameof(LastHubStatusReceivedDateTime));
-        OnPropertyChanged(nameof(HubStatusSavedToDatabaseCount));
 
         OnPropertyChanged(nameof(LightningStrikeReceivedCount));
         OnPropertyChanged(nameof(LastLightningStrikeReceivedDateTime));
-        OnPropertyChanged(nameof(LightningStrikeSavedToDatabaseCount));
 
         OnPropertyChanged(nameof(ObservationReadingReceivedCount));
         OnPropertyChanged(nameof(LastObservationReadingReceivedDateTime));
-        OnPropertyChanged(nameof(ObservationReadingSavedToDatabaseCount));
 
         OnPropertyChanged(nameof(RainStartReceivedCount));
         OnPropertyChanged(nameof(LastRainStartReceivedDateTime));
-        OnPropertyChanged(nameof(RainStartSavedToDatabaseCount));
-
-        OnPropertyChanged(nameof(SkyObservationReceivedCount));
-        OnPropertyChanged(nameof(SkyObservationSavedToDatabaseCount));
-        OnPropertyChanged(nameof(SkyObservationReceivedCount));
 
         OnPropertyChanged(nameof(WindReadingReceivedCount));
         OnPropertyChanged(nameof(LastWindReadingReceivedDateTime));
-        OnPropertyChanged(nameof(WindReadingSavedToDatabaseCount));
         
-        OnPropertyChanged(nameof(ForecastsSavedToDatabaseCount));
-        OnPropertyChanged(nameof(ForecastCurrentConditionsSavedToDatabaseCount));
-        OnPropertyChanged(nameof(ForecastStationsSavedToDatabaseCount));
-        OnPropertyChanged(nameof(ForecastStatusesSavedToDatabaseCount));
-        OnPropertyChanged(nameof(ForecastUnitsSavedToDatabaseCount));
-        OnPropertyChanged(nameof(ForecastHoursSavedToDatabaseCount));
-        OnPropertyChanged(nameof(ForecastDailiesSavedToDatabaseCount));
         OnPropertyChanged(nameof(CurrentTime));
 
         OnPropertyChanged(nameof(AreUdpBroadcastsBeingListenedFor));

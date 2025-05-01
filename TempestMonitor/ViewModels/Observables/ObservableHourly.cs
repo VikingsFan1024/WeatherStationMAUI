@@ -2,62 +2,63 @@
 
 public partial class ObservableHourly : ObervableBase
 {
-    private readonly HourlyModel _hourly;
+    private readonly Hourly _hourly;
 
-    public ObservableHourly(HourlyModel hourly, int rowNumber, SettingsModel settings) : base(settings)
+    public ObservableHourly(
+        TempestRedStarMapping tempestRedStarMapping, Hourly hourly, int rowNumber, SettingsModel settings) : base(settings)
     {
         _hourly = hourly;
         RowNumber = rowNumber;
-        AirTemperature = new Amount(
-            Constants.LongToDouble(_hourly.AirTemperature),
-            _hourly.Units.TemperatureUnit
-        ).ConvertedTo(_settings.TemperatureUnit).Value;
-        FeelsLike = new Amount(
-            Constants.LongToDouble(_hourly.FeelsLike),
-            _hourly.Units.TemperatureUnit
-        ).ConvertedTo(_settings.TemperatureUnit).Value;
-        Precipitation = new Amount(
-            Constants.LongToDouble(_hourly.Precipitation),
-            _hourly.Units.PrecipitationUnit
-        ).ConvertedTo(_settings.PrecipitationUnit).Value;
-        SeaLevelPressure = new Amount(
-            Constants.LongToDouble(_hourly.SeaLevelPressure),
-            _hourly.Units.PressureUnit
-        ).ConvertedTo(_settings.PressureUnit).Value;
-        StationPressure = new Amount(
-            Constants.LongToDouble(_hourly.StationPressure),
-            _hourly.Units.PressureUnit
-        ).ConvertedTo(_settings.PressureUnit).Value;
-        WindAvg = new Amount(
-            Constants.LongToDouble(_hourly.WindAvg),
-            _hourly.Units.WindspeedUnit
-        ).ConvertedTo(_settings.WindspeedUnit).Value;
+
+        // TODO: Change so ConvertedTo call uses Unit and doesn't have to lookup using name
+        air_temperature = new Amount(_hourly.air_temperature, tempestRedStarMapping.units_temp)
+            .ConvertedTo(_settings.TemperatureUnit).Value;
+
+        feels_like = new Amount(_hourly.feels_like, tempestRedStarMapping.units_temp)
+            .ConvertedTo(_settings.TemperatureUnit).Value;
+
+        precip = new Amount(_hourly.precip, tempestRedStarMapping.units_precip)
+            .ConvertedTo(_settings.PrecipitationUnit).Value;
+
+        sea_level_pressure = new Amount(_hourly.sea_level_pressure, tempestRedStarMapping.units_pressure)
+            .ConvertedTo(_settings.PressureUnit).Value;
+
+        station_pressure = new Amount(_hourly.station_pressure, tempestRedStarMapping.units_pressure)
+            .ConvertedTo(_settings.PressureUnit).Value;
+
+        wind_avg = new Amount(_hourly.wind_avg, tempestRedStarMapping.units_wind)
+            .ConvertedTo(_settings.WindspeedUnit).Value;
     }
     public int RowNumber { get; private set; }
-    public double AirTemperature { get; private set; }
-    public string Conditions => _hourly.Conditions;
-    public double FeelsLike { get; private set; }
-    public DateTime Time => Constants.UnixSecondsToLocalTime(_hourly.Time);
-    public double Precipitation { get; private set; }
-    public double PrecipitationProbability => Constants.LongToDouble(_hourly.PrecipitationProbability);
-    public double RelativeHumidity => Constants.LongToDouble(_hourly.RelativeHumidity);
-    public double SeaLevelPressure { get; private set; }
-    public double StationPressure { get; private set; }
-    public double UV => Constants.LongToDouble(_hourly.UV);
-    public double WindAvg { get; private set; }
-    public double WindDirection => _hourly.WindDirection;
-    public long LocalDay => _hourly.LocalDay;
-    public long LocalHour => _hourly.LocalHour;
-    public string Icon => _hourly.Icon;
-    public string PrecipitationIcon => _hourly.PrecipitationIcon;
-    public string PrecipitationType => _hourly.PrecipitationType;
-    public string WindDirectionCardinal => _hourly.WindDirectionCardinal;
+    public double air_temperature { get; private set; }
+    public string conditions => _hourly.conditions;
+    public double feels_like { get; private set; }
+    public DateTime time => Constants.UnixSecondsToDateTime(_hourly.time);
+    public double precip { get; private set; }
+    public double precip_probability => _hourly.precip_probability;
+    public double relative_humidity => _hourly.relative_humidity;
+    public double sea_level_pressure { get; private set; }
+    public double station_pressure { get; private set; }
+    public double uv => _hourly.uv;
+    public double wind_avg { get; private set; }
+    public double wind_direction => _hourly.wind_direction;
+    public long local_day => _hourly.local_day;
+    public long local_hour => _hourly.local_hour;
+    public string icon => _hourly.icon;
+    public string precip_icon => _hourly.precip_icon;
+    public string precip_type => _hourly.precip_type;
+    public string wind_direction_cardinal => _hourly.wind_direction_cardinal;
     public static ObservableCollectionOfObservableHourly ConvertToObservableCollection(
-        HourlyModel[] hourlies, SettingsModel settings, int takeCount = 24)
+        TempestRedStarMapping tempestRedStarMapping, Hourly[] hourlies, SettingsModel settings, int skipCount = 0, int takeCount = 40)
     {
         int rowNumber = 1;
-        return new ObservableCollectionOfObservableHourly(
-            hourlies.Select(hourly => new ObservableHourly(hourly, rowNumber++, settings))
+
+        // Creating these is fast but displaying them is not
+        var result = new ObservableCollectionOfObservableHourly(
+            hourlies.Select(hourly => new ObservableHourly(tempestRedStarMapping, hourly, rowNumber++, settings))
+            .Skip(skipCount).Take(takeCount).ToList()
         );
+
+        return result;
     }
 }

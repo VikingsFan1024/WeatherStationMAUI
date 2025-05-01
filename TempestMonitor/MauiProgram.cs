@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls.Hosting;  // ToDo: Needed for UseMauiApp<App> in MauiApp.CreateBuilder() but unable to get to work with
+﻿using Microsoft.Maui.Controls.Hosting;
+using TempestMonitor.Services;  // ToDo: Needed for UseMauiApp<App> in MauiApp.CreateBuilder() but unable to get to work with
 
 namespace TempestMonitor;
 public static class MauiProgram
@@ -29,12 +30,12 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<ApplicationSettingsViewModel>();
         mauiAppBuilder.Services.AddSingleton<ApplicationStatisticsPage>();
         mauiAppBuilder.Services.AddSingleton<ApplicationStatisticsViewModel>();
+        mauiAppBuilder.Services.AddSingleton<AzureMongoDBService>();
         mauiAppBuilder.Services.AddSingleton<DailyForecastPage>();
         mauiAppBuilder.Services.AddSingleton<DailyForecastViewModel>();
-        mauiAppBuilder.Services.AddSingleton<DatabasePersistenceService>();
         mauiAppBuilder.Services.AddSingleton<DatabaseService>();
         mauiAppBuilder.Services.AddSingleton<ExportPage>();
-        mauiAppBuilder.Services.AddSingleton<ExportViewModel>();
+        //mauiAppBuilder.Services.AddSingleton<ExportViewModel>();
         mauiAppBuilder.Services.AddSingleton<ForecastPage>();
         mauiAppBuilder.Services.AddSingleton<ForecastViewModel>();
         mauiAppBuilder.Services.AddSingleton<ForegroundServiceHandler>();
@@ -47,9 +48,11 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<LiveStationReadingsViewModel>();
         mauiAppBuilder.Services.AddSingleton<MainPage>();
         mauiAppBuilder.Services.AddSingleton<MainViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ReadingBroadcastService>();
         mauiAppBuilder.Services.AddSingleton<ReadingsListenerService>();
         mauiAppBuilder.Services.AddSingleton<RequestForecastsService>();
         mauiAppBuilder.Services.AddSingleton<SettingsModel>();
+        mauiAppBuilder.Services.AddSingleton<SQLiteDBService>();
 
         return mauiAppBuilder;
     }

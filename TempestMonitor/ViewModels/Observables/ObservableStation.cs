@@ -2,24 +2,21 @@
 
 public partial class ObservableStation : ObervableBase
 {
-    StationModel _station;
-    public ObservableStation(StationModel station, SettingsModel settings) : base(settings)
+    private readonly Station _station;
+    public ObservableStation(
+        TempestRedStarMapping tempestRedStarMapping, Station station, SettingsModel settings) : base(settings)
     {
         _station = station;
-        AGL = new Amount(
-            Constants.LongToDouble(station.AGL),
-            station.Units.ElevationUnit)
-        .ConvertedTo(_settings.ElevationUnit).Value;
+        agl = new Amount(station.agl, tempestRedStarMapping.units_elevation)
+            .ConvertedTo(_settings.ElevationUnit).Value;
 
-        Elevation = new Amount(
-            Constants.LongToDouble(station.Elevation),
-            station.Units.ElevationUnit)
-        .ConvertedTo(_settings.ElevationUnit).Value;
+        elevation = new Amount(station.elevation, tempestRedStarMapping.units_elevation)
+            .ConvertedTo(_settings.ElevationUnit).Value;
     }
 
-    public double AGL { get; private set; }
-    public double Elevation { get; private set; }
-    public bool IsStationOnline => _station.IsStationOnline;
-    public long State => _station.State;
-    public long StationId => _station.StationId;
+    public double agl { get; private set; }
+    public double elevation { get; private set; }
+    public bool is_station_online => _station.is_station_online;
+    public long state => _station.state;
+    public long station_id => _station.station_id;
 }

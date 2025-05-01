@@ -24,7 +24,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableWindReading.WindTimestampTimeOnlyString}" 
+                        Text="{Binding ObservableVW_WindModel.timestamp_local_formatted}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -46,7 +46,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableWindReading.Windspeed, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_WindModel.wind_speed, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -75,7 +75,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableWindReading.WindDirectionShortCardinal}" 
+                        Text="{Binding ObservableVW_WindModel.wind_direction_short_cardinal}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -97,7 +97,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableWindReading.WindDirectionDegrees, StringFormat='{0:##0}'}" 
+                        Text="{Binding ObservableVW_WindModel.wind_direction, StringFormat='{0:##0}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -127,7 +127,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.ObservationTimestampTimeOnlyString}" 
+                        Text="{Binding ObservableVW_ObservationModel.timestamp_local_formatted}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -149,7 +149,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.AirTemperature, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.air_temperature, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -178,7 +178,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.Battery, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.battery, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -207,7 +207,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.Illuminance, StringFormat='{0:##0}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.illuminance, StringFormat='{0:##0}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -236,7 +236,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.LightningStrikeAverageDistance, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.lightning_strike_average_distance, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -265,7 +265,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.LightningStrikeCount, StringFormat='{0:##0}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.lightning_strike_count, StringFormat='{0:##0}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -287,7 +287,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.RainAccumulationOverThePreviousMinute, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.rain_accumulation_over_the_previous_minute, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -316,7 +316,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.RelativeHumidity, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.relative_humidity, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -345,7 +345,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.ReportInterval, StringFormat='{0:##0}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.reporting_interval, StringFormat='{0:##0}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -374,7 +374,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.SolarRadiation, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.solar_radiation, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -403,7 +403,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.UV, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.uv, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -425,7 +425,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.WindAverage, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.wind_average, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -454,7 +454,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.WindDirectionShortCardinal}" 
+                        Text="{Binding ObservableVW_ObservationModel.wind_direction_short_cardinal}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -476,7 +476,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.WindDirection, StringFormat='{0:##0}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.wind_direction, StringFormat='{0:##0}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -505,7 +505,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.WindGust, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.wind_gust, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -534,7 +534,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.WindLull, StringFormat='{0:##0.00}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.wind_lull, StringFormat='{0:##0.00}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"
@@ -563,7 +563,7 @@
                     />
                     <Label
                         TextColor="{StaticResource White}"
-                        Text="{Binding ObservableObservation.WindSampleInterval, StringFormat='{0:##0}'}" 
+                        Text="{Binding ObservableVW_ObservationModel.wind_sample_interval, StringFormat='{0:##0}'}" 
                         FontSize="Large"
                         VerticalOptions="End"
                         HorizontalOptions="Start"

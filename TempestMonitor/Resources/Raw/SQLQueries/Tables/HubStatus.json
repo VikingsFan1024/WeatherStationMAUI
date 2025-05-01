@@ -1,0 +1,26 @@
+{
+    "serial_number": "HB-00172311",
+    "type": "hub_status",
+    "firmware_revision": "321",
+    "uptime": 1398790,
+    "rssi": -44,
+    "timestamp": 1742349289,
+    "reset_flags": "POR",
+    "seq": 70119,
+    "radio_stats": [
+        28,
+        1,
+        0,
+        2,
+        51694
+    ],
+    "mqtt_stats": [
+        21,
+        39
+    ],
+    "freq": 904000000,
+    "hw_version": 2,
+    "hardware_id": 2,
+    "cellular_status": -1,
+    "cell_rssi": -1
+}

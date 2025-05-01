@@ -76,7 +76,7 @@
                     VerticalTextAlignment="Start"
                     HorizontalTextAlignment="Start" 
                     TextColor="{StaticResource GoldVikings}"                    
-                    Text="{Binding ObservationReading.AirTemperature, StringFormat='{0:##}'}"
+                    Text="{Binding ObservableVW_Observation.air_temperature, StringFormat='{0:##}'}"
                 />
                 <Label 
                     FontSize="32"
@@ -107,13 +107,37 @@
             Grid.Column="2"
             StrokeThickness="0"
         >
-            <Label 
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label 
                 FontSize="45"
                 TextColor="{StaticResource GoldVikings}"
                 VerticalTextAlignment="End"
                 HorizontalTextAlignment="Center" 
-                Text="{Binding WindReading.WindDirectionShortCardinal, StringFormat='{0}'}"
+                Text="{Binding ObservableVW_WindModel.wind_direction_short_cardinal, StringFormat='{0}'}"
             />
+            <Label 
+                    FontSize="45"
+                    TextColor="{StaticResource GoldVikings}"
+                    VerticalTextAlignment="End"
+                    HorizontalTextAlignment="Center" 
+                    Text="  ("
+                />
+            <Label 
+                    FontSize="45"
+                    TextColor="{StaticResource GoldVikings}"
+                    VerticalTextAlignment="End"
+                    HorizontalTextAlignment="Center" 
+                    Text="{Binding ObservableVW_WindModel.wind_direction, StringFormat='{0}'}"
+                />
+            <Label 
+                    FontSize="45"
+                    TextColor="{StaticResource GoldVikings}"
+                    VerticalTextAlignment="End"
+                    HorizontalTextAlignment="Center" 
+                    Text="°)"
+                />
+                </HorizontalStackLayout>
+
         </Border>
         <Border
             Grid.Row="2"
@@ -129,7 +153,7 @@
                     TextColor="{StaticResource GoldVikings}" 
                     VerticalTextAlignment="Center" 
                     HorizontalTextAlignment="Center" 
-                    Text="{Binding WindReading.Windspeed, StringFormat='{0:#0}'}"
+                    Text="{Binding ObservableVW_WindModel.wind_speed, StringFormat='{0:#0}'}"
                 />
                 <Label 
                     FontSize="32"
@@ -179,7 +203,7 @@
                     TextColor="{StaticResource GoldVikings}" 
                     VerticalTextAlignment="Center"
                     HorizontalTextAlignment="Center" 
-                    Text="{Binding ObservationReading.RelativeHumidity, StringFormat='{0:##}'}"/>
+                    Text="{Binding ObservableVW_Observation.relative_humidity, StringFormat='{0:##}'}"/>
                 <Label 
                     FontSize="32"
                     TranslationY="60"
@@ -216,7 +240,7 @@
                 TextColor="{StaticResource GoldVikings}" 
                 VerticalTextAlignment="Center" 
                 HorizontalTextAlignment="Center" 
-                Text="{Binding ObservationReading.UV, StringFormat='{0:#0}'}"
+                Text="{Binding ObservableVW_Observation.uv, StringFormat='{0:#0}'}"
             />
         </Border>
     </Grid>
