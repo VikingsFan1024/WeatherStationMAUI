@@ -4,11 +4,9 @@ namespace TempestMonitor;
 
 public partial class App : Application
 {
-    private readonly IServiceProvider _serviceProvider;
     public App(IServiceProvider serviceProvider)
     {
-        _serviceProvider = serviceProvider;
-        var settings = _serviceProvider.GetRequiredService<SettingsModel>();
+        SettingsModel settings = serviceProvider.GetRequiredService<SettingsModel>();
         Log.Logger = new LoggerConfiguration()
             .WriteTo.File(
                 formatter: new CompactJsonFormatter(),
@@ -19,7 +17,7 @@ public partial class App : Application
                 buffered: false
              )
             .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
-            .WriteTo.MongoDB(Constants.LoggingMongoDBConnectionString, collectionName: "LogEvents")
+            .WriteTo.MongoDB(settings.LoggingMongoDBConnectionString, collectionName: "LogEvents")
             .Enrich.WithDemystifiedStackTraces()
             .Enrich.WithCaller(true)
             .Enrich.WithThreadId()
