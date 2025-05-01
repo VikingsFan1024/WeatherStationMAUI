@@ -73,7 +73,7 @@ public class SettingsModel
     public string LogFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     public string RestAPIKey { get; set; } = @"Rest API Key";
     public string StationID { get; set; } = @"160805";
-    public string DataMongoDBConnectionString { get; set; } = @"DataMongoDBConnectionString";
+    public string DataMongoDBConnectionString { get; set; } = @"{DataMongoDBConnectionString}";
     public string LoggingMongoDBConnectionString { get; set; } = @"{LoggingMongoDBConnectionString}";
     public long TimeBetweenHttpRequestsInMinutes { get; set; } = 15;
     public SettingsModel()
