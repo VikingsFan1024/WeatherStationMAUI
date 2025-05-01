@@ -7,6 +7,8 @@ public class Constants
     public static readonly byte DigitsToRoundBeforeConvertingToLong = 5;
     public static readonly string BaseForecastURL = @"https://swd.weatherflow.com/swd/rest/better_forecast";
     public static readonly int NumberOfHoursInForecastToKeep = 72;
+    public static readonly string LoggingMongoDBConnectionString = @"mongodb://cosmo-db-mongo-db-account-name:yjDNmqRFnaX721LtWPQNFo2cyWQD2ghl5s3QGTaJDzPEFOAUaxhUt8vGvnOazxR2sC2YeTizc6eLACDbnQc4dA==@cosmo-db-mongo-db-account-name.mongo.cosmos.azure.com:10255/WeatherStationMAUI?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@cosmo-db-mongo-db-account-name@";
+    public static readonly string DataMongoDBConnectionString = @"mongodb://cosmo-db-mongo-db-account-name:yjDNmqRFnaX721LtWPQNFo2cyWQD2ghl5s3QGTaJDzPEFOAUaxhUt8vGvnOazxR2sC2YeTizc6eLACDbnQc4dA==@cosmo-db-mongo-db-account-name.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@cosmo-db-mongo-db-account-name@";
 
 
     public class DegreesToCardinal(string longName, string shortName, long startDegrees, long endDegrees)
