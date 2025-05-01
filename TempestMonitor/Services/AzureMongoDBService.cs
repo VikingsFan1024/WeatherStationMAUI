@@ -61,7 +61,8 @@ public class AzureMongoDBService(IServiceProvider serviceProvider)
                 {
                     // Connection string to the MongoDB server
                     // ToDo: Add MongoDB Connection String to Settings
-                    var connectionString = "mongodb://cosmo-db-mongo-db-account-name:yjDNmqRFnaX721LtWPQNFo2cyWQD2ghl5s3QGTaJDzPEFOAUaxhUt8vGvnOazxR2sC2YeTizc6eLACDbnQc4dA==@cosmo-db-mongo-db-account-name.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@cosmo-db-mongo-db-account-name@";
+
+                    var connectionString = Constants.DataMongoDBConnectionString;
                     var client = new MongoClient(connectionString);
                     // ToDo: Add MongoDB Database name Settings
                     // Database name
