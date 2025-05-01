@@ -6,7 +6,7 @@ using Task = System.Threading.Tasks.Task;    // When in GlobalUsings.cs and targ
 namespace TempestMonitor.Services;
 public class AzureMongoDBService(IServiceProvider serviceProvider)
 {
-    private DatabaseService databaseService = serviceProvider.GetRequiredService<DatabaseService>();
+    private SettingsModel _settings = serviceProvider.GetRequiredService<SettingsModel>();
     private CancellationTokenSource? _cancellationTokenSource;
     private bool _isRunning;
     private ListOfTasks? _completionList;
@@ -62,7 +62,7 @@ public class AzureMongoDBService(IServiceProvider serviceProvider)
                     // Connection string to the MongoDB server
                     // ToDo: Add MongoDB Connection String to Settings
 
-                    var connectionString = Constants.DataMongoDBConnectionString;
+                    var connectionString = _settings.DataMongoDBConnectionString;
                     var client = new MongoClient(connectionString);
                     // ToDo: Add MongoDB Database name Settings
                     // Database name
