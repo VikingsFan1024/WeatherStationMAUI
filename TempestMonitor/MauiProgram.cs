@@ -30,7 +30,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<ApplicationSettingsViewModel>();
         mauiAppBuilder.Services.AddSingleton<ApplicationStatisticsPage>();
         mauiAppBuilder.Services.AddSingleton<ApplicationStatisticsViewModel>();
-        mauiAppBuilder.Services.AddSingleton<AzureMongoDBService>();
+        mauiAppBuilder.Services.AddSingleton<AzurePostgreSQLService>();
         mauiAppBuilder.Services.AddSingleton<DailyForecastPage>();
         mauiAppBuilder.Services.AddSingleton<DailyForecastViewModel>();
         mauiAppBuilder.Services.AddSingleton<DatabaseService>();

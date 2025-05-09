@@ -2,20 +2,20 @@
 
 public class ForegroundServiceHandler
 {
+    readonly AzurePostgreSQLService _azurePostgreSQLService;
     readonly RequestForecastsService _collectForecastService;
     readonly ReadingsListenerService _collectReadingsService;
     readonly ReadingBroadcastService _readingBroadcastService;
-    readonly AzureMongoDBService _azureMongoDBService;
     readonly SQLiteDBService _sqliteDBService;
 
     private int _registrationCount;
 
     public ForegroundServiceHandler(IServiceProvider serviceProvider)
     {
+        _azurePostgreSQLService = serviceProvider.GetRequiredService<AzurePostgreSQLService>();
         _collectForecastService = serviceProvider.GetRequiredService<RequestForecastsService>();
         _collectReadingsService = serviceProvider.GetRequiredService<ReadingsListenerService>();
         _readingBroadcastService = serviceProvider.GetRequiredService<ReadingBroadcastService>();
-        _azureMongoDBService = serviceProvider.GetRequiredService<AzureMongoDBService>();
         _sqliteDBService = serviceProvider.GetRequiredService<SQLiteDBService>();
     }
 
@@ -29,18 +29,18 @@ public class ForegroundServiceHandler
     }
     private void Start()
     {
-        _collectReadingsService.Start();
+        _azurePostgreSQLService.Start();
         _collectForecastService.Start();
+        _collectReadingsService.Start();
         _readingBroadcastService.Start();
-        _azureMongoDBService.Start();
         _sqliteDBService.Start();
     }
     private void Stop()
     {
-        _collectReadingsService.Stop();
+        _azurePostgreSQLService.Stop();
         _collectForecastService.Stop();
+        _collectReadingsService.Stop();
         _readingBroadcastService.Stop();
-        _azureMongoDBService.Stop();
         _sqliteDBService.Stop();
     }
 }

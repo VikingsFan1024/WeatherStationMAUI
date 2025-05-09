@@ -36,7 +36,7 @@ public class DatabaseService
 
             foreach (var tableName in _tableNames)
             {
-                var filename = $"SQLQueries\\Tables\\{tableName}.sql";
+                var filename = $"SQLQueries\\Tables\\SQLite\\{tableName}.sql";
                 var stream = FileSystem.OpenAppPackageFileAsync(filename).GetAwaiter().GetResult();
                 if (stream != null)
                 {

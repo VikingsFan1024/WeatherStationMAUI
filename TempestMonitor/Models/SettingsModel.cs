@@ -71,10 +71,12 @@ public class SettingsModel
     public string DatabaseFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     public string LogFilename => Path.Combine(LogFolder, "TempestMonitor.log");
     public string LogFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-    public string RestAPIKey { get; set; } = @"Rest API Key";
+    public string RestAPIKey { get; set; } = @"c83c3cb2-a6d2-4c6f-b2f4-56aa9ab7306e";
     public string StationID { get; set; } = @"160805";
-    public string DataMongoDBConnectionString { get; set; } = @"{DataMongoDBConnectionString}";
-    public string LoggingMongoDBConnectionString { get; set; } = @"{LoggingMongoDBConnectionString}";
+    // Cosmos DB connection string
+    public string DataMongoDBConnectionString { get; set; } = @"";
+    // Cosmos DB connection string with database name
+    public string LoggingMongoDBConnectionString { get; set; } = @"";
     public long TimeBetweenHttpRequestsInMinutes { get; set; } = 15;
     public SettingsModel()
     {
