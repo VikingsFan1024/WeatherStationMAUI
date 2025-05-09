@@ -1,4 +1,4 @@
--- drop table if exists public.device_status;
+-- drop table if exists public.device_status; -- test GitHub actions
 alter table device_status rename constraint device_status_pkey to device_status_old_pkey;
 alter table device_status rename to device_status_old;
 create table if not exists public.device_status
